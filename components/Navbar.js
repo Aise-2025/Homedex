@@ -3,8 +3,23 @@ import Link from 'next/link';
 
 const Navbar = ({ toggleLanguage, currentLang }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const handleMenuToggle = () => setMenuOpen(!menuOpen);
+
+  // Texte für die Navigation in Deutsch und Englisch
+  const navText = {
+    de: {
+      login: "Login",
+      kundenbewertungen: "Kundenbewertungen",
+      ueberHomedex: "Über Homedex",
+      impressum: "Impressum",
+    },
+    en: {
+      login: "Login",
+      kundenbewertungen: "Customer Reviews",
+      ueberHomedex: "About Homedex",
+      impressum: "Imprint",
+    }
+  };
 
   return (
     <nav style={styles.nav}>
@@ -21,24 +36,24 @@ const Navbar = ({ toggleLanguage, currentLang }) => {
       <ul style={{ ...styles.navLinks, ...(menuOpen ? styles.navLinksOpen : {}) }}>
         <li>
           <Link href="/login">
-            <a style={styles.link}>Login</a>
+            <a style={styles.link}>{navText[currentLang].login}</a>
           </Link>
         </li>
-               </li>
         <li>
           <Link href="/kundenbewertungen">
-            <a style={styles.link}>Kundenbewertungen</a>
+            <a style={styles.link}>{navText[currentLang].kundenbewertungen}</a>
           </Link>
         </li>
         <li>
           <Link href="/ueber-homedex">
-            <a style={styles.link}>Über Homedex</a>
+            <a style={styles.link}>{navText[currentLang].ueberHomedex}</a>
           </Link>
         </li>
-   <li>
+        <li>
           <Link href="/impressum">
-            <a style={styles.link}>Impressum</a>
+            <a style={styles.link}>{navText[currentLang].impressum}</a>
           </Link>
+        </li>
         <li>
           <button onClick={toggleLanguage} style={styles.langButton}>
             {currentLang === 'de' ? 'EN' : 'DE'}
