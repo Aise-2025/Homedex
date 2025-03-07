@@ -10,18 +10,20 @@ const HomePage = () => {
 
   const content = {
     de: {
-      headline: "Homedex – Immobilien direkt online verkaufen",
+      headline: "Homedex – Ihr smarter Immobilienpartner",
       description:
-        "Homedex kauft Immobilien direkt vom Verkäufer und unterbreitet ein Angebot. " +
-        "Der Käufer kann das Angebot annehmen oder zurückstellen – in diesem Fall vermarktet Homedex das Haus. " +
-        "Unser Ziel: Immobilien online zu vermarkten, ganz ohne Besichtigung, falls der Verkäufer das Angebot nicht annimmt."
+        "Mit Homedex verkaufen Sie Ihre Immobilie online – schnell, unkompliziert und fair. " +
+        "Wir kaufen direkt von Ihnen und unterbreiten Ihnen ein marktgerechtes Angebot. " +
+        "Falls Sie unser Angebot nicht annehmen, übernehmen wir die professionelle Vermarktung Ihrer Immobilie – ganz ohne zeitintensive Besichtigungen. " +
+        "Erleben Sie den digitalen Wandel im Immobilienverkauf!"
     },
     en: {
-      headline: "Homedex – Sell Your Property Online Directly",
+      headline: "Homedex – Your Smart Real Estate Partner",
       description:
-        "Homedex buys properties directly from the seller and makes an offer. " +
-        "The buyer can accept the offer or postpone it – in which case Homedex will market the property. " +
-        "Our goal: to market properties online without physical viewings if the seller does not accept the offer."
+        "Sell your property online quickly and effortlessly with Homedex. " +
+        "We buy directly from you and present you with a competitive, market-based offer. " +
+        "If you choose not to accept our offer, we take care of professionally marketing your property – all without the hassle of time-consuming viewings. " +
+        "Experience the digital revolution in real estate transactions!"
     }
   };
 
@@ -60,4 +62,3 @@ const styles = {
 };
 
 export default HomePage;
-
