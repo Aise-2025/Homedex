@@ -11,13 +11,13 @@ const Dashboard = () => {
   const [sales, setSales] = useState([]);
   const [employees, setEmployees] = useState([]);
 
-  // Mitarbeiter-Erstellungsfelder
+  // Zustände für Mitarbeiterformular
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [empEmail, setEmpEmail] = useState('');
   const [empPassword, setEmpPassword] = useState('');
 
-  // Verkaufsanfragen laden (aus /api/sell, db.json via LowDB)
+  // Verkaufsanfragen laden (aus /api/sell, z. B. aus LowDB)
   useEffect(() => {
     fetch('/api/sell')
       .then(res => res.json())
@@ -39,17 +39,18 @@ const Dashboard = () => {
       .catch(err => console.error("Error fetching employees:", err));
   }, []);
 
-  // Verkaufsanfragen filtern
-  const newDirectRequests = sales.filter(sale => sale.status === "new" && sale.offerType === "angebot");
-  const newMarketingRequests = sales.filter(sale => sale.status === "new" && sale.offerType === "vermarktung");
-  const soldDirectSales = sales.filter(sale => sale.status === "sold" && sale.offerType === "angebot");
-  const soldMarketingSales = sales.filter(sale => sale.status === "sold" && sale.offerType === "vermarktung");
+  // Filtern nach Status und Angebotsart
+  const newDirect = sales.filter(sale => sale.status === "new" && sale.offerType === "angebot");
+  const newMarketing = sales.filter(sale => sale.status === "new" && sale.offerType === "vermarktung");
+  const soldDirect = sales.filter(sale => sale.status === "sold" && sale.offerType === "angebot");
+  const soldMarketing = sales.filter(sale => sale.status === "sold" && sale.offerType === "vermarktung");
 
-  // Gesamtübersicht: Monatliche Verkaufszahlen (Direkt + Vermarktung)
+  // Gesamtdiagramm: Monatliche Verkaufszahlen (über beide Bereiche)
   const getChartData = () => {
-    const allSold = [...soldDirectSales, ...soldMarketingSales];
+    const allSold = [...soldDirect, ...soldMarketing];
     const monthlyCounts = {};
     allSold.forEach(sale => {
+      // Annahme: sale.timestamp ist ein Zeitstempel in ms
       const date = new Date(sale.timestamp);
       const month = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
       monthlyCounts[month] = (monthlyCounts[month] || 0) + 1;
@@ -100,6 +101,17 @@ const Dashboard = () => {
       .then(data => {
         alert(lang === 'de' ? `KI-Preis: €${data.aiPrice}` : `AI Price: €${data.aiPrice}`);
       });
+  };
+
+  // "Verkauft" Aktion: Markiert eine Anfrage als verkauft
+  const handleMarkSold = (saleId) => {
+    fetch('/api/updateSale', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: saleId, action: "markSold" })
+    })
+      .then(res => res.json())
+      .then(() => router.reload());
   };
 
   // Mitarbeiter erstellen
@@ -240,10 +252,10 @@ const Dashboard = () => {
           {activeTab === "newDirect" && (
             <div>
               <h2>{texts[lang].newDirectHeader}</h2>
-              {newDirectRequests.length === 0 ? (
+              {newDirect.length === 0 ? (
                 <p>{texts[lang].noRequests}</p>
               ) : (
-                newDirectRequests.map(sale => (
+                newDirect.map(sale => (
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
                     <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
@@ -257,6 +269,9 @@ const Dashboard = () => {
                       <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id)}>
                         {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
                       </button>
+                      <button style={styles.actionButton} onClick={() => handleMarkSold(sale.id)}>
+                        {lang === 'de' ? "Verkauft" : "Mark as Sold"}
+                      </button>
                     </div>
                   </div>
                 ))
@@ -266,16 +281,21 @@ const Dashboard = () => {
           {activeTab === "newMarketing" && (
             <div>
               <h2>{texts[lang].newMarketingHeader}</h2>
-              {newMarketingRequests.length === 0 ? (
+              {newMarketing.length === 0 ? (
                 <p>{texts[lang].noRequests}</p>
               ) : (
-                newMarketingRequests.map(sale => (
+                newMarketing.map(sale => (
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
                     <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
-                    <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id)}>
-                      {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
-                    </button>
+                    <div style={styles.buttonGroup}>
+                      <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id)}>
+                        {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
+                      </button>
+                      <button style={styles.actionButton} onClick={() => handleMarkSold(sale.id)}>
+                        {lang === 'de' ? "Verkauft" : "Mark as Sold"}
+                      </button>
+                    </div>
                   </div>
                 ))
               )}
@@ -284,10 +304,10 @@ const Dashboard = () => {
           {activeTab === "soldDirect" && (
             <div>
               <h2>{texts[lang].soldDirectHeader}</h2>
-              {soldDirectSales.length === 0 ? (
+              {soldDirect.length === 0 ? (
                 <p>{texts[lang].noRequests}</p>
               ) : (
-                soldDirectSales.map(sale => (
+                soldDirect.map(sale => (
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
                     <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
@@ -302,10 +322,10 @@ const Dashboard = () => {
           {activeTab === "soldMarketing" && (
             <div>
               <h2>{texts[lang].soldMarketingHeader}</h2>
-              {soldMarketingSales.length === 0 ? (
+              {soldMarketing.length === 0 ? (
                 <p>{texts[lang].noRequests}</p>
               ) : (
-                soldMarketingSales.map(sale => (
+                soldMarketing.map(sale => (
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
                     <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
@@ -497,4 +517,3 @@ const styles = {
 };
 
 export default Dashboard;
-
