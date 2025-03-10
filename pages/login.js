@@ -43,9 +43,18 @@ const LoginPage = () => {
         setError(errorData.message || 'Fehler beim Login');
       } else {
         const data = await res.json();
-        // Token speichern (z. B. im localStorage) und zur nächsten Seite weiterleiten
+        // Token speichern
         localStorage.setItem('token', data.token);
-        router.push('/homeafterlogin');
+        // Token Payload decodieren, um die Rolle auszulesen
+        const base64Url = data.token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const payload = JSON.parse(decodeURIComponent(escape(window.atob(base64))));
+        // Weiterleitung basierend auf der Rolle
+        if (payload.role === 'employee') {
+          router.push('/dashboard');
+        } else {
+          router.push('/homeafterlogin');
+        }
       }
     } catch (err) {
       setError('Ein Fehler ist aufgetreten.');
