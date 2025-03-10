@@ -9,18 +9,175 @@ const BuyPage = () => {
   const router = useRouter();
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
+  
+  // Filter-Objekt mit allen Feldern
   const [filters, setFilters] = useState({
+    address: '',
     country: '',
-    minPrice: '',
-    maxPrice: ''
+    livingArea: '',
+    plotArea: '',
+    availableFrom: '',
+    rooms: '',
+    bedrooms: '',
+    bathrooms: '',
+    garage: '',
+    propertyDescription: '',
+    features: '',
+    heatingSystem: '',
+    yearBuilt: '',
+    heatingType: '',
+    mainEnergySources: '',
+    energyCertificate: '',
+    energyCertificateType: '',
+    finalEnergyDemand: '',
+    energyEfficiency: '',
+    yearEnergyCertificate: '',
+    exterior: '',
+    heatingImages: '',
+    electricalImages: '',
+    livingRoomImages: '',
+    bedroomImages: '',
+    childrenCount: '',
+    childrenRoomImages: '',
+    roofImages: '',
+    kitchenImages: '',
+    storage: '',
+    garageExtra: '',
+    office: '',
+    floorPlan: '',
+    locationPlan: ''
   });
 
-  // Beim Laden werden die Immobilien aus dem Backend (db.json via /api/sell) geholt
+  // Texte in beiden Sprachen für Filter und Listenüberschriften
+  const texts = {
+    de: {
+      filtersHeader: "Immobilien filtern",
+      labelAddress: "Adresse",
+      placeholderStreet: "Straße, Nummer",
+      placeholderPostal: "Postleitzahl, Ort",
+      placeholderCountry: "Land",
+      labelLivingArea: "Wohnfläche ca. (m²)",
+      labelPlotArea: "Grundstück ca. (m²)",
+      labelAvailableFrom: "Bezugsfrei ab",
+      labelRooms: "Zimmer",
+      labelBedrooms: "Schlafzimmer",
+      labelBathrooms: "Badezimmer",
+      labelGarage: "Garage/Stellplatz",
+      labelPropertyDescription: "Objektbeschreibung",
+      placeholderPropertyDescription: "Freier Text",
+      labelFeatures: "Ausstattung",
+      labelHeatingSystem: "Heizungsanlage",
+      labelYearBuilt: "Baujahr",
+      labelHeatingType: "Heizungsart",
+      optionHeatingType1: "Nachtspeicheröfen",
+      optionHeatingType2: "Gasheizung",
+      optionHeatingType3: "Ölheizung",
+      optionHeatingType4: "Wärmepumpe",
+      labelMainEnergySources: "Wesentliche Energieträger",
+      labelEnergyCertificate: "Energieausweis",
+      optionEnergyCertificate1: "liegt vor",
+      optionEnergyCertificate2: "nicht vorhanden",
+      labelEnergyCertificateType: "Energieausweistyp",
+      optionEnergyCertificateType1: "Bedarfsausweis",
+      optionEnergyCertificateType2: "Verbrauchsausweis",
+      labelFinalEnergyDemand: "Endenergiebedarf (kWh/m²*a)",
+      labelEnergyEfficiency: "Energieeffizienzklasse",
+      labelYearEnergyCertificate: "Baujahr laut Energieausweis",
+      labelExterior: "Außenansicht (4 Bilder) *",
+      labelHeatingImages: "Heizungsanlage (2 Bilder) *",
+      labelElectricalImages: "Stromkasten (2 Bilder) *",
+      labelLivingRoomImages: "Wohnzimmer (mindestens 1 Bild) *",
+      labelBedroomImages: "Schlafzimmer (mindestens 1 Bild) *",
+      labelChildrenCount: "Anzahl Kinderzimmer",
+      labelChildrenRoomImages: "Kinderzimmer Bilder (mindestens 1 pro Kinderzimmer, falls > 0)",
+      labelRoofImages: "Dach Fotos (mindestens 1 Bild) *",
+      labelKitchenImages: "Küche (mindestens 2 Bilder) *",
+      labelStorage: "Abstellraum",
+      labelGarageExtra: "Garage",
+      labelOffice: "Arbeitszimmer",
+      labelFloorPlan: "Grundriss (optional)",
+      labelLocationPlan: "Lageplan (optional)",
+      listHeader: "Immobilienangebote",
+      noResults: "Keine Immobilien gefunden."
+    },
+    en: {
+      filtersHeader: "Filter Properties",
+      labelAddress: "Address",
+      placeholderStreet: "Street, Number",
+      placeholderPostal: "Postal Code, City",
+      placeholderCountry: "Country",
+      labelLivingArea: "Living Area (m²)",
+      labelPlotArea: "Plot Area (m²)",
+      labelAvailableFrom: "Available from",
+      labelRooms: "Rooms",
+      labelBedrooms: "Bedrooms",
+      labelBathrooms: "Bathrooms",
+      labelGarage: "Garage/Parking",
+      labelPropertyDescription: "Property Description",
+      placeholderPropertyDescription: "Free text",
+      labelFeatures: "Features",
+      labelHeatingSystem: "Heating System",
+      labelYearBuilt: "Year Built",
+      labelHeatingType: "Heating Type",
+      optionHeatingType1: "Storage Heaters",
+      optionHeatingType2: "Gas Heating",
+      optionHeatingType3: "Oil Heating",
+      optionHeatingType4: "Heat Pump",
+      labelMainEnergySources: "Main Energy Sources",
+      labelEnergyCertificate: "Energy Certificate",
+      optionEnergyCertificate1: "available",
+      optionEnergyCertificate2: "not available",
+      labelEnergyCertificateType: "Energy Certificate Type",
+      optionEnergyCertificateType1: "Demand Certificate",
+      optionEnergyCertificateType2: "Consumption Certificate",
+      labelFinalEnergyDemand: "Final Energy Demand (kWh/m²*a)",
+      labelEnergyEfficiency: "Energy Efficiency Class",
+      labelYearEnergyCertificate: "Year per Energy Certificate",
+      labelExterior: "Exterior (4 images) *",
+      labelHeatingImages: "Heating System (2 images) *",
+      labelElectricalImages: "Electrical Panel (2 images) *",
+      labelLivingRoomImages: "Living Room (at least 1 image) *",
+      labelBedroomImages: "Bedroom (at least 1 image) *",
+      labelChildrenCount: "Number of Children's Rooms",
+      labelChildrenRoomImages: "Children's Room Images (at least 1 per room if > 0)",
+      labelRoofImages: "Roof Photos (at least 1 image) *",
+      labelKitchenImages: "Kitchen (at least 2 images) *",
+      labelStorage: "Storage",
+      labelGarageExtra: "Garage",
+      labelOffice: "Office",
+      labelFloorPlan: "Floor Plan (optional)",
+      labelLocationPlan: "Location Plan (optional)",
+      listHeader: "Property Listings",
+      noResults: "No properties found."
+    }
+  };
+
+  // Handler für Filteränderungen
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    const newFilters = { ...filters, [name]: value };
+    setFilters(newFilters);
+    applyFilters(newFilters);
+  };
+
+  const applyFilters = (currentFilters) => {
+    let filtered = properties;
+    // Beispiel: Filter nach Country
+    if (currentFilters.country) {
+      filtered = filtered.filter((p) =>
+        p.country.toLowerCase().includes(currentFilters.country.toLowerCase())
+      );
+    }
+    // Weitere Filter können analog ergänzt werden
+    // (In einem echten Projekt sollte man alle Felder berücksichtigen.)
+    setFilteredProperties(filtered);
+  };
+
+  // Beim Laden werden die Immobilien über GET aus dem API-Endpoint abgerufen
   useEffect(() => {
     fetch('/api/sell')
       .then((res) => res.json())
       .then((data) => {
-        // Falls das Backend ein Objekt mit "sales" liefert, ansonsten direkt das Array
         const sales = Array.isArray(data) ? data : data.sales;
         setProperties(sales);
         setFilteredProperties(sales);
@@ -28,31 +185,7 @@ const BuyPage = () => {
       .catch((err) => console.error('Fehler beim Laden der Immobilien:', err));
   }, []);
 
-  // Filter-Handler
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    const newFilters = { ...filters, [name]: value };
-    setFilters(newFilters);
-    filterProperties(newFilters);
-  };
-
-  const filterProperties = (currentFilters) => {
-    let filtered = properties;
-    if (currentFilters.country) {
-      filtered = filtered.filter((p) =>
-        p.country.toLowerCase().includes(currentFilters.country.toLowerCase())
-      );
-    }
-    if (currentFilters.minPrice) {
-      filtered = filtered.filter((p) => p.price >= Number(currentFilters.minPrice));
-    }
-    if (currentFilters.maxPrice) {
-      filtered = filtered.filter((p) => p.price <= Number(currentFilters.maxPrice));
-    }
-    setFilteredProperties(filtered);
-  };
-
-  // Einfaches Bildkarussell für jeden Immobilieneintrag
+  // Einfaches Bildkarussell für die Immobilienanzeige
   const PropertyCarousel = ({ images }) => {
     const [current, setCurrent] = useState(0);
     if (!images || images.length === 0) return null;
@@ -107,27 +240,7 @@ const BuyPage = () => {
     }
   };
 
-  // Texte in beiden Sprachen
-  const texts = {
-    de: {
-      filters: "Filter",
-      country: "Land",
-      minPrice: "Mindestpreis",
-      maxPrice: "Höchstpreis",
-      listHeader: "Immobilienangebote",
-      noResults: "Keine Immobilien gefunden."
-    },
-    en: {
-      filters: "Filters",
-      country: "Country",
-      minPrice: "Min Price",
-      maxPrice: "Max Price",
-      listHeader: "Property Listings",
-      noResults: "No properties found."
-    }
-  };
-
-  // Logout: Token löschen und Weiterleitung zur Login-Seite
+  // Logout: Token löschen und zur Login-Seite weiterleiten
   const handleLogout = () => {
     localStorage.removeItem('token');
     router.push('/login');
@@ -138,41 +251,108 @@ const BuyPage = () => {
       <Navbar toggleLanguage={() => {}} currentLang={lang} />
       <button style={styles.logoutButton} onClick={handleLogout}>Logout</button>
       <div style={styles.pageContainer}>
-        {/* Linker Filterbereich */}
+        {/* Filterbereich */}
         <div style={styles.filterContainer}>
-          <h2>{texts[lang].filters}</h2>
+          <h2>{texts[lang].filtersHeader}</h2>
           <div style={styles.filterField}>
-            <label>{texts[lang].country}</label>
+            <label>{texts[lang].labelAddress}</label>
+            <input
+              type="text"
+              name="address"
+              value={filters.address}
+              onChange={handleFilterChange}
+              placeholder={`${texts[lang].placeholderStreet}, ${texts[lang].placeholderPostal}`}
+              style={styles.filterInput}
+            />
+          </div>
+          <div style={styles.filterField}>
+            <label>{texts[lang].placeholderCountry}</label>
             <input
               type="text"
               name="country"
               value={filters.country}
               onChange={handleFilterChange}
+              placeholder={texts[lang].placeholderCountry}
               style={styles.filterInput}
             />
           </div>
           <div style={styles.filterField}>
-            <label>{texts[lang].minPrice}</label>
+            <label>{texts[lang].labelLivingArea}</label>
             <input
               type="number"
-              name="minPrice"
-              value={filters.minPrice}
+              name="livingArea"
+              value={filters.livingArea}
               onChange={handleFilterChange}
               style={styles.filterInput}
             />
           </div>
           <div style={styles.filterField}>
-            <label>{texts[lang].maxPrice}</label>
+            <label>{texts[lang].labelPlotArea}</label>
             <input
               type="number"
-              name="maxPrice"
-              value={filters.maxPrice}
+              name="plotArea"
+              value={filters.plotArea}
               onChange={handleFilterChange}
               style={styles.filterInput}
             />
           </div>
+          <div style={styles.filterField}>
+            <label>{texts[lang].labelAvailableFrom}</label>
+            <input
+              type="date"
+              name="availableFrom"
+              value={filters.availableFrom}
+              onChange={handleFilterChange}
+              style={styles.filterInput}
+            />
+          </div>
+          <div style={styles.filterField}>
+            <label>{texts[lang].labelRooms}</label>
+            <input
+              type="number"
+              name="rooms"
+              value={filters.rooms}
+              onChange={handleFilterChange}
+              style={styles.filterInput}
+            />
+          </div>
+          <div style={styles.filterField}>
+            <label>{texts[lang].labelBedrooms}</label>
+            <input
+              type="number"
+              name="bedrooms"
+              value={filters.bedrooms}
+              onChange={handleFilterChange}
+              style={styles.filterInput}
+            />
+          </div>
+          <div style={styles.filterField}>
+            <label>{texts[lang].labelBathrooms}</label>
+            <input
+              type="number"
+              name="bathrooms"
+              value={filters.bathrooms}
+              onChange={handleFilterChange}
+              style={styles.filterInput}
+            />
+          </div>
+          <div style={styles.filterField}>
+            <label>{texts[lang].labelGarage}</label>
+            <input
+              type="text"
+              name="garage"
+              value={filters.garage}
+              onChange={handleFilterChange}
+              style={styles.filterInput}
+            />
+          </div>
+          {/* Weitere Filterfelder können analog ergänzt werden, z. B.:
+              labelPropertyDescription, labelFeatures, labelHeatingSystem, labelYearBuilt, 
+              labelHeatingType (als Select), labelMainEnergySources, labelEnergyCertificate (als Select),
+              labelEnergyCertificateType (als Select), labelFinalEnergyDemand, labelEnergyEfficiency,
+              labelYearEnergyCertificate, und die Bild-Felder. */}
         </div>
-        {/* Rechte Listenansicht */}
+        {/* Listenansicht */}
         <div style={styles.listContainer}>
           <h2>{texts[lang].listHeader}</h2>
           {filteredProperties.length === 0 && <p>{texts[lang].noResults}</p>}
@@ -182,8 +362,8 @@ const BuyPage = () => {
                 <PropertyCarousel images={property.images} />
                 <h3>{property.description}</h3>
                 <p>{property.country}</p>
-                <p>Grundstücksgröße: {property.plotSize} m²</p>
-                <p>Wohnfläche: {property.livingSpace} m²</p>
+                <p>Grundstücksgröße: {property.plotArea} m²</p>
+                <p>Wohnfläche: {property.livingArea} m²</p>
                 <p>Preis: €{property.price}</p>
               </a>
             </Link>
@@ -213,7 +393,10 @@ const styles = {
   },
   filterContainer: {
     flex: '1',
-    paddingRight: '20px'
+    paddingRight: '20px',
+    maxHeight: '80vh',
+    overflowY: 'auto',
+    borderRight: '1px solid #ddd'
   },
   filterField: {
     marginBottom: '15px'
@@ -224,7 +407,8 @@ const styles = {
     marginTop: '5px'
   },
   listContainer: {
-    flex: '3'
+    flex: '3',
+    paddingLeft: '20px'
   },
   propertyCard: {
     display: 'block',
