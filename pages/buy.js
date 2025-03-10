@@ -15,16 +15,17 @@ const BuyPage = () => {
     maxPrice: ''
   });
 
-  // Beim Laden werden die Immobilien aus der API geholt (z. B. von /api/sell)
+  // Beim Laden werden die Immobilien aus dem Backend (db.json via /api/sell) geholt
   useEffect(() => {
     fetch('/api/sell')
-      .then(res => res.json())
-      .then(data => {
-        // Annahme: data ist ein Array von Objekten mit Feldern: id, description, country, plotSize, livingSpace, price, images (Array von URLs)
-        setProperties(data);
-        setFilteredProperties(data);
+      .then((res) => res.json())
+      .then((data) => {
+        // Falls das Backend ein Objekt mit "sales" liefert, ansonsten direkt das Array
+        const sales = Array.isArray(data) ? data : data.sales;
+        setProperties(sales);
+        setFilteredProperties(sales);
       })
-      .catch(err => console.error('Fehler beim Laden der Immobilien:', err));
+      .catch((err) => console.error('Fehler beim Laden der Immobilien:', err));
   }, []);
 
   // Filter-Handler
@@ -38,20 +39,20 @@ const BuyPage = () => {
   const filterProperties = (currentFilters) => {
     let filtered = properties;
     if (currentFilters.country) {
-      filtered = filtered.filter(p =>
+      filtered = filtered.filter((p) =>
         p.country.toLowerCase().includes(currentFilters.country.toLowerCase())
       );
     }
     if (currentFilters.minPrice) {
-      filtered = filtered.filter(p => p.price >= Number(currentFilters.minPrice));
+      filtered = filtered.filter((p) => p.price >= Number(currentFilters.minPrice));
     }
     if (currentFilters.maxPrice) {
-      filtered = filtered.filter(p => p.price <= Number(currentFilters.maxPrice));
+      filtered = filtered.filter((p) => p.price <= Number(currentFilters.maxPrice));
     }
     setFilteredProperties(filtered);
   };
 
-  // Einfache Carousel-Komponente für die Bildanzeige
+  // Einfaches Bildkarussell für jeden Immobilieneintrag
   const PropertyCarousel = ({ images }) => {
     const [current, setCurrent] = useState(0);
     if (!images || images.length === 0) return null;
@@ -126,7 +127,7 @@ const BuyPage = () => {
     }
   };
 
-  // Logout Handler: Token löschen und Weiterleitung zur Login-Seite
+  // Logout: Token löschen und Weiterleitung zur Login-Seite
   const handleLogout = () => {
     localStorage.removeItem('token');
     router.push('/login');
@@ -137,7 +138,7 @@ const BuyPage = () => {
       <Navbar toggleLanguage={() => {}} currentLang={lang} />
       <button style={styles.logoutButton} onClick={handleLogout}>Logout</button>
       <div style={styles.pageContainer}>
-        {/* Linke Filterseite */}
+        {/* Linker Filterbereich */}
         <div style={styles.filterContainer}>
           <h2>{texts[lang].filters}</h2>
           <div style={styles.filterField}>
@@ -171,11 +172,11 @@ const BuyPage = () => {
             />
           </div>
         </div>
-        {/* Rechte Listenseite */}
+        {/* Rechte Listenansicht */}
         <div style={styles.listContainer}>
           <h2>{texts[lang].listHeader}</h2>
           {filteredProperties.length === 0 && <p>{texts[lang].noResults}</p>}
-          {filteredProperties.map(property => (
+          {filteredProperties.map((property) => (
             <Link key={property.id} href={`/buy/${property.id}`}>
               <a style={styles.propertyCard}>
                 <PropertyCarousel images={property.images} />
@@ -237,4 +238,3 @@ const styles = {
 };
 
 export default BuyPage;
-
