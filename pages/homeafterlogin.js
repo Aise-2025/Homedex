@@ -9,6 +9,7 @@ const HomeAfterLogin = () => {
     de: {
       headline: "Ihr einfacher Weg zum Immobilienverkauf mit Homedex",
       sellButton: "Immobilie verkaufen",
+      marketingButton: "Vermarktung",
       buyButton: "Immobilie kaufen",
       sellInfo: "Erhalten Sie ein direktes Kaufangebot von Homedex. Beim Sofortankauf fällt eine Gebühr von 7 % des Kaufpreises an.",
       marketInfo: "Verkauf über Homedex: Keine Vor-Ort-Besichtigungen nötig. Homedex vermarktet Ihre Immobilie digital. 1 % Gebühr für Käufer und Verkäufer – keine versteckten Kosten.",
@@ -17,6 +18,7 @@ const HomeAfterLogin = () => {
     en: {
       headline: "Your Simple Way to Sell Real Estate with Homedex",
       sellButton: "Sell Property",
+      marketingButton: "Marketing",
       buyButton: "Buy Property",
       sellInfo: "Receive a direct purchase offer from Homedex. A fee of 7% of the purchase price applies for immediate purchase.",
       marketInfo: "Sell through Homedex: No physical viewings required. Homedex markets your property digitally. 1% fee for buyers and sellers – no hidden costs.",
@@ -33,6 +35,9 @@ const HomeAfterLogin = () => {
           <div style={styles.buttonContainer}>
             <Link href="/sell">
               <a style={styles.button}>{content[lang].sellButton}</a>
+            </Link>
+            <Link href="/marketing">
+              <a style={styles.button}>{content[lang].marketingButton}</a>
             </Link>
             <Link href="/buy">
               <a style={styles.button}>{content[lang].buyButton}</a>
