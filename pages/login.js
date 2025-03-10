@@ -1,5 +1,5 @@
-// /pages/login.js
 import React, { useContext, useState } from 'react';
+import { useRouter } from 'next/router';
 import { LanguageContext } from '../context/LanguageContext';
 import Navbar from '../components/Navbar';
 
@@ -7,6 +7,8 @@ const LoginPage = () => {
   const { lang } = useContext(LanguageContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const texts = {
     de: {
@@ -27,9 +29,27 @@ const LoginPage = () => {
     },
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Hier die Login-Logik einfügen, z.B. API-Call
+    setError('');
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        setError(errorData.message || 'Fehler beim Login');
+      } else {
+        const data = await res.json();
+        // Token speichern (z. B. im localStorage) und zur nächsten Seite weiterleiten
+        localStorage.setItem('token', data.token);
+        router.push('/homeafterlogin');
+      }
+    } catch (err) {
+      setError('Ein Fehler ist aufgetreten.');
+    }
   };
 
   return (
@@ -60,6 +80,7 @@ const LoginPage = () => {
           </label>
           <button type="submit" style={styles.button}>{texts[lang].loginButton}</button>
         </form>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <p style={styles.text}>
           {texts[lang].noAccount} <a href="/register">{texts[lang].register}</a>
         </p>
