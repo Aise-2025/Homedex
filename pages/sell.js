@@ -7,127 +7,137 @@ const SellPage = () => {
   const { lang } = useContext(LanguageContext);
   const router = useRouter();
 
-  // Textfelder
-  const [country, setCountry] = useState('');
+  // Headertexte
+  const headerTitle = lang === 'de' 
+    ? "Bitte füllen Sie alle Felder aus" 
+    : "Please fill in all fields";
+  const headerSubtitle = lang === 'de' 
+    ? "Damit wir Ihnen in den nächsten 24 Stunden ein Angebot unterbreiten können." 
+    : "So that we can present you with an offer within the next 24 hours.";
+
+  // Basisdaten zur Immobilie
   const [address, setAddress] = useState('');
-  const [yearBuilt, setYearBuilt] = useState('');
-  const [condition, setCondition] = useState('');
+  const [country, setCountry] = useState('');
+  const [livingArea, setLivingArea] = useState('');
+  const [plotArea, setPlotArea] = useState('');
+  const [availableFrom, setAvailableFrom] = useState('');
   const [rooms, setRooms] = useState('');
-  const [water, setWater] = useState('');
-  const [electricity, setElectricity] = useState('');
+  const [bedrooms, setBedrooms] = useState('');
+  const [bathrooms, setBathrooms] = useState('');
+  const [garage, setGarage] = useState('');
+  const [propertyDescription, setPropertyDescription] = useState('');
+  const [features, setFeatures] = useState('');
+  const [heatingSystem, setHeatingSystem] = useState('');
+  const [yearBuilt, setYearBuilt] = useState('');
+  const [heatingType, setHeatingType] = useState('');
+  const [mainEnergySources, setMainEnergySources] = useState('');
+  const [energyCertificate, setEnergyCertificate] = useState('');
+  const [energyCertificateType, setEnergyCertificateType] = useState('');
+  const [finalEnergyDemand, setFinalEnergyDemand] = useState('');
+  const [energyEfficiency, setEnergyEfficiency] = useState('');
+  const [yearEnergyCertificate, setYearEnergyCertificate] = useState('');
 
-  // Einzelbilder (als Objekte mit File und Preview)
-  const [countryImage, setCountryImage] = useState(null);
-  const [addressImage, setAddressImage] = useState(null);
-  const [yearBuiltImage, setYearBuiltImage] = useState(null);
-  const [conditionImage, setConditionImage] = useState(null);
-  const [roomsImage, setRoomsImage] = useState(null);
-  const [waterImage, setWaterImage] = useState(null);
-  const [electricityImage, setElectricityImage] = useState(null);
-
-  // Mehrfachbilder
+  // Bilddaten (Mehrfachbilder werden als Array gespeichert, einzelne als Objekt)
+  const [exteriorImages, setExteriorImages] = useState([]);
+  const [heatingImages, setHeatingImages] = useState([]);
+  const [electricalImages, setElectricalImages] = useState([]);
+  const [livingRoomImages, setLivingRoomImages] = useState([]);
+  const [bedroomImages, setBedroomImages] = useState([]);
+  const [childrenCount, setChildrenCount] = useState('');
+  const [childrenRoomImages, setChildrenRoomImages] = useState([]);
   const [roofImages, setRoofImages] = useState([]);
-  const [facadeImages, setFacadeImages] = useState([]);
+  const [kitchenImages, setKitchenImages] = useState([]);
+  const [storage, setStorage] = useState('');
+  const [garageExtra, setGarageExtra] = useState('');
+  const [office, setOffice] = useState('');
+  const [floorPlan, setFloorPlan] = useState(null);
+  const [locationPlan, setLocationPlan] = useState(null);
 
-  // Angebotsart
+  // Angebotsart (hier kann der Nutzer wählen, ob er ein direktes Angebot oder eine Vermarktung möchte)
   const [offerType, setOfferType] = useState('');
 
-  // Texte in beiden Sprachen
+  // Inhalte (Texte und Optionswerte) in beiden Sprachen
   const content = {
     de: {
       headline: "Immobilie verkaufen",
-      formLabels: {
-        country: "Land",
-        address: "Adresse",
-        yearBuilt: "Baujahr",
-        condition: "Zustand",
-        rooms: "Anzahl Zimmer",
-        water: "Wasser (Neu/Alt)",
-        electricity: "Elektrizität (Jahr)"
+      submitButton: "Anfrage absenden",
+      explanation: {
+        angebot: "Angebot: 7 % des Verkaufspreises.",
+        vermarktung: "Vermarktung: 1 % für Käufer und Verkäufer vom Verkaufspreis."
       },
-      fileLabels: {
-        country: "Bild für Land",
-        address: "Bild für Adresse",
-        yearBuilt: "Bild für Baujahr",
-        condition: "Bild für Zustand",
-        rooms: "Bild für Zimmer",
-        water: "Bild für Wasser",
-        electricity: "Bild für Elektrizität",
-        roof: "Bilder für Dach (max. 2)",
-        facade: "Bilder für Fassade (max. 4)"
-      },
-      buttons: {
-        angebot: "Angebot",
-        vermarktung: "Vermarktung"
-      },
-      explanation: "Angebot: 7 % des Verkaufspreises. Vermarktung: 1 % für Käufer und Verkäufer vom Verkaufspreis."
+      options: {
+        heatingType: ["Nachtspeicheröfen", "Gasheizung", "Ölheizung", "Wärmepumpe"],
+        energyCertificate: ["liegt vor", "nicht vorhanden"],
+        energyCertificateType: ["Bedarfsausweis", "Verbrauchsausweis"]
+      }
     },
     en: {
       headline: "Sell Your Property",
-      formLabels: {
-        country: "Country",
-        address: "Address",
-        yearBuilt: "Year Built",
-        condition: "Condition",
-        rooms: "Number of Rooms",
-        water: "Water (New/Old)",
-        electricity: "Electricity (Year)"
+      submitButton: "Submit Request",
+      explanation: {
+        angebot: "Offer: 7% of the sale price.",
+        vermarktung: "Marketing: 1% fee for both buyer and seller."
       },
-      fileLabels: {
-        country: "Image for Country",
-        address: "Image for Address",
-        yearBuilt: "Image for Year Built",
-        condition: "Image for Condition",
-        rooms: "Image for Rooms",
-        water: "Image for Water",
-        electricity: "Image for Electricity",
-        roof: "Images for Roof (max. 2)",
-        facade: "Images for Facade (max. 4)"
-      },
-      buttons: {
-        angebot: "Offer",
-        vermarktung: "Marketing"
-      },
-      explanation: "Offer: 7% of the sale price. Marketing: 1% fee for both buyer and seller from the sale price."
+      options: {
+        heatingType: ["Storage Heaters", "Gas Heating", "Oil Heating", "Heat Pump"],
+        energyCertificate: ["available", "not available"],
+        energyCertificateType: ["Demand Certificate", "Consumption Certificate"]
+      }
     }
   };
 
-  // Handler für einzelne Bild-Uploads
-  const handleSingleImageChange = (e, setter) => {
+  // Handler für Datei-Uploads (einzeln)
+  const handleFileChange = (e, setter) => {
     const file = e.target.files[0];
     if (file) {
       setter({ file, preview: URL.createObjectURL(file) });
     }
   };
 
-  // Handler für Mehrfachbild-Uploads
-  const handleMultipleImageChange = (e, setter, maxCount) => {
+  // Handler für Mehrfachdatei-Uploads
+  const handleMultipleFileChange = (e, setter, maxCount) => {
     const files = Array.from(e.target.files).slice(0, maxCount);
     const images = files.map(file => ({ file, preview: URL.createObjectURL(file) }));
     setter(images);
   };
 
-  // Beim Absenden werden die Daten als JSON an den API-Endpoint gesendet.
-  // Für Bilder senden wir hier als MVP lediglich die generierten Preview-URLs.
   const handleSubmit = async (e) => {
     e.preventDefault();
     const saleData = {
-      country,
       address,
-      yearBuilt,
-      condition,
+      country,
+      livingArea,
+      plotArea,
+      availableFrom,
       rooms,
-      water,
-      electricity,
-      countryImage: countryImage ? countryImage.preview : null,
-      addressImage: addressImage ? addressImage.preview : null,
-      yearBuiltImage: yearBuiltImage ? yearBuiltImage.preview : null,
-      conditionImage: conditionImage ? conditionImage.preview : null,
-      roomsImage: roomsImage ? roomsImage.preview : null,
-      waterImage: waterImage ? waterImage.preview : null,
-      electricityImage: electricityImage ? electricityImage.preview : null,
+      bedrooms,
+      bathrooms,
+      garage,
+      propertyDescription,
+      features,
+      heatingSystem,
+      yearBuilt,
+      heatingType,
+      mainEnergySources,
+      energyCertificate,
+      energyCertificateType,
+      finalEnergyDemand,
+      energyEfficiency,
+      yearEnergyCertificate,
+      exteriorImages: exteriorImages.map(img => img.preview),
+      heatingImages: heatingImages.map(img => img.preview),
+      electricalImages: electricalImages.map(img => img.preview),
+      livingRoomImages: livingRoomImages.map(img => img.preview),
+      bedroomImages: bedroomImages.map(img => img.preview),
+      childrenCount,
+      childrenRoomImages: childrenRoomImages.map(img => img.preview),
       roofImages: roofImages.map(img => img.preview),
-      facadeImages: facadeImages.map(img => img.preview),
+      kitchenImages: kitchenImages.map(img => img.preview),
+      storage,
+      garageExtra,
+      office,
+      floorPlan: floorPlan ? floorPlan.preview : null,
+      locationPlan: locationPlan ? locationPlan.preview : null,
       offerType
     };
 
@@ -142,7 +152,6 @@ const SellPage = () => {
       } else {
         const data = await res.json();
         console.log('Erfolgreich gespeichert, ID:', data.id);
-        // Nach dem Absenden weiterleiten zur HomeAfterLogin-Seite
         router.push('/homeafterlogin');
       }
     } catch (err) {
@@ -150,180 +159,43 @@ const SellPage = () => {
     }
   };
 
-  return (
-    <div>
-      <Navbar />
-      <div style={styles.container}>
-        <h1>{content[lang].headline}</h1>
-        <form onSubmit={handleSubmit} style={styles.form}>
-          {/* Land */}
-          <label style={styles.label}>{content[lang].formLabels.country}
-            <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} required style={styles.input} />
-          </label>
-          <label style={styles.label}>{content[lang].fileLabels.country}
-            <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setCountryImage)} style={styles.input} />
-            {countryImage && <img src={countryImage.preview} alt="Country preview" style={styles.preview} />}
-          </label>
-          
-          {/* Adresse */}
-          <label style={styles.label}>{content[lang].formLabels.address}
-            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} required style={styles.input} />
-          </label>
-          <label style={styles.label}>{content[lang].fileLabels.address}
-            <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setAddressImage)} style={styles.input} />
-            {addressImage && <img src={addressImage.preview} alt="Address preview" style={styles.preview} />}
-          </label>
-          
-          {/* Baujahr */}
-          <label style={styles.label}>{content[lang].formLabels.yearBuilt}
-            <input type="text" value={yearBuilt} onChange={(e) => setYearBuilt(e.target.value)} required style={styles.input} />
-          </label>
-          <label style={styles.label}>{content[lang].fileLabels.yearBuilt}
-            <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setYearBuiltImage)} style={styles.input} />
-            {yearBuiltImage && <img src={yearBuiltImage.preview} alt="Year Built preview" style={styles.preview} />}
-          </label>
-          
-          {/* Zustand */}
-          <label style={styles.label}>{content[lang].formLabels.condition}
-            <input type="text" value={condition} onChange={(e) => setCondition(e.target.value)} required style={styles.input} />
-          </label>
-          <label style={styles.label}>{content[lang].fileLabels.condition}
-            <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setConditionImage)} style={styles.input} />
-            {conditionImage && <img src={conditionImage.preview} alt="Condition preview" style={styles.preview} />}
-          </label>
-          
-          {/* Anzahl Zimmer */}
-          <label style={styles.label}>{content[lang].formLabels.rooms}
-            <input type="number" value={rooms} onChange={(e) => setRooms(e.target.value)} required style={styles.input} />
-          </label>
-          <label style={styles.label}>{content[lang].fileLabels.rooms}
-            <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setRoomsImage)} style={styles.input} />
-            {roomsImage && <img src={roomsImage.preview} alt="Rooms preview" style={styles.preview} />}
-          </label>
-          
-          {/* Wasser */}
-          <label style={styles.label}>{content[lang].formLabels.water}
-            <input type="text" value={water} onChange={(e) => setWater(e.target.value)} required style={styles.input} />
-          </label>
-          <label style={styles.label}>{content[lang].fileLabels.water}
-            <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setWaterImage)} style={styles.input} />
-            {waterImage && <img src={waterImage.preview} alt="Water preview" style={styles.preview} />}
-          </label>
-          
-          {/* Elektrizität */}
-          <label style={styles.label}>{content[lang].formLabels.electricity}
-            <input type="text" value={electricity} onChange={(e) => setElectricity(e.target.value)} required style={styles.input} />
-          </label>
-          <label style={styles.label}>{content[lang].fileLabels.electricity}
-            <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setElectricityImage)} style={styles.input} />
-            {electricityImage && <img src={electricityImage.preview} alt="Electricity preview" style={styles.preview} />}
-          </label>
-          
-          {/* Mehrfachbilder für Dach (max. 2) */}
-          <label style={styles.label}>{content[lang].fileLabels.roof}
-            <input type="file" accept="image/*" multiple onChange={(e) => handleMultipleImageChange(e, setRoofImages, 2)} style={styles.input} />
-            <div style={styles.previewContainer}>
-              {roofImages.map((img, index) => (
-                <img key={index} src={img.preview} alt={`Roof preview ${index + 1}`} style={styles.preview} />
-              ))}
-            </div>
-          </label>
-          
-          {/* Mehrfachbilder für Fassade (max. 4) */}
-          <label style={styles.label}>{content[lang].fileLabels.facade}
-            <input type="file" accept="image/*" multiple onChange={(e) => handleMultipleImageChange(e, setFacadeImages, 4)} style={styles.input} />
-            <div style={styles.previewContainer}>
-              {facadeImages.map((img, index) => (
-                <img key={index} src={img.preview} alt={`Facade preview ${index + 1}`} style={styles.preview} />
-              ))}
-            </div>
-          </label>
-          
-          {/* Auswahl der Angebotsart */}
-          <div style={styles.buttonGroup}>
-            <button type="button" onClick={() => setOfferType('angebot')} style={{ ...styles.button, backgroundColor: offerType === 'angebot' ? '#005bb5' : '#0070f3' }}>
-              {content[lang].buttons.angebot}
-            </button>
-            <button type="button" onClick={() => setOfferType('vermarktung')} style={{ ...styles.button, backgroundColor: offerType === 'vermarktung' ? '#005bb5' : '#0070f3' }}>
-              {content[lang].buttons.vermarktung}
-            </button>
-          </div>
-          <p style={styles.explanation}>{content[lang].explanation}</p>
-          
-          <button type="submit" style={styles.submitButton}>Daten absenden</button>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-const styles = {
-  container: {
-    marginTop: '80px',
-    padding: '20px',
-    maxWidth: '800px',
-    margin: '80px auto',
-    textAlign: 'center',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '10px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-    padding: '20px'
-  },
-  label: {
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'left',
-    fontWeight: 'bold'
-  },
-  input: {
-    padding: '10px',
-    fontSize: '1em',
-    marginTop: '5px'
-  },
-  button: {
-    padding: '10px 20px',
-    fontSize: '1em',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    transition: 'background 0.3s'
-  },
-  submitButton: {
-    backgroundColor: '#28a745',
-    color: '#fff',
-    padding: '15px 30px',
-    fontSize: '1.2em',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    marginTop: '20px'
-  },
-  preview: {
-    marginTop: '10px',
-    maxWidth: '100px',
-    maxHeight: '100px'
-  },
-  previewContainer: {
-    display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap'
-  },
-  buttonGroup: {
-    display: 'flex',
-    gap: '20px',
-    justifyContent: 'center',
-    marginTop: '20px'
-  },
-  explanation: {
-    marginTop: '10px',
-    fontStyle: 'italic'
-  }
-};
-
-export default SellPage;
+  // Für Platzhalter und Labels (aus dem texts-Objekt) benötigen wir zusätzliche Übersetzungen.
+  // Wir erweitern das texts-Objekt um die fehlenden Felder.
+  const texts = {
+    de: {
+      labelAddress: "Adresse",
+      placeholderStreet: "Straße, Nummer",
+      placeholderPostal: "Postleitzahl, Ort",
+      placeholderCountry: "Land",
+      labelLivingArea: "Wohnfläche ca. (m²)",
+      labelPlotArea: "Grundstück ca. (m²)",
+      labelAvailableFrom: "Bezugsfrei ab",
+      labelRooms: "Zimmer",
+      labelBedrooms: "Schlafzimmer",
+      labelBathrooms: "Badezimmer",
+      labelGarage: "Garage/Stellplatz",
+      labelPropertyDescription: "Objektbeschreibung",
+      placeholderPropertyDescription: "Freier Text",
+      labelFeatures: "Ausstattung",
+      labelHeatingSystem: "Heizungsanlage",
+      labelYearBuilt: "Baujahr",
+      labelHeatingType: "Heizungsart",
+      optionHeatingType: content.de.options.heatingType.join(", "),
+      labelMainEnergySources: "Wesentliche Energieträger",
+      labelEnergyCertificate: "Energieausweis",
+      optionEnergyCertificate: content.de.options.energyCertificate.join(" / "),
+      labelEnergyCertificateType: "Energieausweistyp",
+      optionEnergyCertificateType: content.de.options.energyCertificateType.join(" / "),
+      labelFinalEnergyDemand: "Endenergiebedarf (kWh/m²*a)",
+      labelEnergyEfficiency: "Energieeffizienzklasse",
+      labelYearEnergyCertificate: "Baujahr laut Energieausweis",
+      labelUploadImages: "Bilder hochladen",
+      labelExterior: "Außenansicht (4 Bilder) *",
+      labelHeatingImages: "Heizungsanlage (2 Bilder) *",
+      labelElectricalImages: "Stromkasten (2 Bilder) *",
+      labelLivingRoomImages: "Wohnzimmer (mindestens 1 Bild) *",
+      labelBedroomImages: "Schlafzimmer (mindestens 1 Bild) *",
+      labelChildrenCount: "Anzahl Kinderzimmer",
+      labelChildrenRoomImages: "Kinderzimmer Bilder (mindestens 1 pro Kinderzimmer, falls > 0)",
+      labelRoofImages: "Dach Fotos (mindestens 1 Bild) *",
+      labelKitchenImages: "Küche (mindestens 2 Bilder) *
