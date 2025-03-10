@@ -7,7 +7,7 @@ const MarketingPage = () => {
   const { lang } = useContext(LanguageContext);
   const router = useRouter();
 
-  // Textfelder
+  // Basisfelder (bereits vorhanden)
   const [country, setCountry] = useState('');
   const [address, setAddress] = useState('');
   const [yearBuilt, setYearBuilt] = useState('');
@@ -16,7 +16,7 @@ const MarketingPage = () => {
   const [water, setWater] = useState('');
   const [electricity, setElectricity] = useState('');
 
-  // Einzelbilder (als Objekte mit File und Preview)
+  // Bildfelder (Einzelbilder)
   const [countryImage, setCountryImage] = useState(null);
   const [addressImage, setAddressImage] = useState(null);
   const [yearBuiltImage, setYearBuiltImage] = useState(null);
@@ -29,10 +29,28 @@ const MarketingPage = () => {
   const [roofImages, setRoofImages] = useState([]);
   const [facadeImages, setFacadeImages] = useState([]);
 
+  // Zusätzliche Felder (für Filter/Eintrag, damit BuyPage später filtern kann)
+  const [livingArea, setLivingArea] = useState('');
+  const [plotArea, setPlotArea] = useState('');
+  const [availableFrom, setAvailableFrom] = useState('');
+  const [bedrooms, setBedrooms] = useState('');
+  const [bathrooms, setBathrooms] = useState('');
+  const [garageField, setGarageField] = useState('');
+  const [propertyDescription, setPropertyDescription] = useState('');
+  const [features, setFeatures] = useState('');
+  const [heatingSystem, setHeatingSystem] = useState('');
+  const [heatingType, setHeatingType] = useState('');
+  const [mainEnergySources, setMainEnergySources] = useState('');
+  const [energyCertificate, setEnergyCertificate] = useState('');
+  const [energyCertificateType, setEnergyCertificateType] = useState('');
+  const [finalEnergyDemand, setFinalEnergyDemand] = useState('');
+  const [energyEfficiency, setEnergyEfficiency] = useState('');
+  const [yearEnergyCertificate, setYearEnergyCertificate] = useState('');
+
   // Bei der Vermarktung ist der OfferType fest auf "vermarktung"
   const offerType = 'vermarktung';
 
-  // Texte in beiden Sprachen
+  // Texte in beiden Sprachen (inklusive der neuen Felder)
   const content = {
     de: {
       headline: "Immobilie vermarkten",
@@ -43,7 +61,23 @@ const MarketingPage = () => {
         condition: "Zustand",
         rooms: "Anzahl Zimmer",
         water: "Wasser (Neu/Alt)",
-        electricity: "Elektrizität (Jahr)"
+        electricity: "Elektrizität (Jahr)",
+        livingArea: "Wohnfläche (m²)",
+        plotArea: "Grundstück (m²)",
+        availableFrom: "Bezugsfrei ab",
+        bedrooms: "Schlafzimmer",
+        bathrooms: "Badezimmer",
+        garage: "Garage/Stellplatz",
+        propertyDescription: "Objektbeschreibung",
+        features: "Ausstattung",
+        heatingSystem: "Heizungsanlage",
+        heatingType: "Heizungsart",
+        mainEnergySources: "Wesentliche Energieträger",
+        energyCertificate: "Energieausweis",
+        energyCertificateType: "Energieausweistyp",
+        finalEnergyDemand: "Endenergiebedarf (kWh/m²*a)",
+        energyEfficiency: "Energieeffizienzklasse",
+        yearEnergyCertificate: "Baujahr laut Energieausweis"
       },
       fileLabels: {
         country: "Bild für Land",
@@ -68,7 +102,23 @@ const MarketingPage = () => {
         condition: "Condition",
         rooms: "Number of Rooms",
         water: "Water (New/Old)",
-        electricity: "Electricity (Year)"
+        electricity: "Electricity (Year)",
+        livingArea: "Living Area (m²)",
+        plotArea: "Plot Area (m²)",
+        availableFrom: "Available from",
+        bedrooms: "Bedrooms",
+        bathrooms: "Bathrooms",
+        garage: "Garage/Parking",
+        propertyDescription: "Property Description",
+        features: "Features",
+        heatingSystem: "Heating System",
+        heatingType: "Heating Type",
+        mainEnergySources: "Main Energy Sources",
+        energyCertificate: "Energy Certificate",
+        energyCertificateType: "Energy Certificate Type",
+        finalEnergyDemand: "Final Energy Demand (kWh/m²*a)",
+        energyEfficiency: "Energy Efficiency Class",
+        yearEnergyCertificate: "Year per Energy Certificate"
       },
       fileLabels: {
         country: "Image for Country",
@@ -111,6 +161,22 @@ const MarketingPage = () => {
       rooms,
       water,
       electricity,
+      livingArea,
+      plotArea,
+      availableFrom,
+      bedrooms,
+      bathrooms,
+      garage: garageField,
+      propertyDescription,
+      features,
+      heatingSystem,
+      heatingType,
+      mainEnergySources,
+      energyCertificate,
+      energyCertificateType,
+      finalEnergyDemand,
+      energyEfficiency,
+      yearEnergyCertificate,
       countryImage: countryImage ? countryImage.preview : null,
       addressImage: addressImage ? addressImage.preview : null,
       yearBuiltImage: yearBuiltImage ? yearBuiltImage.preview : null,
@@ -148,7 +214,7 @@ const MarketingPage = () => {
       <div style={styles.container}>
         <h1>{content[lang].headline}</h1>
         <form onSubmit={handleSubmit} style={styles.form}>
-          {/* Land */}
+          {/* Basisfelder */}
           <label style={styles.label}>{content[lang].formLabels.country}
             <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} required style={styles.input} />
           </label>
@@ -156,8 +222,7 @@ const MarketingPage = () => {
             <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setCountryImage)} style={styles.input} />
             {countryImage && <img src={countryImage.preview} alt="Country preview" style={styles.preview} />}
           </label>
-          
-          {/* Adresse */}
+
           <label style={styles.label}>{content[lang].formLabels.address}
             <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} required style={styles.input} />
           </label>
@@ -165,8 +230,7 @@ const MarketingPage = () => {
             <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setAddressImage)} style={styles.input} />
             {addressImage && <img src={addressImage.preview} alt="Address preview" style={styles.preview} />}
           </label>
-          
-          {/* Baujahr */}
+
           <label style={styles.label}>{content[lang].formLabels.yearBuilt}
             <input type="text" value={yearBuilt} onChange={(e) => setYearBuilt(e.target.value)} required style={styles.input} />
           </label>
@@ -174,8 +238,7 @@ const MarketingPage = () => {
             <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setYearBuiltImage)} style={styles.input} />
             {yearBuiltImage && <img src={yearBuiltImage.preview} alt="Year Built preview" style={styles.preview} />}
           </label>
-          
-          {/* Zustand */}
+
           <label style={styles.label}>{content[lang].formLabels.condition}
             <input type="text" value={condition} onChange={(e) => setCondition(e.target.value)} required style={styles.input} />
           </label>
@@ -183,8 +246,7 @@ const MarketingPage = () => {
             <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setConditionImage)} style={styles.input} />
             {conditionImage && <img src={conditionImage.preview} alt="Condition preview" style={styles.preview} />}
           </label>
-          
-          {/* Anzahl Zimmer */}
+
           <label style={styles.label}>{content[lang].formLabels.rooms}
             <input type="number" value={rooms} onChange={(e) => setRooms(e.target.value)} required style={styles.input} />
           </label>
@@ -192,8 +254,7 @@ const MarketingPage = () => {
             <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setRoomsImage)} style={styles.input} />
             {roomsImage && <img src={roomsImage.preview} alt="Rooms preview" style={styles.preview} />}
           </label>
-          
-          {/* Wasser */}
+
           <label style={styles.label}>{content[lang].formLabels.water}
             <input type="text" value={water} onChange={(e) => setWater(e.target.value)} required style={styles.input} />
           </label>
@@ -201,26 +262,147 @@ const MarketingPage = () => {
             <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setWaterImage)} style={styles.input} />
             {waterImage && <img src={waterImage.preview} alt="Water preview" style={styles.preview} />}
           </label>
-          
-          {/* Elektrizität */}
+
           <label style={styles.label}>{content[lang].formLabels.electricity}
             <input type="text" value={electricity} onChange={(e) => setElectricity(e.target.value)} required style={styles.input} />
           </label>
           <label style={styles.label}>{content[lang].fileLabels.electricity}
             <input type="file" accept="image/*" onChange={(e) => handleSingleImageChange(e, setElectricityImage)} style={styles.input} />
-            {electricityImage && <img src={electricityImage.preview} alt="Electricity preview" style={styles.preview} />}\n          </label>\n          \n          {/* Mehrfachbilder für Dach (max. 2) */}\n          <label style={styles.label}>{content[lang].fileLabels.roof}\n            <input type=\"file\" accept=\"image/*\" multiple onChange={(e) => handleMultipleImageChange(e, setRoofImages, 2)} style={styles.input} />\n            <div style={styles.previewContainer}>\n              {roofImages.map((img, index) => (\n                <img key={index} src={img.preview} alt={`Roof preview ${index + 1}`} style={styles.preview} />\n              ))}\n            </div>\n          </label>\n          \n          {/* Mehrfachbilder für Fassade (max. 4) */}\n          <label style={styles.label}>{content[lang].fileLabels.facade}\n            <input type=\"file\" accept=\"image/*\" multiple onChange={(e) => handleMultipleImageChange(e, setFacadeImages, 4)} style={styles.input} />\n            <div style={styles.previewContainer}>\n              {facadeImages.map((img, index) => (\n                <img key={index} src={img.preview} alt={`Facade preview ${index + 1}`} style={styles.preview} />\n              ))}\n            </div>\n          </label>\n          \n          <p style={styles.explanation}>{content[lang].explanation}</p>\n          \n          <button type=\"submit\" style={styles.submitButton}>{content[lang].submitButton}</button>\n        </form>\n      </div>\n    </div>\n  );\n};\n\nconst styles = {\n  container: {\n    marginTop: '80px',\n    padding: '20px',\n    maxWidth: '800px',\n    margin: '80px auto',\n    textAlign: 'center',\n    backgroundColor: '#f9f9f9',\n    borderRadius: '10px',\n    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'\n  },\n  form: {\n    display: 'flex',\n    flexDirection: 'column',\n    gap: '20px',\n    padding: '20px'\n  },\n  label: {\n    display: 'flex',\n    flexDirection: 'column',\n    textAlign: 'left',\n    fontWeight: 'bold'\n  },\n  input: {\n    padding: '10px',\n    fontSize: '1em',\n    marginTop: '5px'\n  },\n  button: {\n    padding: '10px 20px',\n    fontSize: '1em',\n    color: '#fff',\n    border: 'none',\n    borderRadius: '5px',\n    cursor: 'pointer',\n    transition: 'background 0.3s'\n  },\n  submitButton: {\n    backgroundColor: '#28a745',\n    color: '#fff',\n    padding: '15px 30px',\n    fontSize: '1.2em',\n    border: 'none',\n    borderRadius: '5px',\n    cursor: 'pointer',\n    marginTop: '20px'\n  },\n  preview: {\n    marginTop: '10px',\n    maxWidth: '100px',\n    maxHeight: '100px'\n  },\n  previewContainer: {\n    display: 'flex',\n    gap: '10px',\n    flexWrap: 'wrap'\n  },\n  explanation: {\n    marginTop: '10px',\n    fontStyle: 'italic'\n  }\n};\n\nexport default MarketingPage;\n```
+            {electricityImage && <img src={electricityImage.preview} alt="Electricity preview" style={styles.preview} />}
+          </label>
 
-### Wichtige Punkte:
-- **Datenfelder & Bilder:**  
-  Alle Eingabefelder sowie die Bildvorschauen werden wie in der SellPage verwaltet.
-- **OfferType:**  
-  Dieser ist in der MarketingPage fest auf `"vermarktung"` gesetzt, sodass beim Absenden alle Daten mit diesem Wert an den API-Endpoint gesendet werden.
-- **API-Call:**  
-  Die Daten werden per POST-Request an `/api/sell` gesendet. Dort solltest du im Backend unterscheiden können, ob es sich um ein Angebot oder eine Vermarktung handelt (hier wird "vermarktung" übergeben).
-- **Weiterleitung:**  
-  Nach erfolgreicher Speicherung wird der Benutzer auf die "HomeAfterLogin"-Seite weitergeleitet.
-- **Sprache:**  
-  Alle Texte werden basierend auf dem aktuell im LanguageContext gewählten Wert (de/en) angezeigt.
+          {/* Neue Felder für Filter/Eintrag */}
+          <label style={styles.label}>{content[lang].formLabels.livingArea}
+            <input type="number" value={livingArea} onChange={(e) => setLivingArea(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.plotArea}
+            <input type="number" value={plotArea} onChange={(e) => setPlotArea(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.availableFrom}
+            <input type="date" value={availableFrom} onChange={(e) => setAvailableFrom(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.bedrooms}
+            <input type="number" value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.bathrooms}
+            <input type="number" value={bathrooms} onChange={(e) => setBathrooms(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.garage}
+            <input type="text" value={garageField} onChange={(e) => setGarageField(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.propertyDescription}
+            <textarea value={propertyDescription} onChange={(e) => setPropertyDescription(e.target.value)} placeholder={content[lang].placeholderPropertyDescription} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.features}
+            <input type="text" value={features} onChange={(e) => setFeatures(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.heatingSystem}
+            <input type="text" value={heatingSystem} onChange={(e) => setHeatingSystem(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.heatingType}
+            <input type="text" value={heatingType} onChange={(e) => setHeatingType(e.target.value)} required style={styles.input} placeholder={`${content[lang].optionHeatingType1}, ${content[lang].optionHeatingType2}, ${content[lang].optionHeatingType3}, ${content[lang].optionHeatingType4}`} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.mainEnergySources}
+            <input type="text" value={mainEnergySources} onChange={(e) => setMainEnergySources(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.energyCertificate}
+            <input type="text" value={energyCertificate} onChange={(e) => setEnergyCertificate(e.target.value)} required style={styles.input} placeholder={`${content[lang].optionEnergyCertificate1} / ${content[lang].optionEnergyCertificate2}`} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.energyCertificateType}
+            <input type="text" value={energyCertificateType} onChange={(e) => setEnergyCertificateType(e.target.value)} required style={styles.input} placeholder={`${content[lang].optionEnergyCertificateType1} / ${content[lang].optionEnergyCertificateType2}`} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.finalEnergyDemand}
+            <input type="number" value={finalEnergyDemand} onChange={(e) => setFinalEnergyDemand(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.energyEfficiency}
+            <input type="text" value={energyEfficiency} onChange={(e) => setEnergyEfficiency(e.target.value)} required style={styles.input} />
+          </label>
+          <label style={styles.label}>{content[lang].formLabels.yearEnergyCertificate}
+            <input type="number" value={yearEnergyCertificate} onChange={(e) => setYearEnergyCertificate(e.target.value)} required style={styles.input} />
+          </label>
+          {/* Ende der neuen Felder */}
+          
+          {/* Mehrfachbilder für Dach (max. 2) */}
+          <label style={styles.label}>{content[lang].fileLabels.roof}
+            <input type="file" accept="image/*" multiple onChange={(e) => handleMultipleImageChange(e, setRoofImages, 2)} style={styles.input} />
+            <div style={styles.previewContainer}>
+              {roofImages.map((img, index) => (
+                <img key={index} src={img.preview} alt={`Roof preview ${index + 1}`} style={styles.preview} />
+              ))}
+            </div>
+          </label>
+          
+          {/* Mehrfachbilder für Fassade (max. 4) */}
+          <label style={styles.label}>{content[lang].fileLabels.facade}
+            <input type="file" accept="image/*" multiple onChange={(e) => handleMultipleImageChange(e, setFacadeImages, 4)} style={styles.input} />
+            <div style={styles.previewContainer}>
+              {facadeImages.map((img, index) => (
+                <img key={index} src={img.preview} alt={`Facade preview ${index + 1}`} style={styles.preview} />
+              ))}
+            </div>
+          </label>
+          
+          <p style={styles.explanation}>{content[lang].explanation}</p>
+          
+          <button type="submit" style={styles.submitButton}>{content[lang].submitButton}</button>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-Passe den Code gerne weiter an deine Anforderungen an. Falls du Fragen hast oder weitere Änderungen benötigst, stehe ich dir gerne zur Verfügung!
+const styles = {
+  container: {
+    marginTop: '80px',
+    padding: '20px',
+    maxWidth: '800px',
+    margin: '80px auto',
+    textAlign: 'center',
+    backgroundColor: '#f9f9f9',
+    borderRadius: '10px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    padding: '20px'
+  },
+  label: {
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'left',
+    fontWeight: 'bold'
+  },
+  input: {
+    padding: '10px',
+    fontSize: '1em',
+    marginTop: '5px'
+  },
+  submitButton: {
+    backgroundColor: '#28a745',
+    color: '#fff',
+    padding: '15px 30px',
+    fontSize: '1.2em',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    marginTop: '20px'
+  },
+  preview: {
+    marginTop: '10px',
+    maxWidth: '100px',
+    maxHeight: '100px'
+  },
+  previewContainer: {
+    display: 'flex',
+    gap: '10px',
+    flexWrap: 'wrap'
+  },
+  explanation: {
+    marginTop: '10px',
+    fontStyle: 'italic'
+  }
+};
 
+export default MarketingPage;
