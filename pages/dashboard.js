@@ -91,11 +91,12 @@ const Dashboard = () => {
     }
   };
 
-  const handleKIEvaluate = (saleId) => {
+  // KI-Bewertung: Es wird jetzt zusätzlich der aktuelle Preis übergeben.
+  const handleKIEvaluate = (saleId, currentPrice) => {
     fetch('/api/aiEvaluate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: saleId })
+      body: JSON.stringify({ id: saleId, price: currentPrice })
     })
       .then(res => res.json())
       .then(data => {
@@ -266,7 +267,7 @@ const Dashboard = () => {
                       <button style={styles.actionButton} onClick={() => handleChangePrice(sale.id)}>
                         {lang === 'de' ? "Preis ändern" : "Change Price"}
                       </button>
-                      <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id)}>
+                      <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id, sale.price)}>
                         {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
                       </button>
                       <button style={styles.actionButton} onClick={() => handleMarkSold(sale.id)}>
@@ -289,7 +290,7 @@ const Dashboard = () => {
                     <h3>{sale.address} - {sale.country}</h3>
                     <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
                     <div style={styles.buttonGroup}>
-                      <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id)}>
+                      <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id, sale.price)}>
                         {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
                       </button>
                       <button style={styles.actionButton} onClick={() => handleMarkSold(sale.id)}>
@@ -311,7 +312,7 @@ const Dashboard = () => {
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
                     <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
-                    <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id)}>
+                    <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id, sale.price)}>
                       {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
                     </button>
                   </div>
@@ -329,7 +330,7 @@ const Dashboard = () => {
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
                     <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
-                    <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id)}>
+                    <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id, sale.price)}>
                       {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
                     </button>
                   </div>
