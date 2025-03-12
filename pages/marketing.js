@@ -46,11 +46,13 @@ const MarketingPage = () => {
   const [finalEnergyDemand, setFinalEnergyDemand] = useState('');
   const [energyEfficiency, setEnergyEfficiency] = useState('');
   const [yearEnergyCertificate, setYearEnergyCertificate] = useState('');
+  // Neues Feld: Preisvorstellung
+  const [price, setPrice] = useState('');
 
   // Bei der Vermarktung ist der OfferType fest auf "vermarktung"
   const offerType = 'vermarktung';
 
-  // Texte in beiden Sprachen (inklusive der neuen Felder)
+  // Inhalte (Texte und Optionswerte) in beiden Sprachen (inklusive der neuen Felder)
   const content = {
     de: {
       headline: "Immobilie vermarkten",
@@ -77,7 +79,8 @@ const MarketingPage = () => {
         energyCertificateType: "Energieausweistyp",
         finalEnergyDemand: "Endenergiebedarf (kWh/m²*a)",
         energyEfficiency: "Energieeffizienzklasse",
-        yearEnergyCertificate: "Baujahr laut Energieausweis"
+        yearEnergyCertificate: "Baujahr laut Energieausweis",
+        price: "Preisvorstellung (in €)"
       },
       fileLabels: {
         country: "Bild für Land",
@@ -118,7 +121,8 @@ const MarketingPage = () => {
         energyCertificateType: "Energy Certificate Type",
         finalEnergyDemand: "Final Energy Demand (kWh/m²*a)",
         energyEfficiency: "Energy Efficiency Class",
-        yearEnergyCertificate: "Year per Energy Certificate"
+        yearEnergyCertificate: "Year per Energy Certificate",
+        price: "Price expectation (in €)"
       },
       fileLabels: {
         country: "Image for Country",
@@ -177,6 +181,7 @@ const MarketingPage = () => {
       finalEnergyDemand,
       energyEfficiency,
       yearEnergyCertificate,
+      price,
       countryImage: countryImage ? countryImage.preview : null,
       addressImage: addressImage ? addressImage.preview : null,
       yearBuiltImage: yearBuiltImage ? yearBuiltImage.preview : null,
@@ -212,7 +217,9 @@ const MarketingPage = () => {
     <div>
       <Navbar />
       <div style={styles.container}>
-        <h1>{content[lang].headline}</h1>
+        <h1>{headerTitle}</h1>
+        <p>{headerSubtitle}</p>
+        <h2>{content[lang].headline}</h2>
         <form onSubmit={handleSubmit} style={styles.form}>
           {/* Basisfelder */}
           <label style={styles.label}>{content[lang].formLabels.country}
@@ -300,16 +307,16 @@ const MarketingPage = () => {
             <input type="text" value={heatingSystem} onChange={(e) => setHeatingSystem(e.target.value)} required style={styles.input} />
           </label>
           <label style={styles.label}>{content[lang].formLabels.heatingType}
-            <input type="text" value={heatingType} onChange={(e) => setHeatingType(e.target.value)} required style={styles.input} placeholder={`${content[lang].optionHeatingType1}, ${content[lang].optionHeatingType2}, ${content[lang].optionHeatingType3}, ${content[lang].optionHeatingType4}`} />
+            <input type="text" value={heatingType} onChange={(e) => setHeatingType(e.target.value)} required style={styles.input} placeholder={`${content[lang].optionHeatingType}`} />
           </label>
           <label style={styles.label}>{content[lang].formLabels.mainEnergySources}
             <input type="text" value={mainEnergySources} onChange={(e) => setMainEnergySources(e.target.value)} required style={styles.input} />
           </label>
           <label style={styles.label}>{content[lang].formLabels.energyCertificate}
-            <input type="text" value={energyCertificate} onChange={(e) => setEnergyCertificate(e.target.value)} required style={styles.input} placeholder={`${content[lang].optionEnergyCertificate1} / ${content[lang].optionEnergyCertificate2}`} />
+            <input type="text" value={energyCertificate} onChange={(e) => setEnergyCertificate(e.target.value)} required style={styles.input} placeholder={`${content[lang].optionEnergyCertificate}`} />
           </label>
           <label style={styles.label}>{content[lang].formLabels.energyCertificateType}
-            <input type="text" value={energyCertificateType} onChange={(e) => setEnergyCertificateType(e.target.value)} required style={styles.input} placeholder={`${content[lang].optionEnergyCertificateType1} / ${content[lang].optionEnergyCertificateType2}`} />
+            <input type="text" value={energyCertificateType} onChange={(e) => setEnergyCertificateType(e.target.value)} required style={styles.input} placeholder={`${content[lang].optionEnergyCertificateType}`} />
           </label>
           <label style={styles.label}>{content[lang].formLabels.finalEnergyDemand}
             <input type="number" value={finalEnergyDemand} onChange={(e) => setFinalEnergyDemand(e.target.value)} required style={styles.input} />
@@ -319,6 +326,10 @@ const MarketingPage = () => {
           </label>
           <label style={styles.label}>{content[lang].formLabels.yearEnergyCertificate}
             <input type="number" value={yearEnergyCertificate} onChange={(e) => setYearEnergyCertificate(e.target.value)} required style={styles.input} />
+          </label>
+          {/* Neues Feld: Preisvorstellung */}
+          <label style={styles.label}>{content[lang].formLabels.price}
+            <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required style={styles.input} />
           </label>
           {/* Ende der neuen Felder */}
           
