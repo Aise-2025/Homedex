@@ -259,7 +259,7 @@ const Dashboard = () => {
                 newDirect.map(sale => (
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
-                    <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
+                    <p>{lang === 'de' ? "Preisvorstellung:" : "Price expectation:"} €{sale.price}</p>
                     <div style={styles.buttonGroup}>
                       <button style={styles.actionButton} onClick={() => handleAccept(sale.id)}>
                         {lang === 'de' ? "Annehmen" : "Accept"}
@@ -288,7 +288,7 @@ const Dashboard = () => {
                 newMarketing.map(sale => (
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
-                    <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
+                    <p>{lang === 'de' ? "Preisvorstellung:" : "Price expectation:"} €{sale.price}</p>
                     <div style={styles.buttonGroup}>
                       <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id, sale.price)}>
                         {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
@@ -311,7 +311,7 @@ const Dashboard = () => {
                 soldDirect.map(sale => (
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
-                    <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
+                    <p>{lang === 'de' ? "Preisvorstellung:" : "Price expectation:"} €{sale.price}</p>
                     <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id, sale.price)}>
                       {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
                     </button>
@@ -329,7 +329,7 @@ const Dashboard = () => {
                 soldMarketing.map(sale => (
                   <div key={sale.id} style={styles.requestCard}>
                     <h3>{sale.address} - {sale.country}</h3>
-                    <p>{lang === 'de' ? "Preis:" : "Price:"} €{sale.price}</p>
+                    <p>{lang === 'de' ? "Preisvorstellung:" : "Price expectation:"} €{sale.price}</p>
                     <button style={styles.actionButton} onClick={() => handleKIEvaluate(sale.id, sale.price)}>
                       {lang === 'de' ? "KI Bewertung" : "AI Evaluate"}
                     </button>
@@ -517,4 +517,4 @@ const styles = {
   }
 };
 
-export default Dashboard;
+export default MarketingPage;
