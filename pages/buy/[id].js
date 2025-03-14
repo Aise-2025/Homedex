@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { initDB } from '../../lib/db';
 
@@ -25,7 +24,7 @@ const PropertyDetail = ({ property }) => {
 };
 
 export async function getServerSideProps({ params }) {
-  const { id } = params;
+  const id = Number(params.id); // ID als Zahl interpretieren
   const db = await initDB();
   // Angenommen, alle Immobilien werden im Array db.data.sales gespeichert
   const property = db.data.sales.find(item => item.id === id) || null;
@@ -58,4 +57,3 @@ const styles = {
 };
 
 export default PropertyDetail;
-
