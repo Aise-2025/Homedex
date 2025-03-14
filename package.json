@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-chartjs-2": "^4.3.1",
     "chart.js": "^3.5.0",
     "lowdb": "^3.0.0",
