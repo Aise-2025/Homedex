@@ -7,7 +7,7 @@ import { Bar } from 'react-chartjs-2';
 const Dashboard = () => {
   const { lang } = useContext(LanguageContext);
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState("newDirect"); // Tabs: newDirect, newMarketing, soldDirect, soldMarketing, overall, employees
+  const [activeTab, setActiveTab] = useState("newDirect"); // newDirect, newMarketing, soldDirect, soldMarketing, overall, employees
   const [sales, setSales] = useState([]);
   const [employees, setEmployees] = useState([]);
 
@@ -17,7 +17,7 @@ const Dashboard = () => {
   const [empEmail, setEmpEmail] = useState('');
   const [empPassword, setEmpPassword] = useState('');
 
-  // Verkaufsanfragen laden (aus /api/sell, z. B. aus LowDB)
+  // Verkaufsanfragen laden (aus /api/sell, z.B. aus LowDB)
   useEffect(() => {
     fetch('/api/sell')
       .then(res => res.json())
@@ -68,7 +68,9 @@ const Dashboard = () => {
   };
 
   // Aktionen für Verkaufsanfragen
-  const handleAccept = (saleId) => {
+
+  // Für direkte Angebote: Button "Kaufen" (setzt den Status auf "accepted", sodass die Immobilie später in buy.js erscheint)
+  const handleBuy = (saleId) => {
     fetch('/api/updateSale', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -91,7 +93,7 @@ const Dashboard = () => {
     }
   };
 
-  // KI-Bewertung: Es wird jetzt zusätzlich der aktuelle Preis übergeben.
+  // KI-Bewertung: Es wird der aktuelle Preis übergeben
   const handleKIEvaluate = (saleId, currentPrice) => {
     fetch('/api/aiEvaluate', {
       method: 'POST',
@@ -140,10 +142,10 @@ const Dashboard = () => {
     router.push('/login');
   };
 
-  // Texte in beiden Sprachen
+  // Texte in beiden Sprachen (angepasst)
   const texts = {
     de: {
-      tabNewDirect: "Neue Anfragen (Direkt)",
+      tabNewDirect: "Neue Angebote (Direkt)",
       tabNewMarketing: "Neue Vermarktung",
       tabSoldDirect: "Verkaufte Direktkäufe",
       tabSoldMarketing: "Verkaufte Vermarktung",
@@ -161,7 +163,7 @@ const Dashboard = () => {
       noEmployees: "Keine Mitarbeiter vorhanden."
     },
     en: {
-      tabNewDirect: "New Direct Requests",
+      tabNewDirect: "New Direct Offers",
       tabNewMarketing: "New Marketing Requests",
       tabSoldDirect: "Sold Properties (Direct)",
       tabSoldMarketing: "Sold Properties (Marketing)",
@@ -261,8 +263,8 @@ const Dashboard = () => {
                     <h3>{sale.address} - {sale.country}</h3>
                     <p>{lang === 'de' ? "Preisvorstellung:" : "Price expectation:"} €{sale.price}</p>
                     <div style={styles.buttonGroup}>
-                      <button style={styles.actionButton} onClick={() => handleAccept(sale.id)}>
-                        {lang === 'de' ? "Annehmen" : "Accept"}
+                      <button style={styles.actionButton} onClick={() => handleBuy(sale.id)}>
+                        {lang === 'de' ? "Kaufen" : "Buy"}
                       </button>
                       <button style={styles.actionButton} onClick={() => handleChangePrice(sale.id)}>
                         {lang === 'de' ? "Preis ändern" : "Change Price"}
