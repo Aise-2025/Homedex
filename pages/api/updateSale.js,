@@ -1,4 +1,3 @@
-// /pages/api/updateSale.js
 import { initDB } from '../../lib/db';
 
 export default async function handler(req, res) {
@@ -6,38 +5,48 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  const { id, action, newPrice } = req.body;
+  try {
+    const { id, action, newPrice } = req.body;
+    if (!id || !action) {
+      return res.status(400).json({ message: 'Missing parameters' });
+    }
 
-  if (!id || !action) {
-    return res.status(400).json({ message: 'Missing parameters' });
+    const db = await initDB();
+    // IDs werden als Zahl gespeichert – daher Umwandlung
+    const saleId = Number(id);
+    const sale = db.data.sales.find(s => s.id === saleId);
+
+    if (!sale) {
+      return res.status(404).json({ message: 'Sale not found' });
+    }
+
+    switch (action) {
+      case 'accept':
+        sale.status = 'accepted';
+        break;
+      case 'changePrice':
+        if (newPrice === undefined || newPrice === null) {
+          return res.status(400).json({ message: 'Missing newPrice' });
+        }
+        const updatedPrice = Number(newPrice);
+        if (isNaN(updatedPrice)) {
+          return res.status(400).json({ message: 'Invalid newPrice' });
+        }
+        sale.price = updatedPrice;
+        // Beispiel-KI-Bewertung: 5% Aufschlag auf den neuen Preis
+        sale.kiEvaluation = updatedPrice * 1.05;
+        break;
+      case 'markSold':
+        sale.status = 'sold';
+        break;
+      default:
+        return res.status(400).json({ message: 'Unknown action' });
+    }
+
+    await db.write();
+    return res.status(200).json({ message: 'Sale updated successfully', sale });
+  } catch (error) {
+    console.error('Error in updateSale API:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
-
-  const db = await initDB();
-  const sale = db.data.sales.find(s => s.id === id);
-
-  if (!sale) {
-    return res.status(404).json({ message: 'Sale not found' });
-  }
-
-  switch (action) {
-    case 'accept':
-      sale.status = 'accepted';
-      break;
-    case 'changePrice':
-      if (!newPrice) {
-        return res.status(400).json({ message: 'Missing newPrice' });
-      }
-      sale.price = Number(newPrice);
-      // Beispiel-KI-Bewertung: 5% Aufschlag auf den neuen Preis
-      sale.kiEvaluation = sale.price * 1.05;
-      break;
-    case 'markSold':
-      sale.status = 'sold';
-      break;
-    default:
-      return res.status(400).json({ message: 'Unknown action' });
-  }
-
-  await db.write();
-  return res.status(200).json({ message: 'Sale updated successfully' });
 }
