@@ -493,7 +493,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelExterior}
             <input 
               type="file" 
-              accept="image/*"
+              accept="image/*" 
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setExteriorImages, 4)} 
               style={styles.input} 
@@ -503,7 +503,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelHeatingImages}
             <input 
               type="file" 
-              accept="image/*"
+              accept="image/*" 
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setHeatingImages, 2)} 
               style={styles.input} 
@@ -513,7 +513,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelElectricalImages}
             <input 
               type="file" 
-              accept="image/*"
+              accept="image/*" 
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setElectricalImages, 2)} 
               style={styles.input} 
@@ -523,7 +523,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelLivingRoomImages}
             <input 
               type="file" 
-             accept="image/*"
+              accept="image/*" 
               onChange={(e) => handleMultipleFileChange(e, setLivingRoomImages, 1)} 
               style={styles.input} 
             />
@@ -532,7 +532,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelBedroomImages}
             <input 
               type="file" 
-             accept="image/*"
+              accept="image/*" 
               onChange={(e) => handleMultipleFileChange(e, setBedroomImages, 1)} 
               style={styles.input} 
             />
@@ -550,7 +550,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelChildrenRoomImages}
             <input 
               type="file" 
-              accept="image/*"
+              accept="image/*" 
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setChildrenRoomImages, 5)} 
               style={styles.input} 
@@ -560,7 +560,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelRoofImages}
             <input 
               type="file" 
-              accept="image/*"
+              accept="image/*" 
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setRoofImages, 1)} 
               style={styles.input} 
@@ -570,7 +570,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelKitchenImages}
             <input 
               type="file" 
-              accept="image/*"
+              accept="image/*" 
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setKitchenImages, 2)} 
               style={styles.input} 
@@ -607,11 +607,11 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelFloorPlan}
             <input 
               type="file" 
-              accept="image/*"
+              accept="image/*" 
               onChange={(e) => handleFileChange(e, setFloorPlan)} 
               style={styles.input} 
             />
-            {floorPlan && <img src={floorPlan.preview} alt=\"Floor Plan preview\" style={styles.preview} /> }
+            {floorPlan && <img src={floorPlan.preview} alt="Floor Plan preview" style={styles.preview} /> }
           </label>
           {/* Lageplan (optional) */}
           <label style={styles.label}>{texts[lang].labelLocationPlan}
@@ -621,21 +621,21 @@ const SellPage = () => {
               onChange={(e) => handleFileChange(e, setLocationPlan)} 
               style={styles.input} 
             />
-            {locationPlan && <img src={locationPlan.preview} alt=\"Location Plan preview\" style={styles.preview} /> }
+            {locationPlan && <img src={locationPlan.preview} alt="Location Plan preview" style={styles.preview} /> }
           </label>
           
           {/* Auswahl der Angebotsart */}
           <div style={styles.buttonGroup}>
-            <button type=\"button\" onClick={() => setOfferType('angebot')} style={{ ...styles.button, backgroundColor: offerType === 'angebot' ? '#005bb5' : '#0070f3' }}>
+            <button type="button" onClick={() => setOfferType('angebot')} style={{ ...styles.button, backgroundColor: offerType === 'angebot' ? '#005bb5' : '#0070f3' }}>
               {content[lang].buttons.angebot}
             </button>
-            <button type=\"button\" onClick={() => setOfferType('vermarktung')} style={{ ...styles.button, backgroundColor: offerType === 'vermarktung' ? '#005bb5' : '#0070f3' }}>
+            <button type="button" onClick={() => setOfferType('vermarktung')} style={{ ...styles.button, backgroundColor: offerType === 'vermarktung' ? '#005bb5' : '#0070f3' }}>
               {content[lang].buttons.vermarktung}
             </button>
           </div>
           <p style={styles.explanation}>{content[lang].explanation}</p>
           
-          <button type=\"submit\" style={styles.submitButton}>{content[lang].submitButton}</button>
+          <button type="submit" style={styles.submitButton}>{content[lang].submitButton}</button>
         </form>
       </div>
     </div>
