@@ -29,6 +29,16 @@ export async function getServerSideProps({ params }) {
   // Angenommen, alle Immobilien werden im Array db.data.sales gespeichert
   const property = db.data.sales.find(item => item.id === id) || null;
   
+  // Nur Immobilien mit dem Status "accepted" sollen auf der Buy-Seite angezeigt werden.
+  if (!property || property.status !== 'accepted') {
+    return {
+      redirect: {
+        destination: '/dashboard',
+        permanent: false,
+      },
+    };
+  }
+  
   return {
     props: {
       property,
@@ -52,8 +62,4 @@ const styles = {
     width: '300px',
     height: 'auto',
     borderRadius: '8px',
-    objectFit: 'cover'
-  }
-};
-
-export default PropertyDetail;
+    objectFi
