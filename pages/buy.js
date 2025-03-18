@@ -9,7 +9,7 @@ const BuyPage = () => {
   const router = useRouter();
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
-  
+
   // Filter-Objekt für alle Felder (Beispiel, hier nur einige)
   const [filters, setFilters] = useState({
     address: '',
@@ -80,18 +80,21 @@ const BuyPage = () => {
         p.address.toLowerCase().includes(currentFilters.address.toLowerCase())
       );
     }
-    // Weitere Filter können hier ergänzt werden.
+    // Weitere Filter können analog ergänzt werden
     setFilteredProperties(filtered);
   };
 
-  // Beim Laden werden die Immobilien über den API-Endpunkt aus /api/sell abgerufen
+  // Beim Laden werden die Immobilien über den API-Endpoint aus /api/sell abgerufen.
+  // Für die BuyPage interessieren uns nur direkt verkaufte Immobilien (offerType === "angebot")
+  // und zusätzlich solche, die im Dashboard als "Kaufen" markiert wurden (z. B. status === "kaufen").
   useEffect(() => {
     fetch('/api/sell')
       .then((res) => res.json())
       .then((data) => {
         const sales = Array.isArray(data) ? data : data.sales;
-        // Filtern: Für BuyPage interessieren uns nur direkt verkaufte Immobilien (offerType === "angebot")
-        const directSales = sales.filter((sale) => sale.offerType === 'angebot');
+        const directSales = sales.filter(
+          (sale) => sale.offerType === 'angebot' && sale.status === 'kaufen'
+        );
         setProperties(directSales);
         setFilteredProperties(directSales);
       })
