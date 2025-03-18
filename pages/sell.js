@@ -696,4 +696,4 @@ const styles = {
   }
 };
 
-export default MarketingPage;
+export default SellPage;
