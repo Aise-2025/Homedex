@@ -493,7 +493,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelExterior}
             <input 
               type="file" 
-              accept=\"image/*\" 
+              accept="image/*"
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setExteriorImages, 4)} 
               style={styles.input} 
@@ -503,7 +503,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelHeatingImages}
             <input 
               type="file" 
-              accept=\"image/*\" 
+              accept="image/*"
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setHeatingImages, 2)} 
               style={styles.input} 
@@ -513,7 +513,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelElectricalImages}
             <input 
               type="file" 
-              accept=\"image/*\" 
+              accept="image/*"
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setElectricalImages, 2)} 
               style={styles.input} 
@@ -523,7 +523,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelLivingRoomImages}
             <input 
               type="file" 
-              accept=\"image/*\" 
+             accept="image/*"
               onChange={(e) => handleMultipleFileChange(e, setLivingRoomImages, 1)} 
               style={styles.input} 
             />
@@ -532,7 +532,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelBedroomImages}
             <input 
               type="file" 
-              accept=\"image/*\" 
+             accept="image/*"
               onChange={(e) => handleMultipleFileChange(e, setBedroomImages, 1)} 
               style={styles.input} 
             />
@@ -550,7 +550,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelChildrenRoomImages}
             <input 
               type="file" 
-              accept=\"image/*\" 
+              accept="image/*"
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setChildrenRoomImages, 5)} 
               style={styles.input} 
@@ -560,7 +560,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelRoofImages}
             <input 
               type="file" 
-              accept=\"image/*\" 
+              accept="image/*"
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setRoofImages, 1)} 
               style={styles.input} 
@@ -570,7 +570,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelKitchenImages}
             <input 
               type="file" 
-              accept=\"image/*\" 
+              accept="image/*"
               multiple 
               onChange={(e) => handleMultipleFileChange(e, setKitchenImages, 2)} 
               style={styles.input} 
@@ -607,7 +607,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelFloorPlan}
             <input 
               type="file" 
-              accept=\"image/*\" 
+              accept="image/*"
               onChange={(e) => handleFileChange(e, setFloorPlan)} 
               style={styles.input} 
             />
@@ -617,7 +617,7 @@ const SellPage = () => {
           <label style={styles.label}>{texts[lang].labelLocationPlan}
             <input 
               type="file" 
-              accept=\"image/*\" 
+              accept="image/*" 
               onChange={(e) => handleFileChange(e, setLocationPlan)} 
               style={styles.input} 
             />
