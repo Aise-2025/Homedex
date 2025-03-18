@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ const BuyPage = () => {
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
   
-  // Filter-Objekt mit allen Feldern
+  // Filter-Objekt für alle Felder (Beispiel, hier nur einige)
   const [filters, setFilters] = useState({
     address: '',
     country: '',
@@ -20,32 +20,8 @@ const BuyPage = () => {
     rooms: '',
     bedrooms: '',
     bathrooms: '',
-    garage: '',
-    propertyDescription: '',
-    features: '',
-    heatingSystem: '',
-    yearBuilt: '',
-    heatingType: '',
-    mainEnergySources: '',
-    energyCertificate: '',
-    energyCertificateType: '',
-    finalEnergyDemand: '',
-    energyEfficiency: '',
-    yearEnergyCertificate: '',
-    exterior: '',
-    heatingImages: '',
-    electricalImages: '',
-    livingRoomImages: '',
-    bedroomImages: '',
-    childrenCount: '',
-    childrenRoomImages: '',
-    roofImages: '',
-    kitchenImages: '',
-    storage: '',
-    garageExtra: '',
-    office: '',
-    floorPlan: '',
-    locationPlan: ''
+    garage: ''
+    // Weitere Filterfelder können ergänzt werden
   });
 
   // Texte in beiden Sprachen für Filter und Listenüberschriften
@@ -63,40 +39,6 @@ const BuyPage = () => {
       labelBedrooms: "Schlafzimmer",
       labelBathrooms: "Badezimmer",
       labelGarage: "Garage/Stellplatz",
-      labelPropertyDescription: "Objektbeschreibung",
-      placeholderPropertyDescription: "Freier Text",
-      labelFeatures: "Ausstattung",
-      labelHeatingSystem: "Heizungsanlage",
-      labelYearBuilt: "Baujahr",
-      labelHeatingType: "Heizungsart",
-      optionHeatingType1: "Nachtspeicheröfen",
-      optionHeatingType2: "Gasheizung",
-      optionHeatingType3: "Ölheizung",
-      optionHeatingType4: "Wärmepumpe",
-      labelMainEnergySources: "Wesentliche Energieträger",
-      labelEnergyCertificate: "Energieausweis",
-      optionEnergyCertificate1: "liegt vor",
-      optionEnergyCertificate2: "nicht vorhanden",
-      labelEnergyCertificateType: "Energieausweistyp",
-      optionEnergyCertificateType1: "Bedarfsausweis",
-      optionEnergyCertificateType2: "Verbrauchsausweis",
-      labelFinalEnergyDemand: "Endenergiebedarf (kWh/m²*a)",
-      labelEnergyEfficiency: "Energieeffizienzklasse",
-      labelYearEnergyCertificate: "Baujahr laut Energieausweis",
-      labelExterior: "Außenansicht (4 Bilder) *",
-      labelHeatingImages: "Heizungsanlage (2 Bilder) *",
-      labelElectricalImages: "Stromkasten (2 Bilder) *",
-      labelLivingRoomImages: "Wohnzimmer (mindestens 1 Bild) *",
-      labelBedroomImages: "Schlafzimmer (mindestens 1 Bild) *",
-      labelChildrenCount: "Anzahl Kinderzimmer",
-      labelChildrenRoomImages: "Kinderzimmer Bilder (mindestens 1 pro Kinderzimmer, falls > 0)",
-      labelRoofImages: "Dach Fotos (mindestens 1 Bild) *",
-      labelKitchenImages: "Küche (mindestens 2 Bilder) *",
-      labelStorage: "Abstellraum",
-      labelGarageExtra: "Garage",
-      labelOffice: "Arbeitszimmer",
-      labelFloorPlan: "Grundriss (optional)",
-      labelLocationPlan: "Lageplan (optional)",
       listHeader: "Immobilienangebote",
       noResults: "Keine Immobilien gefunden."
     },
@@ -113,40 +55,6 @@ const BuyPage = () => {
       labelBedrooms: "Bedrooms",
       labelBathrooms: "Bathrooms",
       labelGarage: "Garage/Parking",
-      labelPropertyDescription: "Property Description",
-      placeholderPropertyDescription: "Free text",
-      labelFeatures: "Features",
-      labelHeatingSystem: "Heating System",
-      labelYearBuilt: "Year Built",
-      labelHeatingType: "Heating Type",
-      optionHeatingType1: "Storage Heaters",
-      optionHeatingType2: "Gas Heating",
-      optionHeatingType3: "Oil Heating",
-      optionHeatingType4: "Heat Pump",
-      labelMainEnergySources: "Main Energy Sources",
-      labelEnergyCertificate: "Energy Certificate",
-      optionEnergyCertificate1: "available",
-      optionEnergyCertificate2: "not available",
-      labelEnergyCertificateType: "Energy Certificate Type",
-      optionEnergyCertificateType1: "Demand Certificate",
-      optionEnergyCertificateType2: "Consumption Certificate",
-      labelFinalEnergyDemand: "Final Energy Demand (kWh/m²*a)",
-      labelEnergyEfficiency: "Energy Efficiency Class",
-      labelYearEnergyCertificate: "Year per Energy Certificate",
-      labelExterior: "Exterior (4 images) *",
-      labelHeatingImages: "Heating System (2 images) *",
-      labelElectricalImages: "Electrical Panel (2 images) *",
-      labelLivingRoomImages: "Living Room (at least 1 image) *",
-      labelBedroomImages: "Bedroom (at least 1 image) *",
-      labelChildrenCount: "Number of Children's Rooms",
-      labelChildrenRoomImages: "Children's Room Images (at least 1 per room if > 0)",
-      labelRoofImages: "Roof Photos (at least 1 image) *",
-      labelKitchenImages: "Kitchen (at least 2 images) *",
-      labelStorage: "Storage",
-      labelGarageExtra: "Garage",
-      labelOffice: "Office",
-      labelFloorPlan: "Floor Plan (optional)",
-      labelLocationPlan: "Location Plan (optional)",
       listHeader: "Property Listings",
       noResults: "No properties found."
     }
@@ -162,42 +70,40 @@ const BuyPage = () => {
 
   const applyFilters = (currentFilters) => {
     let filtered = properties;
-    // Beispiel: Filter nach Country
     if (currentFilters.country) {
       filtered = filtered.filter((p) =>
         p.country.toLowerCase().includes(currentFilters.country.toLowerCase())
       );
     }
-    // Weitere Filter können analog ergänzt werden
-    // (In einem echten Projekt sollte man alle Felder berücksichtigen.)
+    if (currentFilters.address) {
+      filtered = filtered.filter((p) =>
+        p.address.toLowerCase().includes(currentFilters.address.toLowerCase())
+      );
+    }
+    // Weitere Filter können hier ergänzt werden.
     setFilteredProperties(filtered);
   };
 
-  // Beim Laden werden die Immobilien über GET aus dem API-Endpoint abgerufen
+  // Beim Laden werden die Immobilien über den API-Endpunkt aus /api/sell abgerufen
   useEffect(() => {
     fetch('/api/sell')
       .then((res) => res.json())
       .then((data) => {
         const sales = Array.isArray(data) ? data : data.sales;
-        setProperties(sales);
-        setFilteredProperties(sales);
+        // Filtern: Für BuyPage interessieren uns nur direkt verkaufte Immobilien (offerType === "angebot")
+        const directSales = sales.filter((sale) => sale.offerType === 'angebot');
+        setProperties(directSales);
+        setFilteredProperties(directSales);
       })
       .catch((err) => console.error('Fehler beim Laden der Immobilien:', err));
   }, []);
 
-  // Einfaches Bildkarussell für die Immobilienanzeige
+  // Einfaches Bildkarussell zur Anzeige von Bildern (hier nutzen wir die Außenansicht)
   const PropertyCarousel = ({ images }) => {
     const [current, setCurrent] = useState(0);
     if (!images || images.length === 0) return null;
-
-    const nextImage = () => {
-      setCurrent((current + 1) % images.length);
-    };
-
-    const prevImage = () => {
-      setCurrent((current - 1 + images.length) % images.length);
-    };
-
+    const nextImage = () => setCurrent((current + 1) % images.length);
+    const prevImage = () => setCurrent((current - 1 + images.length) % images.length);
     return (
       <div style={{ position: 'relative', width: '100%', height: '150px', overflow: 'hidden' }}>
         <img
@@ -346,21 +252,16 @@ const BuyPage = () => {
               style={styles.filterInput}
             />
           </div>
-          {/* Weitere Filterfelder können analog ergänzt werden, z. B.:
-              labelPropertyDescription, labelFeatures, labelHeatingSystem, labelYearBuilt, 
-              labelHeatingType (als Select), labelMainEnergySources, labelEnergyCertificate (als Select),
-              labelEnergyCertificateType (als Select), labelFinalEnergyDemand, labelEnergyEfficiency,
-              labelYearEnergyCertificate, und die Bild-Felder. */}
         </div>
         {/* Listenansicht */}
         <div style={styles.listContainer}>
           <h2>{texts[lang].listHeader}</h2>
           {filteredProperties.length === 0 && <p>{texts[lang].noResults}</p>}
           {filteredProperties.map((property) => (
-            <Link key={property.id} href={`/buy/${property.id}`}>
+            <Link key={property.id} href={`/buy/${property.id}`} passHref>
               <a style={styles.propertyCard}>
-                <PropertyCarousel images={property.images} />
-                <h3>{property.description}</h3>
+                <PropertyCarousel images={property.exteriorImages || []} />
+                <h3>{property.propertyDescription}</h3>
                 <p>{property.country}</p>
                 <p>Grundstücksgröße: {property.plotArea} m²</p>
                 <p>Wohnfläche: {property.livingArea} m²</p>
