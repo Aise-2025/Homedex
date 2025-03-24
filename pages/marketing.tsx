@@ -15,6 +15,7 @@ interface Property {
   land: string;
   preis: number;
   status: string; // z. B. "vermarkten", "verkauft"
+  documents?: string[]; // URLs zu Dokumenten, die von sell.tsx kommen
   // Optional: Käuferdaten, die nach dem Kauf gesetzt werden
   buyer?: {
     vorname: string;
@@ -36,6 +37,7 @@ interface Translations {
     propertyCard: {
       verkaufen: string;
       kaufen: string;
+      details: string;
     };
     buyerForm: {
       title: string;
@@ -50,6 +52,10 @@ interface Translations {
       email: string;
       submit: string;
       cancel: string;
+    };
+    detailModal: {
+      title: string;
+      close: string;
     };
   };
 }
@@ -79,6 +85,7 @@ export default function MarketingPage() {
     telefon: "",
     email: ""
   });
+  const [selectedDetail, setSelectedDetail] = useState<Property | null>(null);
 
   // Sprache aus localStorage laden (Standard: "de")
   useEffect(() => {
@@ -86,7 +93,7 @@ export default function MarketingPage() {
     setLanguage(lang);
   }, []);
 
-  // Manuelle Übersetzungen für Marketing
+  // Manuelle Übersetzungen für Marketing (de, en, fr, es, it, nl, pl)
   const translations: { [key: string]: Translations } = {
     de: {
       marketing: {
@@ -94,7 +101,8 @@ export default function MarketingPage() {
         filterLabel: "Filter",
         propertyCard: {
           verkaufen: "Immobilie Verkaufen",
-          kaufen: "Kaufen"
+          kaufen: "Kaufen",
+          details: "Details anzeigen"
         },
         buyerForm: {
           title: "Käuferdaten eingeben",
@@ -109,6 +117,10 @@ export default function MarketingPage() {
           email: "E-Mail",
           submit: "Daten absenden",
           cancel: "Abbrechen"
+        },
+        detailModal: {
+          title: "Immobiliendetails",
+          close: "Schließen"
         }
       }
     },
@@ -118,7 +130,8 @@ export default function MarketingPage() {
         filterLabel: "Filter",
         propertyCard: {
           verkaufen: "Sell Property",
-          kaufen: "Buy"
+          kaufen: "Buy",
+          details: "View Details"
         },
         buyerForm: {
           title: "Enter Buyer Information",
@@ -133,6 +146,10 @@ export default function MarketingPage() {
           email: "Email",
           submit: "Submit",
           cancel: "Cancel"
+        },
+        detailModal: {
+          title: "Property Details",
+          close: "Close"
         }
       }
     },
@@ -142,7 +159,8 @@ export default function MarketingPage() {
         filterLabel: "Filtrer",
         propertyCard: {
           verkaufen: "Vendre la propriété",
-          kaufen: "Acheter"
+          kaufen: "Acheter",
+          details: "Voir les détails"
         },
         buyerForm: {
           title: "Saisir les informations de l'acheteur",
@@ -157,6 +175,10 @@ export default function MarketingPage() {
           email: "E-mail",
           submit: "Envoyer",
           cancel: "Annuler"
+        },
+        detailModal: {
+          title: "Détails de la propriété",
+          close: "Fermer"
         }
       }
     },
@@ -166,7 +188,8 @@ export default function MarketingPage() {
         filterLabel: "Filtrar",
         propertyCard: {
           verkaufen: "Vender Propiedad",
-          kaufen: "Comprar"
+          kaufen: "Comprar",
+          details: "Ver detalles"
         },
         buyerForm: {
           title: "Ingrese la información del comprador",
@@ -181,6 +204,10 @@ export default function MarketingPage() {
           email: "Correo electrónico",
           submit: "Enviar",
           cancel: "Cancelar"
+        },
+        detailModal: {
+          title: "Detalles de la propiedad",
+          close: "Cerrar"
         }
       }
     },
@@ -190,7 +217,8 @@ export default function MarketingPage() {
         filterLabel: "Filtra",
         propertyCard: {
           verkaufen: "Vendi Proprietà",
-          kaufen: "Acquista"
+          kaufen: "Acquista",
+          details: "Visualizza dettagli"
         },
         buyerForm: {
           title: "Inserisci le informazioni dell'acquirente",
@@ -205,6 +233,10 @@ export default function MarketingPage() {
           email: "Email",
           submit: "Invia",
           cancel: "Annulla"
+        },
+        detailModal: {
+          title: "Dettagli della proprietà",
+          close: "Chiudi"
         }
       }
     },
@@ -214,7 +246,8 @@ export default function MarketingPage() {
         filterLabel: "Filter",
         propertyCard: {
           verkaufen: "Verkoop Eigendom",
-          kaufen: "Kopen"
+          kaufen: "Kopen",
+          details: "Bekijk details"
         },
         buyerForm: {
           title: "Voer kopergegevens in",
@@ -229,6 +262,10 @@ export default function MarketingPage() {
           email: "E-mail",
           submit: "Verzenden",
           cancel: "Annuleren"
+        },
+        detailModal: {
+          title: "Eigendomsdetails",
+          close: "Sluiten"
         }
       }
     },
@@ -238,7 +275,8 @@ export default function MarketingPage() {
         filterLabel: "Filtruj",
         propertyCard: {
           verkaufen: "Sprzedaj Nieruchomość",
-          kaufen: "Kup"
+          kaufen: "Kup",
+          details: "Zobacz szczegóły"
         },
         buyerForm: {
           title: "Wprowadź dane kupującego",
@@ -253,6 +291,10 @@ export default function MarketingPage() {
           email: "E-mail",
           submit: "Wyślij",
           cancel: "Anuluj"
+        },
+        detailModal: {
+          title: "Szczegóły nieruchomości",
+          close: "Zamknij"
         }
       }
     }
@@ -274,10 +316,7 @@ export default function MarketingPage() {
 
   // Filter-Handler
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value
-    });
+    setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
   // Filtere Immobilien basierend auf den Filterwerten
@@ -297,6 +336,11 @@ export default function MarketingPage() {
     setShowBuyerForm(true);
   };
 
+  // Detail-Modal: Öffne, wenn auf "Details anzeigen" geklickt wird
+  const handleShowDetails = (property: Property) => {
+    setSelectedDetail(property);
+  };
+
   // Käufer-Formular absenden: API-Aufruf zum Kauf (z.B. /api/buyProperty)
   const handleBuyerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -311,7 +355,6 @@ export default function MarketingPage() {
     });
     const data = await res.json();
     if (data.success) {
-      // Aktualisiere den Status der Immobilie auf "verkauft" und speichere Käuferdaten
       setProperties((prev) =>
         prev.map((prop) =>
           prop.id === selectedProperty.id
@@ -321,7 +364,6 @@ export default function MarketingPage() {
       );
       setShowBuyerForm(false);
       setBuyerInfo({ vorname: "", nachname: "", strasse: "", hausnummer: "", plz: "", ort: "", land: "", telefon: "", email: "" });
-      // Optionale Weiterleitung z.B. zum Dashboard (falls benötigt): router.push('/dashboard');
     } else {
       alert("Kauf fehlgeschlagen: " + data.message);
     }
@@ -354,7 +396,9 @@ export default function MarketingPage() {
                 <a className="bg-yellow-500 text-white px-2 py-1 rounded">{t.propertyCard.verkaufen}</a>
               </Link>
             </div>
-            <h2 className="text-2xl font-semibold">{property.title}</h2>
+            <h2 className="text-2xl font-semibold cursor-pointer" onClick={() => handleShowDetails(property)}>
+              {property.title}
+            </h2>
             <p className="mt-2">{property.description}</p>
             <p className="mt-2 text-sm">
               Baujahr: {property.baujahr} | Grundstück: {property.grundstueck} | Zimmer: {property.zimmer}
@@ -429,6 +473,44 @@ export default function MarketingPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Detail-Modal für Immobilie */}  
+      {selectedDetail && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded max-w-2xl w-full relative">
+            <button
+              onClick={() => setSelectedDetail(null)}
+              className="absolute top-2 right-2 text-gray-600 text-xl"
+            >
+              &times;
+            </button>
+            <h2 className="text-2xl font-bold mb-4">{t.detailModal.title}</h2>
+            <h3 className="text-xl font-semibold">{selectedDetail.title}</h3>
+            <p className="mt-2">{selectedDetail.description}</p>
+            <p className="mt-2 text-sm">
+              Baujahr: {selectedDetail.baujahr} | Grundstück: {selectedDetail.grundstueck} | Zimmer: {selectedDetail.zimmer}
+            </p>
+            <p className="mt-2">
+              Ort: {selectedDetail.ort} | Preis: €{selectedDetail.preis}
+            </p>
+            <div className="mt-2 flex overflow-x-auto space-x-2">
+              {selectedDetail.images.map((img, index) => (
+                <img key={index} src={img} alt={`Bild ${index + 1}`} className="w-40 h-40 object-cover rounded" />
+              ))}
+            </div>
+            {selectedDetail.documents && selectedDetail.documents.length > 0 && (
+              <div className="mt-4">
+                <h3 className="font-semibold">Dokumente:</h3>
+                <ul className="list-disc ml-6 mt-2">
+                  {selectedDetail.documents.map((doc, index) => (
+                    <li key={index}><a href={doc} target=\"_blank\" rel=\"noopener noreferrer\" className=\"text-blue-600 underline\">Dokument {index + 1}</a></li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       )}
