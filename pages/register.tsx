@@ -67,12 +67,47 @@ export default function RegisterPage() {
         submit: "Registrarse",
         loginPrompt: "¿Ya tienes cuenta? ¡Inicia sesión!"
       }
+    },
+    it: {
+      register: {
+        title: "Registrazione",
+        fullName: "Nome completo",
+        email: "Email",
+        password: "Password",
+        confirmPassword: "Conferma Password",
+        phone: "Telefono (opzionale)",
+        submit: "Registrati",
+        loginPrompt: "Hai già un account? Accedi!"
+      }
+    },
+    nl: {
+      register: {
+        title: "Registratie",
+        fullName: "Volledige naam",
+        email: "E-mail",
+        password: "Wachtwoord",
+        confirmPassword: "Bevestig wachtwoord",
+        phone: "Telefoon (optioneel)",
+        submit: "Registreren",
+        loginPrompt: "Heb je al een account? Log in!"
+      }
+    },
+    pl: {
+      register: {
+        title: "Rejestracja",
+        fullName: "Pełne imię i nazwisko",
+        email: "E-mail",
+        password: "Hasło",
+        confirmPassword: "Potwierdź hasło",
+        phone: "Telefon (opcjonalnie)",
+        submit: "Zarejestruj się",
+        loginPrompt: "Masz już konto? Zaloguj się!"
+      }
     }
   };
 
   const t = translations[language];
 
-  // Sprachwechsel-Handler
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLang = e.target.value;
     setLanguage(newLang);
@@ -85,9 +120,7 @@ export default function RegisterPage() {
       alert("Passwörter stimmen nicht überein!");
       return;
     }
-    // Registrierungsdaten vorbereiten
     const registrationData = { fullName, email, password, phone, language };
-    // API-Aufruf zur Registrierung (Beispiel: /api/register)
     const res = await fetch('/api/register', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -116,6 +149,9 @@ export default function RegisterPage() {
             <option value="en">English</option>
             <option value="fr">Français</option>
             <option value="es">Español</option>
+            <option value="it">Italiano</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
           </select>
         </div>
       </header>
