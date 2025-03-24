@@ -3,14 +3,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 export default function HomePage() {
-  // Sprache wird über State verwaltet, initial "de" (Deutsch)
   const [language, setLanguage] = useState("de");
 
-  /* 
-    Manuelles Übersetzungs-Mapping für alle angezeigten Texte.
-    Hierbei handelt es sich um manuell gepflegte Texte für jeden unterstützten Markt.
-    Es findet keine automatische Übersetzung statt.
-  */
+  // Manuelles Übersetzungs-Mapping für alle angezeigten Texte
   const translations: { [key: string]: {
     header: { home: string; submit: string; login: string; admin: string },
     hero: { title: string; description: string; cta: string },
@@ -75,7 +70,7 @@ export default function HomePage() {
       },
       cost: {
         headline: "Frais d'agence en France vs. Homedex",
-        text: "En France, les commissions traditionnelles peuvent atteindre entre 5% et 8% (oftens uniquement à la charge du vendeur). Avec Homedex, nous appliquons un taux de 1% pour chaque partie – ou 2% insgesamt, garantissant ainsi une approche équitable."
+        text: "En France, les commissions traditionnelles peuvent atteindre entre 5% et 8% (souvent uniquement à la charge du vendeur). Avec Homedex, nous appliquons un taux de 1% pour chaque partie – soit 2% au total, garantissant ainsi une approche équitable."
       },
       footer: {
         copyright: "© 2025 Homedex. Tous droits réservés.",
@@ -97,7 +92,7 @@ export default function HomePage() {
       },
       cost: {
         headline: "Comisiones inmobiliarias en España vs. Homedex",
-        text: "En España, las comisiones tradicionales suelen oscilar entre el 3% y el 6% para ambas partes. Con Homedex, tanto comprador como vendedor pagan solo un 1% cada uno, sumando un total del 2%."
+        text: "En España, las comisiones tradicionales suelen oscilar entre el 3% y el 6% para ambas partes. Con Homedex, tanto comprador como vendedor pagan solo el 1% cada uno, sumando un total del 2%."
       },
       footer: {
         copyright: "© 2025 Homedex. Todos los derechos reservados.",
@@ -105,15 +100,78 @@ export default function HomePage() {
         impressum: "Aviso legal"
       }
     },
-    // Weitere Sprachen wie it, nl etc. können hier analog hinzugefügt werden.
+    it: {
+      header: {
+        home: "Home",
+        submit: "Invia Proprietà",
+        login: "Accesso",
+        admin: "Pannello di Amministrazione"
+      },
+      hero: {
+        title: "Vendi la tua proprietà in modo digitale – Veloce, trasparente e conveniente!",
+        description: "Con Homedex, sfrutti un modello online innovativo che ti consente di vendere la tua proprietà senza stress. Immagini di alta qualità, tour a 360° e processi trasparenti ti fanno risparmiare tempo e denaro, senza visite inutili.",
+        cta: "Richiedi ora la valutazione della tua proprietà"
+      },
+      cost: {
+        headline: "Commissioni immobiliari in Italia vs. Homedex",
+        text: "In Italia, le commissioni tradizionali variano solitamente tra il 2% e il 4%, spesso a carico del venditore. Con Homedex, sia l'acquirente che il venditore pagano solo l'1% ciascuno, per un totale del 2%."
+      },
+      footer: {
+        copyright: "© 2025 Homedex. Tutti i diritti riservati.",
+        privacy: "Informativa sulla privacy",
+        impressum: "Impressum"
+      }
+    },
+    nl: {
+      header: {
+        home: "Home",
+        submit: "Eigendom indienen",
+        login: "Inloggen",
+        admin: "Admin Dashboard"
+      },
+      hero: {
+        title: "Verkoop uw vastgoed digitaal – Snel, transparant en kostenefficiënt!",
+        description: "Met Homedex profiteert u van een innovatief online model dat het mogelijk maakt uw vastgoed zonder stress te verkopen. Hoogwaardige beelden, 360° tours en transparante processen besparen u tijd en geld – zonder overbodige bezichtigingen.",
+        cta: "Vraag nu de waardebepaling aan"
+      },
+      cost: {
+        headline: "Makelaarskosten in Nederland vs. Homedex",
+        text: "In Nederland liggen de gebruikelijke makelaarskosten vaak tussen de 2% en 3% voor zowel koper als verkoper. Bij Homedex betaalt elke partij slechts 1%, wat resulteert in aanzienlijke besparingen."
+      },
+      footer: {
+        copyright: "© 2025 Homedex. Alle rechten voorbehouden.",
+        privacy: "Privacybeleid",
+        impressum: "Impressum"
+      }
+    },
+    pl: {
+      header: {
+        home: "Strona główna",
+        submit: "Zgłoś nieruchomość",
+        login: "Logowanie",
+        admin: "Panel administracyjny"
+      },
+      hero: {
+        title: "Sprzedaj swoją nieruchomość cyfrowo – szybko, przejrzyście i efektywnie kosztowo!",
+        description: "Dzięki Homedex korzystasz z innowacyjnego modelu online, który umożliwia sprzedaż nieruchomości bez stresu. Wysokiej jakości zdjęcia, wirtualne wycieczki 360° i przejrzyste procesy pozwalają zaoszczędzić czas i pieniądze – bez niepotrzebnych oględzin.",
+        cta: "Oceń swoją nieruchomość już teraz"
+      },
+      cost: {
+        headline: "Prowizje agencji nieruchomości w Polsce vs. Homedex",
+        text: "W Polsce tradycyjne prowizje agencji nieruchomości wynoszą zazwyczaj od 3% do 6% zarówno dla kupujących, jak i sprzedających. Dzięki Homedex obie strony płacą tylko 1%, czyli łącznie 2%."
+      },
+      footer: {
+        copyright: "© 2025 Homedex. Wszelkie prawa zastrzeżone.",
+        privacy: "Polityka prywatności",
+        impressum: "Impresum"
+      }
+    }
   };
 
-  // Handler für die Sprachumschaltung
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(e.target.value);
   };
 
-  // Wähle die aktuell zu verwendenden Übersetzungen
   const t = translations[language];
 
   return (
@@ -145,7 +203,6 @@ export default function HomePage() {
             </li>
           </ul>
         </nav>
-        {/* Sprachumschaltung */}
         <div>
           <select
             className="border p-1 rounded"
@@ -156,7 +213,9 @@ export default function HomePage() {
             <option value="en">English</option>
             <option value="fr">Français</option>
             <option value="es">Español</option>
-            {/* Weitere Sprachen können hier hinzugefügt werden */}
+            <option value="it">Italiano</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
           </select>
         </div>
       </header>
