@@ -1,6 +1,7 @@
 // pages/marketing.tsx
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface Property {
   id: number;
@@ -54,6 +55,7 @@ interface Translations {
 }
 
 export default function MarketingPage() {
+  const router = useRouter();
   const [language, setLanguage] = useState("de");
   const [properties, setProperties] = useState<Property[]>([]);
   const [filters, setFilters] = useState({
@@ -84,7 +86,7 @@ export default function MarketingPage() {
     setLanguage(lang);
   }, []);
 
-  // Manuelle Übersetzungen für Marketing (Deutsch und Englisch)
+  // Manuelle Übersetzungen für Marketing
   const translations: { [key: string]: Translations } = {
     de: {
       marketing: {
@@ -133,8 +135,127 @@ export default function MarketingPage() {
           cancel: "Cancel"
         }
       }
+    },
+    fr: {
+      marketing: {
+        title: "Marché",
+        filterLabel: "Filtrer",
+        propertyCard: {
+          verkaufen: "Vendre la propriété",
+          kaufen: "Acheter"
+        },
+        buyerForm: {
+          title: "Saisir les informations de l'acheteur",
+          vorname: "Prénom",
+          nachname: "Nom",
+          strasse: "Rue",
+          hausnummer: "Numéro de maison",
+          plz: "Code postal",
+          ort: "Ville",
+          land: "Pays",
+          telefon: "Téléphone",
+          email: "E-mail",
+          submit: "Envoyer",
+          cancel: "Annuler"
+        }
+      }
+    },
+    es: {
+      marketing: {
+        title: "Mercado",
+        filterLabel: "Filtrar",
+        propertyCard: {
+          verkaufen: "Vender Propiedad",
+          kaufen: "Comprar"
+        },
+        buyerForm: {
+          title: "Ingrese la información del comprador",
+          vorname: "Nombre",
+          nachname: "Apellido",
+          strasse: "Calle",
+          hausnummer: "Número",
+          plz: "Código Postal",
+          ort: "Ciudad",
+          land: "País",
+          telefon: "Teléfono",
+          email: "Correo electrónico",
+          submit: "Enviar",
+          cancel: "Cancelar"
+        }
+      }
+    },
+    it: {
+      marketing: {
+        title: "Mercato",
+        filterLabel: "Filtra",
+        propertyCard: {
+          verkaufen: "Vendi Proprietà",
+          kaufen: "Acquista"
+        },
+        buyerForm: {
+          title: "Inserisci le informazioni dell'acquirente",
+          vorname: "Nome",
+          nachname: "Cognome",
+          strasse: "Via",
+          hausnummer: "Numero civico",
+          plz: "CAP",
+          ort: "Città",
+          land: "Paese",
+          telefon: "Telefono",
+          email: "Email",
+          submit: "Invia",
+          cancel: "Annulla"
+        }
+      }
+    },
+    nl: {
+      marketing: {
+        title: "Marktplaats",
+        filterLabel: "Filter",
+        propertyCard: {
+          verkaufen: "Verkoop Eigendom",
+          kaufen: "Kopen"
+        },
+        buyerForm: {
+          title: "Voer kopergegevens in",
+          vorname: "Voornaam",
+          nachname: "Achternaam",
+          strasse: "Straat",
+          hausnummer: "Huisnummer",
+          plz: "Postcode",
+          ort: "Plaats",
+          land: "Land",
+          telefon: "Telefoon",
+          email: "E-mail",
+          submit: "Verzenden",
+          cancel: "Annuleren"
+        }
+      }
+    },
+    pl: {
+      marketing: {
+        title: "Rynek",
+        filterLabel: "Filtruj",
+        propertyCard: {
+          verkaufen: "Sprzedaj Nieruchomość",
+          kaufen: "Kup"
+        },
+        buyerForm: {
+          title: "Wprowadź dane kupującego",
+          vorname: "Imię",
+          nachname: "Nazwisko",
+          strasse: "Ulica",
+          hausnummer: "Numer domu",
+          plz: "Kod pocztowy",
+          ort: "Miasto",
+          land: "Kraj",
+          telefon: "Telefon",
+          email: "E-mail",
+          submit: "Wyślij",
+          cancel: "Anuluj"
+        }
+      }
     }
-    // Weitere Sprachen können hier ergänzt werden
   };
 
   const t = translations[language].marketing;
@@ -194,22 +315,13 @@ export default function MarketingPage() {
       setProperties((prev) =>
         prev.map((prop) =>
           prop.id === selectedProperty.id
-            ? { ...prop, status: "verkauft", buyer: buyerInfo } // Vereinfachend, setze Buyer-Daten
+            ? { ...prop, status: "verkauft", buyer: buyerInfo }
             : prop
         )
       );
       setShowBuyerForm(false);
-      setBuyerInfo({
-        vorname: "",
-        nachname: "",
-        strasse: "",
-        hausnummer: "",
-        plz: "",
-        ort: "",
-        land: "",
-        telefon: "",
-        email: ""
-      });
+      setBuyerInfo({ vorname: "", nachname: "", strasse: "", hausnummer: "", plz: "", ort: "", land: "", telefon: "", email: "" });
+      // Optionale Weiterleitung z.B. zum Dashboard (falls benötigt): router.push('/dashboard');
     } else {
       alert("Kauf fehlgeschlagen: " + data.message);
     }
@@ -223,54 +335,12 @@ export default function MarketingPage() {
       <div className="mb-6">
         <h2 className="text-xl font-semibold">{t.filterLabel}</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-          <input
-            type="text"
-            name="land"
-            placeholder="Land"
-            className="border p-2"
-            value={filters.land}
-            onChange={handleFilterChange}
-          />
-          <input
-            type="text"
-            name="ort"
-            placeholder="Ort"
-            className="border p-2"
-            value={filters.ort}
-            onChange={handleFilterChange}
-          />
-          <input
-            type="text"
-            name="plz"
-            placeholder="PLZ"
-            className="border p-2"
-            value={filters.plz}
-            onChange={handleFilterChange}
-          />
-          <input
-            type="text"
-            name="baujahr"
-            placeholder="Baujahr"
-            className="border p-2"
-            value={filters.baujahr}
-            onChange={handleFilterChange}
-          />
-          <input
-            type="number"
-            name="preisVon"
-            placeholder="Preis von"
-            className="border p-2"
-            value={filters.preisVon}
-            onChange={handleFilterChange}
-          />
-          <input
-            type="number"
-            name="preisBis"
-            placeholder="Preis bis"
-            className="border p-2"
-            value={filters.preisBis}
-            onChange={handleFilterChange}
-          />
+          <input type="text" name="land" placeholder="Land" className="border p-2" value={filters.land} onChange={handleFilterChange} />
+          <input type="text" name="ort" placeholder="Ort" className="border p-2" value={filters.ort} onChange={handleFilterChange} />
+          <input type="text" name="plz" placeholder="PLZ" className="border p-2" value={filters.plz} onChange={handleFilterChange} />
+          <input type="text" name="baujahr" placeholder="Baujahr" className="border p-2" value={filters.baujahr} onChange={handleFilterChange} />
+          <input type="number" name="preisVon" placeholder="Preis von" className="border p-2" value={filters.preisVon} onChange={handleFilterChange} />
+          <input type="number" name="preisBis" placeholder="Preis bis" className="border p-2" value={filters.preisBis} onChange={handleFilterChange} />
         </div>
       </div>
 
@@ -281,9 +351,7 @@ export default function MarketingPage() {
             {/* "Immobilie Verkaufen"-Button oben rechts */}
             <div className="absolute top-2 right-2">
               <Link href="/sell">
-                <a className="bg-yellow-500 text-white px-2 py-1 rounded">
-                  {t.propertyCard.verkaufen}
-                </a>
+                <a className="bg-yellow-500 text-white px-2 py-1 rounded">{t.propertyCard.verkaufen}</a>
               </Link>
             </div>
             <h2 className="text-2xl font-semibold">{property.title}</h2>
@@ -297,20 +365,12 @@ export default function MarketingPage() {
             {/* Bilder als Swipe-Funktion (einfache horizontale Scroll-Ansicht) */}
             <div className="mt-2 flex overflow-x-auto space-x-2">
               {property.images.map((img, index) => (
-                <img
-                  key={index}
-                  src={img}
-                  alt={`Bild ${index + 1}`}
-                  className="w-32 h-32 object-cover rounded"
-                />
+                <img key={index} src={img} alt={`Bild ${index + 1}`} className="w-32 h-32 object-cover rounded" />
               ))}
             </div>
             {/* Kauf-Button */}
             <div className="mt-4">
-              <button
-                onClick={() => handleBuyClick(property)}
-                className="bg-green-600 text-white px-4 py-2 rounded"
-              >
+              <button onClick={() => handleBuyClick(property)} className="bg-green-600 text-white px-4 py-2 rounded">
                 {t.propertyCard.kaufen}
               </button>
             </div>
@@ -326,124 +386,45 @@ export default function MarketingPage() {
             <form onSubmit={handleBuyerSubmit}>
               <div className="mb-2">
                 <label>{t.buyerForm.vorname}:</label>
-                <input
-                  type="text"
-                  className="w-full border p-2"
-                  value={buyerInfo.vorname}
-                  onChange={(e) =>
-                    setBuyerInfo({ ...buyerInfo, vorname: e.target.value })
-                  }
-                  required
-                />
+                <input type="text" className="w-full border p-2" value={buyerInfo.vorname} onChange={(e) => setBuyerInfo({ ...buyerInfo, vorname: e.target.value })} required />
               </div>
               <div className="mb-2">
                 <label>{t.buyerForm.nachname}:</label>
-                <input
-                  type="text"
-                  className="w-full border p-2"
-                  value={buyerInfo.nachname}
-                  onChange={(e) =>
-                    setBuyerInfo({ ...buyerInfo, nachname: e.target.value })
-                  }
-                  required
-                />
+                <input type="text" className="w-full border p-2" value={buyerInfo.nachname} onChange={(e) => setBuyerInfo({ ...buyerInfo, nachname: e.target.value })} required />
               </div>
               <div className="mb-2">
                 <label>{t.buyerForm.strasse}:</label>
-                <input
-                  type="text"
-                  className="w-full border p-2"
-                  value={buyerInfo.strasse}
-                  onChange={(e) =>
-                    setBuyerInfo({ ...buyerInfo, strasse: e.target.value })
-                  }
-                  required
-                />
+                <input type="text" className="w-full border p-2" value={buyerInfo.strasse} onChange={(e) => setBuyerInfo({ ...buyerInfo, strasse: e.target.value })} required />
               </div>
               <div className="mb-2">
                 <label>{t.buyerForm.hausnummer}:</label>
-                <input
-                  type="text"
-                  className="w-full border p-2"
-                  value={buyerInfo.hausnummer}
-                  onChange={(e) =>
-                    setBuyerInfo({ ...buyerInfo, hausnummer: e.target.value })
-                  }
-                  required
-                />
+                <input type="text" className="w-full border p-2" value={buyerInfo.hausnummer} onChange={(e) => setBuyerInfo({ ...buyerInfo, hausnummer: e.target.value })} required />
               </div>
               <div className="mb-2">
                 <label>{t.buyerForm.plz}:</label>
-                <input
-                  type="text"
-                  className="w-full border p-2"
-                  value={buyerInfo.plz}
-                  onChange={(e) =>
-                    setBuyerInfo({ ...buyerInfo, plz: e.target.value })
-                  }
-                  required
-                />
+                <input type="text" className="w-full border p-2" value={buyerInfo.plz} onChange={(e) => setBuyerInfo({ ...buyerInfo, plz: e.target.value })} required />
               </div>
               <div className="mb-2">
                 <label>{t.buyerForm.ort}:</label>
-                <input
-                  type="text"
-                  className="w-full border p-2"
-                  value={buyerInfo.ort}
-                  onChange={(e) =>
-                    setBuyerInfo({ ...buyerInfo, ort: e.target.value })
-                  }
-                  required
-                />
+                <input type="text" className="w-full border p-2" value={buyerInfo.ort} onChange={(e) => setBuyerInfo({ ...buyerInfo, ort: e.target.value })} required />
               </div>
               <div className="mb-2">
                 <label>{t.buyerForm.land}:</label>
-                <input
-                  type="text"
-                  className="w-full border p-2"
-                  value={buyerInfo.land}
-                  onChange={(e) =>
-                    setBuyerInfo({ ...buyerInfo, land: e.target.value })
-                  }
-                  required
-                />
+                <input type="text" className="w-full border p-2" value={buyerInfo.land} onChange={(e) => setBuyerInfo({ ...buyerInfo, land: e.target.value })} required />
               </div>
               <div className="mb-2">
                 <label>{t.buyerForm.telefon}:</label>
-                <input
-                  type="text"
-                  className="w-full border p-2"
-                  value={buyerInfo.telefon}
-                  onChange={(e) =>
-                    setBuyerInfo({ ...buyerInfo, telefon: e.target.value })
-                  }
-                  required
-                />
+                <input type="text" className="w-full border p-2" value={buyerInfo.telefon} onChange={(e) => setBuyerInfo({ ...buyerInfo, telefon: e.target.value })} required />
               </div>
               <div className="mb-4">
                 <label>{t.buyerForm.email}:</label>
-                <input
-                  type="email"
-                  className="w-full border p-2"
-                  value={buyerInfo.email}
-                  onChange={(e) =>
-                    setBuyerInfo({ ...buyerInfo, email: e.target.value })
-                  }
-                  required
-                />
+                <input type="email" className="w-full border p-2" value={buyerInfo.email} onChange={(e) => setBuyerInfo({ ...buyerInfo, email: e.target.value })} required />
               </div>
               <div className="flex justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={() => setShowBuyerForm(false)}
-                  className="bg-gray-500 text-white px-4 py-2 rounded"
-                >
+                <button type="button" onClick={() => setShowBuyerForm(false)} className="bg-gray-500 text-white px-4 py-2 rounded">
                   {t.buyerForm.cancel}
                 </button>
-                <button
-                  type="submit"
-                  className="bg-blue-600 text-white px-4 py-2 rounded"
-                >
+                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
                   {t.buyerForm.submit}
                 </button>
               </div>
@@ -454,18 +435,3 @@ export default function MarketingPage() {
     </div>
   );
 }
-// pages/marketing.tsx
-import React from "react";
-
-export default function MarketingPage() {
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold">Willkommen bei Homedex</h1>
-      <p className="mt-4">
-        Hier finden Sie alle Informationen rund um den digitalen Immobilienverkauf – einfach, transparent und kosteneffizient.
-      </p>
-      {/* Weitere Marketing-Inhalte können hier hinzugefügt werden */}
-    </div>
-  );
-}
-
