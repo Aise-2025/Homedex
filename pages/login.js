@@ -1,14 +1,15 @@
+// /pages/login.js
 import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import { LanguageContext } from '../context/LanguageContext';
 import Navbar from '../components/Navbar';
+import { LanguageContext } from '../context/LanguageContext';
 
 const LoginPage = () => {
   const { lang } = useContext(LanguageContext);
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const router = useRouter();
 
   const texts = {
     de: {
@@ -29,6 +30,25 @@ const LoginPage = () => {
     },
   };
 
+  // Hilfsfunktion zur Decodierung des JWT-Payloads
+  const decodeJWT = (token) => {
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      // decodeURIComponent(escape(...)) ist ein häufiger Polyfill, 
+      // falls der Token Unicode-Zeichen enthält
+      const jsonPayload = decodeURIComponent(
+        Array.prototype.map
+          .call(window.atob(base64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      console.error('Fehler beim Decodieren des Tokens:', e);
+      return null;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -43,14 +63,12 @@ const LoginPage = () => {
         setError(errorData.message || 'Fehler beim Login');
       } else {
         const data = await res.json();
-        // Token speichern
+        // Token speichern (z.B. im localStorage)
         localStorage.setItem('token', data.token);
-        // Token Payload decodieren, um die Rolle auszulesen
-        const base64Url = data.token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const payload = JSON.parse(decodeURIComponent(escape(window.atob(base64))));
+        // JWT decodieren, um die Rolle auszulesen
+        const payload = decodeJWT(data.token);
         // Weiterleitung basierend auf der Rolle
-        if (payload.role === 'employee') {
+        if (payload && payload.role === 'employee') {
           router.push('/dashboard');
         } else {
           router.push('/homeafterlogin');
