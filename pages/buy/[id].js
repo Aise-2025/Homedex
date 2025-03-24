@@ -1,3 +1,4 @@
+// /pages/buy/[id].js
 import React from 'react';
 import { initDB } from '../../lib/db';
 
@@ -8,25 +9,26 @@ const PropertyDetail = ({ property }) => {
 
   return (
     <div style={styles.container}>
-      <h1>{property.description || 'Immobilie'}</h1>
+      <h1>{property.propertyDescription || 'Immobilie'}</h1>
       <p><strong>Land:</strong> {property.country}</p>
-      <p><strong>Grundstücksgröße:</strong> {property.plotSize} m²</p>
-      <p><strong>Wohnfläche:</strong> {property.livingSpace} m²</p>
+      <p><strong>Grundstücksgröße:</strong> {property.plotArea} m²</p>
+      <p><strong>Wohnfläche:</strong> {property.livingArea} m²</p>
       <p><strong>Preis:</strong> €{property.price}</p>
       <div style={styles.imageContainer}>
-        {property.images && property.images.map((img, index) => (
+        {property.exteriorImages && property.exteriorImages.map((img, index) => (
           <img key={index} src={img} alt={`Bild ${index + 1}`} style={styles.image} />
         ))}
       </div>
-      {/* Weitere Informationen können hier ergänzt werden */}
+      {/* Hier können weitere Details ergänzt werden */}
     </div>
   );
 };
 
 export async function getServerSideProps({ params }) {
-  const id = Number(params.id); // ID als Zahl interpretieren
+  // Wir erwarten, dass die IDs als Zahlen gespeichert wurden
+  const id = Number(params.id);
   const db = await initDB();
-  // Angenommen, alle Immobilien werden im Array db.data.sales gespeichert
+  // Angenommen, alle Immobilien stehen im Array db.data.sales
   const property = db.data.sales.find(item => item.id === id) || null;
   
   return {
