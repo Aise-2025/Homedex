@@ -1,4 +1,3 @@
-// /pages/login.js
 import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar';
@@ -30,13 +29,15 @@ const LoginPage = () => {
     },
   };
 
-  // Hilfsfunktion zur Decodierung des JWT-Payloads
+  // Fallback auf Englisch, falls lang nicht definiert ist
+  const selectedTexts = texts[lang] || texts.en;
+
+  // Decode JWT nur im Client ausführen
   const decodeJWT = (token) => {
+    if (typeof window === "undefined") return null;
     try {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      // decodeURIComponent(escape(...)) ist ein häufiger Polyfill, 
-      // falls der Token Unicode-Zeichen enthält
       const jsonPayload = decodeURIComponent(
         Array.prototype.map
           .call(window.atob(base64), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
@@ -63,9 +64,7 @@ const LoginPage = () => {
         setError(errorData.message || 'Fehler beim Login');
       } else {
         const data = await res.json();
-        // Token speichern (z.B. im localStorage)
         localStorage.setItem('token', data.token);
-        // JWT decodieren, um die Rolle auszulesen
         const payload = decodeJWT(data.token);
         // Weiterleitung basierend auf der Rolle
         if (payload && payload.role === 'employee') {
@@ -83,10 +82,10 @@ const LoginPage = () => {
     <div>
       <Navbar />
       <div style={styles.container}>
-        <h1>{texts[lang].title}</h1>
+        <h1>{selectedTexts.title}</h1>
         <form onSubmit={handleSubmit} style={styles.form}>
           <label style={styles.label}>
-            {texts[lang].emailLabel}
+            {selectedTexts.emailLabel}
             <input 
               type="email" 
               value={email} 
@@ -96,7 +95,7 @@ const LoginPage = () => {
             />
           </label>
           <label style={styles.label}>
-            {texts[lang].passwordLabel}
+            {selectedTexts.passwordLabel}
             <input 
               type="password" 
               value={password} 
@@ -105,11 +104,11 @@ const LoginPage = () => {
               style={styles.input}
             />
           </label>
-          <button type="submit" style={styles.button}>{texts[lang].loginButton}</button>
+          <button type="submit" style={styles.button}>{selectedTexts.loginButton}</button>
         </form>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <p style={styles.text}>
-          {texts[lang].noAccount} <a href="/register">{texts[lang].register}</a>
+          {selectedTexts.noAccount} <a href="/register">{selectedTexts.register}</a>
         </p>
       </div>
     </div>
