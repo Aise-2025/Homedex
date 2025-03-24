@@ -1,1 +1,26 @@
+// pages/api/login.ts
+import { NextApiRequest, NextApiResponse } from "next";
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ success: false, message: "Method not allowed" });
+  }
+
+  const { email, password } = req.body;
+
+  // MVP: Direkte Speicherung der Admin-Credentials im Code
+  const adminEmail = "frohlichmartin28@gmail.com";
+  const adminPassword = "Heinz100335";
+
+  // Überprüfung der Login-Daten
+  if (email === adminEmail && password === adminPassword) {
+    // Dummy-Token (MVP, ohne JWT-Implementierung)
+    const token = "dummy-admin-token";
+    return res.status(200).json({ success: true, token, role: "mitarbeiter" });
+  }
+
+  // Für andere Nutzer: Hier könnte später eine Datenbankabfrage erfolgen.
+  // Für das MVP senden wir einfach eine Fehlermeldung zurück.
+  return res.status(401).json({ success: false, message: "Falsche Zugangsdaten" });
+}
 
