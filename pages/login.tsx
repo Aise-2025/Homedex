@@ -52,12 +52,38 @@ export default function LoginPage() {
         submit: "Acceder",
         registerPrompt: "¿No tienes cuenta? ¡Regístrate!"
       }
+    },
+    it: {
+      login: {
+        title: "Accesso",
+        email: "Email",
+        password: "Password",
+        submit: "Accedi",
+        registerPrompt: "Non hai un account? Registrati ora!"
+      }
+    },
+    nl: {
+      login: {
+        title: "Inloggen",
+        email: "E-mail",
+        password: "Wachtwoord",
+        submit: "Inloggen",
+        registerPrompt: "Heb je nog geen account? Registreer nu!"
+      }
+    },
+    pl: {
+      login: {
+        title: "Logowanie",
+        email: "E-mail",
+        password: "Hasło",
+        submit: "Zaloguj się",
+        registerPrompt: "Nie masz konta? Zarejestruj się teraz!"
+      }
     }
   };
 
   const t = translations[language];
 
-  // Sprachwechsel-Handler (ändert Sprache und speichert im localStorage)
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLang = e.target.value;
     setLanguage(newLang);
@@ -66,7 +92,6 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // API-Aufruf zum Einloggen (Beispiel: /api/login)
     const res = await fetch('/api/login', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -96,6 +121,9 @@ export default function LoginPage() {
             <option value="en">English</option>
             <option value="fr">Français</option>
             <option value="es">Español</option>
+            <option value="it">Italiano</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
           </select>
         </div>
       </header>
