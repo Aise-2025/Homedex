@@ -10,7 +10,7 @@ const BuyPage = () => {
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
 
-  // Filter-Objekt für alle Felder (Beispiel, hier nur einige)
+  // Filter-Objekt für einige Felder (weitere Felder können ergänzt werden)
   const [filters, setFilters] = useState({
     address: '',
     country: '',
@@ -21,7 +21,6 @@ const BuyPage = () => {
     bedrooms: '',
     bathrooms: '',
     garage: ''
-    // Weitere Filterfelder können ergänzt werden
   });
 
   // Texte in beiden Sprachen für Filter und Listenüberschriften
@@ -60,7 +59,7 @@ const BuyPage = () => {
     }
   };
 
-  // Handler für Filteränderungen
+  // Filter-Handler: Aktualisiere das Filterobjekt und wende die Filter an
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     const newFilters = { ...filters, [name]: value };
@@ -80,13 +79,13 @@ const BuyPage = () => {
         p.address.toLowerCase().includes(currentFilters.address.toLowerCase())
       );
     }
-    // Weitere Filter können analog ergänzt werden
+    // Hier können weitere Filterfelder ergänzt werden
     setFilteredProperties(filtered);
   };
 
-  // Beim Laden werden die Immobilien über den API-Endpoint aus /api/sell abgerufen.
+  // Beim Laden werden die Immobilien über den API-Endpunkt aus /api/sell abgerufen.
   // Für die BuyPage interessieren uns nur direkt verkaufte Immobilien (offerType === "angebot")
-  // und zusätzlich solche, die im Dashboard als "Kaufen" markiert wurden (z. B. status === "kaufen").
+  // und solche, die im Dashboard als "Kaufen" markiert wurden (z.B. status === "kaufen").
   useEffect(() => {
     fetch('/api/sell')
       .then((res) => res.json())
@@ -101,7 +100,7 @@ const BuyPage = () => {
       .catch((err) => console.error('Fehler beim Laden der Immobilien:', err));
   }, []);
 
-  // Einfaches Bildkarussell zur Anzeige von Bildern (hier nutzen wir die Außenansicht)
+  // Einfaches Bildkarussell zur Anzeige der Außenansichten
   const PropertyCarousel = ({ images }) => {
     const [current, setCurrent] = useState(0);
     if (!images || images.length === 0) return null;
