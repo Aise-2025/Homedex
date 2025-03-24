@@ -121,13 +121,15 @@ export default function RegisterPage() {
       return;
     }
     const registrationData = { fullName, email, password, phone, language };
+    // API-Aufruf zur Registrierung (Beispiel: /api/register)
     const res = await fetch('/api/register', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(registrationData)
     });
     const data = await res.json();
     if (data.success) {
+      // Nach erfolgreicher Registrierung Weiterleitung zur Login-Seite
       router.push("/login");
     } else {
       alert("Registrierung fehlgeschlagen: " + data.message);
@@ -161,51 +163,51 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit}>
           <label className="block mb-2">
             {t.register.fullName}:
-            <input 
-              type="text" 
-              className="w-full p-2 border mt-1" 
-              value={fullName} 
-              onChange={(e) => setFullName(e.target.value)} 
-              required 
+            <input
+              type="text"
+              className="w-full p-2 border mt-1"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
             />
           </label>
           <label className="block mb-2">
             {t.register.email}:
-            <input 
-              type="email" 
-              className="w-full p-2 border mt-1" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
+            <input
+              type="email"
+              className="w-full p-2 border mt-1"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </label>
           <label className="block mb-2">
             {t.register.password}:
-            <input 
-              type="password" 
-              className="w-full p-2 border mt-1" 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
-              required 
+            <input
+              type="password"
+              className="w-full p-2 border mt-1"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </label>
           <label className="block mb-2">
             {t.register.confirmPassword}:
-            <input 
-              type="password" 
-              className="w-full p-2 border mt-1" 
-              value={confirmPassword} 
-              onChange={(e) => setConfirmPassword(e.target.value)} 
-              required 
+            <input
+              type="password"
+              className="w-full p-2 border mt-1"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
           </label>
           <label className="block mb-4">
             {t.register.phone}:
-            <input 
-              type="tel" 
-              className="w-full p-2 border mt-1" 
-              value={phone} 
-              onChange={(e) => setPhone(e.target.value)} 
+            <input
+              type="tel"
+              className="w-full p-2 border mt-1"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </label>
           <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded">
