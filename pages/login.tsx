@@ -84,25 +84,36 @@ export default function LoginPage() {
 
   const t = translations[language];
 
+  // Handler für die Sprachumschaltung
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLang = e.target.value;
     setLanguage(newLang);
     localStorage.setItem("language", newLang);
   };
 
+  // Handler für das Login-Formular
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // API-Aufruf zu /api/login – der Endpunkt muss neben dem Token auch die Nutzerrolle (z.B. "mitarbeiter" oder "nutzer") zurückgeben.
     const res = await fetch('/api/login', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     });
     const data = await res.json();
+    
     if (data.token) {
       localStorage.setItem("token", data.token);
-      router.push("/");
+      
+      // Unterschiedliche Weiterleitung basierend auf der Rolle
+      if (data.role === "mitarbeiter") {
+        router.push("/dashboard"); // Weiterleitung für Mitarbeiter
+      } else {
+        router.push("/marketing"); // Weiterleitung für normale Nutzer
+      }
     } else {
-      alert("Login fehlgeschlagen");
+      alert("Login fehlgeschlagen: " + data.message);
     }
   };
 
@@ -137,7 +148,7 @@ export default function LoginPage() {
               type="email" 
               className="w-full p-2 border mt-1" 
               value={email} 
-              onChange={(e)=>setEmail(e.target.value)} 
+              onChange={(e) => setEmail(e.target.value)} 
               required 
             />
           </label>
@@ -147,7 +158,7 @@ export default function LoginPage() {
               type="password" 
               className="w-full p-2 border mt-1" 
               value={password} 
-              onChange={(e)=>setPassword(e.target.value)} 
+              onChange={(e) => setPassword(e.target.value)} 
               required 
             />
           </label>
