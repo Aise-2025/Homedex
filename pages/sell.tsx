@@ -36,13 +36,13 @@ interface Translations {
       kueche: string;
       wohnzimmer: string;
       kinderzimmer: string;
-      uploadHint: string;
+      uploadFacade: string;
+      uploadRoof: string;
+      uploadPlot: string;
+      uploadDocuments: string;
+      uploadRooms: string;
       submit: string;
       cancel: string;
-      facade: string;
-      roof: string;
-      plot: string;
-      documents: string;
     };
     header: {
       sellProperty: string;
@@ -69,14 +69,18 @@ export default function SellPage() {
     kinderzimmerAnzahl: ""
   });
 
-  // File-Uploads: Für Fassade, Dach, Grundstück und für Raumtypen sowie Dokumente
+  // File-Uploads:
+  // Für Fassade und Dach: genau 4 Bilder jeweils
   const [facadeFiles, setFacadeFiles] = useState<FileList | null>(null);
   const [roofFiles, setRoofFiles] = useState<FileList | null>(null);
+  // Für Grundstück: 1 Bild oder 2 Bilder/Videos
   const [plotFiles, setPlotFiles] = useState<FileList | null>(null);
+  // Für Raumtypen: hier erlauben wir 1 Bild, optional auch ein Video (nutze dasselbe Input-Feld)
   const [badFiles, setBadFiles] = useState<FileList | null>(null);
   const [kuecheFiles, setKuecheFiles] = useState<FileList | null>(null);
   const [wohnzimmerFiles, setWohnzimmerFiles] = useState<FileList | null>(null);
   const [kinderzimmerFiles, setKinderzimmerFiles] = useState<FileList | null>(null);
+  // Dokumentenupload (z. B. Energieausweis, Grundbuchauszug)
   const [documentFiles, setDocumentFiles] = useState<FileList | null>(null);
 
   // Übersetzungen für Sell-Formular in den unterstützten Sprachen
@@ -98,13 +102,13 @@ export default function SellPage() {
           kueche: "Anzahl Küchen",
           wohnzimmer: "Anzahl Wohnzimmer",
           kinderzimmer: "Anzahl Kinderzimmer",
-          uploadHint: "Bitte laden Sie 4 Bilder hoch",
+          uploadFacade: "Bitte laden Sie 4 Bilder für die Fassade hoch",
+          uploadRoof: "Bitte laden Sie 4 Bilder für das Dach hoch",
+          uploadPlot: "Bitte laden Sie 1-2 Bilder (oder ein Video) für das Grundstück hoch",
+          uploadDocuments: "Bitte laden Sie die Dokumente hoch (z.B. Energieausweis, Grundbuchauszug)",
+          uploadRooms: "Bitte laden Sie je 1 Bild (oder ein Video) pro Raum hoch",
           submit: "Immobilie inserieren",
-          cancel: "Abbrechen",
-          facade: "Fotos Fassade",
-          roof: "Fotos Dach",
-          plot: "Fotos Grundstück",
-          documents: "Dokumente (z.B. Energieausweis, Grundbuchauszug)"
+          cancel: "Abbrechen"
         },
         header: {
           sellProperty: "Immobilie verkaufen"
@@ -128,13 +132,13 @@ export default function SellPage() {
           kueche: "Number of Kitchens",
           wohnzimmer: "Number of Living Rooms",
           kinderzimmer: "Number of Children's Rooms",
-          uploadHint: "Please upload 4 images each",
+          uploadFacade: "Please upload 4 images for the facade",
+          uploadRoof: "Please upload 4 images for the roof",
+          uploadPlot: "Please upload 1-2 images (or a video) for the plot",
+          uploadDocuments: "Please upload the documents (e.g., energy certificate, land register)",
+          uploadRooms: "Please upload 1 image (or a video) per room",
           submit: "List Property",
-          cancel: "Cancel",
-          facade: "Facade Photos",
-          roof: "Roof Photos",
-          plot: "Plot Photos",
-          documents: "Documents (e.g., energy certificate, land register)"
+          cancel: "Cancel"
         },
         header: {
           sellProperty: "Sell Your Property"
@@ -158,13 +162,13 @@ export default function SellPage() {
           kueche: "Nombre de cuisines",
           wohnzimmer: "Nombre de salons",
           kinderzimmer: "Nombre de chambres d'enfants",
-          uploadHint: "Veuillez télécharger 4 images chacune",
+          uploadFacade: "Veuillez télécharger 4 images pour la façade",
+          uploadRoof: "Veuillez télécharger 4 images pour le toit",
+          uploadPlot: "Veuillez télécharger 1-2 images (ou une vidéo) pour le terrain",
+          uploadDocuments: "Veuillez télécharger les documents (ex : certificat énergétique, extrait de cadastre)",
+          uploadRooms: "Veuillez télécharger 1 image (ou une vidéo) par pièce",
           submit: "Mettre en vente",
-          cancel: "Annuler",
-          facade: "Photos de la façade",
-          roof: "Photos du toit",
-          plot: "Photos du terrain",
-          documents: "Documents (ex : certificat énergétique, extrait de cadastre)"
+          cancel: "Annuler"
         },
         header: {
           sellProperty: "Vendre votre propriété"
@@ -188,13 +192,13 @@ export default function SellPage() {
           kueche: "Número de cocinas",
           wohnzimmer: "Número de salones",
           kinderzimmer: "Número de habitaciones infantiles",
-          uploadHint: "Por favor, suba 4 imágenes cada uno",
+          uploadFacade: "Por favor, suba 4 imágenes para la fachada",
+          uploadRoof: "Por favor, suba 4 imágenes para el techo",
+          uploadPlot: "Por favor, suba 1-2 imágenes (o un video) para el terreno",
+          uploadDocuments: "Por favor, suba los documentos (ej., certificado energético, registro de la propiedad)",
+          uploadRooms: "Por favor, suba 1 imagen (o un video) por habitación",
           submit: "Publicar propiedad",
-          cancel: "Cancelar",
-          facade: "Fotos de la fachada",
-          roof: "Fotos del techo",
-          plot: "Fotos del terreno",
-          documents: "Documentos (por ejemplo, certificado energético, registro de la propiedad)"
+          cancel: "Cancelar"
         },
         header: {
           sellProperty: "Vender tu propiedad"
@@ -218,13 +222,13 @@ export default function SellPage() {
           kueche: "Numero di cucine",
           wohnzimmer: "Numero di salotti",
           kinderzimmer: "Numero di camere per bambini",
-          uploadHint: "Si prega di caricare 4 immagini ciascuno",
+          uploadFacade: "Si prega di caricare 4 immagini per la facciata",
+          uploadRoof: "Si prega di caricare 4 immagini per il tetto",
+          uploadPlot: "Si prega di caricare 1-2 immagini (o un video) per il terreno",
+          uploadDocuments: "Si prega di caricare i documenti (es. certificato energetico, estratto catastale)",
+          uploadRooms: "Si prega di caricare 1 immagine (o un video) per stanza",
           submit: "Inserisci proprietà",
-          cancel: "Annulla",
-          facade: "Foto della facciata",
-          roof: "Foto del tetto",
-          plot: "Foto del terreno",
-          documents: "Documenti (es. certificato energetico, estratto catastale)"
+          cancel: "Annulla"
         },
         header: {
           sellProperty: "Vendi la tua proprietà"
@@ -248,13 +252,13 @@ export default function SellPage() {
           kueche: "Aantal keukens",
           wohnzimmer: "Aantal woonkamers",
           kinderzimmer: "Aantal kinderkamers",
-          uploadHint: "Upload 4 afbeeldingen per categorie",
+          uploadFacade: "Upload 4 afbeeldingen voor de gevel",
+          uploadRoof: "Upload 4 afbeeldingen voor het dak",
+          uploadPlot: "Upload 1-2 afbeeldingen (of een video) voor het perceel",
+          uploadDocuments: "Upload documenten (bijv. energiecertificaat, kadasteruittreksel)",
+          uploadRooms: "Upload 1 afbeelding (of een video) per kamer",
           submit: "Vastgoed plaatsen",
-          cancel: "Annuleren",
-          facade: "Foto's van de gevel",
-          roof: "Foto's van het dak",
-          plot: "Foto's van het perceel",
-          documents: "Documenten (bijv. energiecertificaat, kadasteruittreksel)"
+          cancel: "Annuleren"
         },
         header: {
           sellProperty: "Verkoop uw vastgoed"
@@ -278,13 +282,13 @@ export default function SellPage() {
           kueche: "Liczba kuchni",
           wohnzimmer: "Liczba salonów",
           kinderzimmer: "Liczba pokoi dziecięcych",
-          uploadHint: "Proszę przesłać 4 zdjęcia każdej kategorii",
+          uploadFacade: "Proszę przesłać 4 zdjęcia elewacji",
+          uploadRoof: "Proszę przesłać 4 zdjęcia dachu",
+          uploadPlot: "Proszę przesłać 1-2 zdjęcia (lub wideo) działki",
+          uploadDocuments: "Proszę przesłać dokumenty (np. świadectwo energetyczne, wypis z księgi wieczystej)",
+          uploadRooms: "Proszę przesłać 1 zdjęcie (lub wideo) na pokój",
           submit: "Wystaw nieruchomość",
-          cancel: "Anuluj",
-          facade: "Zdjęcia elewacji",
-          roof: "Zdjęcia dachu",
-          plot: "Zdjęcia działki",
-          documents: "Dokumenty (np. świadectwo energetyczne, wypis z księgi wieczystej)"
+          cancel: "Anuluj"
         },
         header: {
           sellProperty: "Sprzedaj swoją nieruchomość"
@@ -434,14 +438,17 @@ export default function SellPage() {
         <div className="space-y-2">
           <label className="block font-semibold">{t.form.facade}</label>
           <input type="file" multiple accept="image/*" onChange={(e) => handleFileChange(e, setFacadeFiles)} required />
+          <p className="text-sm text-gray-600">{t.form.uploadFacade}</p>
         </div>
         <div className="space-y-2">
           <label className="block font-semibold">{t.form.roof}</label>
           <input type="file" multiple accept="image/*" onChange={(e) => handleFileChange(e, setRoofFiles)} required />
+          <p className="text-sm text-gray-600">{t.form.uploadRoof}</p>
         </div>
         <div className="space-y-2">
           <label className="block font-semibold">{t.form.plot}</label>
-          <input type="file" multiple accept="image/*" onChange={(e) => handleFileChange(e, setPlotFiles)} required />
+          <input type="file" multiple accept="image/*,video/*" onChange={(e) => handleFileChange(e, setPlotFiles)} required />
+          <p className="text-sm text-gray-600">{t.form.uploadPlot}</p>
         </div>
         <div className="space-y-2">
           <label className="block font-semibold">{t.form.documents}</label>
@@ -449,20 +456,20 @@ export default function SellPage() {
         </div>
         {/* File-Uploads für Raumtypen */}
         <div className="space-y-2">
-          <label className="block font-semibold">{t.form.bad} ({t.form.uploadHint})</label>
-          <input type="file" multiple accept="image/*" onChange={(e) => handleFileChange(e, setBadFiles)} required />
+          <label className="block font-semibold">{t.form.bad} ({t.form.uploadRooms})</label>
+          <input type="file" multiple accept="image/*,video/*" onChange={(e) => handleFileChange(e, setBadFiles)} required />
         </div>
         <div className="space-y-2">
-          <label className="block font-semibold">{t.form.kueche} ({t.form.uploadHint})</label>
-          <input type="file" multiple accept="image/*" onChange={(e) => handleFileChange(e, setKuecheFiles)} required />
+          <label className="block font-semibold">{t.form.kueche} ({t.form.uploadRooms})</label>
+          <input type="file" multiple accept="image/*,video/*" onChange={(e) => handleFileChange(e, setKuecheFiles)} required />
         </div>
         <div className="space-y-2">
-          <label className="block font-semibold">{t.form.wohnzimmer} ({t.form.uploadHint})</label>
-          <input type="file" multiple accept="image/*" onChange={(e) => handleFileChange(e, setWohnzimmerFiles)} required />
+          <label className="block font-semibold">{t.form.wohnzimmer} ({t.form.uploadRooms})</label>
+          <input type="file" multiple accept="image/*,video/*" onChange={(e) => handleFileChange(e, setWohnzimmerFiles)} required />
         </div>
         <div className="space-y-2">
-          <label className="block font-semibold">{t.form.kinderzimmer} ({t.form.uploadHint})</label>
-          <input type="file" multiple accept="image/*" onChange={(e) => handleFileChange(e, setKinderzimmerFiles)} required />
+          <label className="block font-semibold">{t.form.kinderzimmer} ({t.form.uploadRooms})</label>
+          <input type="file" multiple accept="image/*,video/*" onChange={(e) => handleFileChange(e, setKinderzimmerFiles)} required />
         </div>
 
         <div className="flex justify-end gap-4">
@@ -477,4 +484,3 @@ export default function SellPage() {
     </div>
   );
 }
-
