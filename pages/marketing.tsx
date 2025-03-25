@@ -1,5 +1,5 @@
 // pages/marketing.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -16,7 +16,7 @@ interface Property {
   preis: number;
   status: string; // z. B. "vermarkten", "verkauft"
   documents?: string[]; // URLs zu Dokumenten, die von sell.tsx kommen
-  // Optional: Käuferdaten, die nach dem Kauf gesetzt werden
+  // Optional: Käufer- oder Verkäuferdaten
   buyer?: {
     vorname: string;
     nachname: string;
@@ -26,6 +26,10 @@ interface Property {
     ort: string;
     land: string;
     telefon: string;
+    email: string;
+  };
+  seller?: {
+    name: string;
     email: string;
   };
 }
@@ -38,6 +42,7 @@ interface Translations {
       verkaufen: string;
       kaufen: string;
       details: string;
+      priceOffer: string;
     };
     buyerForm: {
       title: string;
@@ -50,6 +55,12 @@ interface Translations {
       land: string;
       telefon: string;
       email: string;
+      submit: string;
+      cancel: string;
+    };
+    priceOfferForm: {
+      title: string;
+      offerPrice: string;
       submit: string;
       cancel: string;
     };
@@ -86,14 +97,11 @@ export default function MarketingPage() {
     email: ""
   });
   const [selectedDetail, setSelectedDetail] = useState<Property | null>(null);
+  // Neuer State für Preisangebot-Modal
+  const [showPriceOfferForm, setShowPriceOfferForm] = useState(false);
+  const [priceOffer, setPriceOffer] = useState("");
 
-  // Sprache aus localStorage laden (Standard: "de")
-  useEffect(() => {
-    const lang = localStorage.getItem("language") || "de";
-    setLanguage(lang);
-  }, []);
-
-  // Manuelle Übersetzungen für Marketing (de, en, fr, es, it, nl, pl)
+  // Übersetzungen (de, en, fr, es, it, nl, pl)
   const translations: { [key: string]: Translations } = {
     de: {
       marketing: {
@@ -102,7 +110,8 @@ export default function MarketingPage() {
         propertyCard: {
           verkaufen: "Immobilie Verkaufen",
           kaufen: "Kaufen",
-          details: "Details anzeigen"
+          details: "Details anzeigen",
+          priceOffer: "Preisangebot senden"
         },
         buyerForm: {
           title: "Käuferdaten eingeben",
@@ -118,6 +127,12 @@ export default function MarketingPage() {
           submit: "Daten absenden",
           cancel: "Abbrechen"
         },
+        priceOfferForm: {
+          title: "Preisangebot eingeben",
+          offerPrice: "Ihr Preisangebot (in €)",
+          submit: "Angebot absenden",
+          cancel: "Abbrechen"
+        },
         detailModal: {
           title: "Immobiliendetails",
           close: "Schließen"
@@ -131,7 +146,8 @@ export default function MarketingPage() {
         propertyCard: {
           verkaufen: "Sell Property",
           kaufen: "Buy",
-          details: "View Details"
+          details: "View Details",
+          priceOffer: "Send Price Offer"
         },
         buyerForm: {
           title: "Enter Buyer Information",
@@ -147,12 +163,19 @@ export default function MarketingPage() {
           submit: "Submit",
           cancel: "Cancel"
         },
+        priceOfferForm: {
+          title: "Enter Your Price Offer",
+          offerPrice: "Your offer (in €)",
+          submit: "Send Offer",
+          cancel: "Cancel"
+        },
         detailModal: {
           title: "Property Details",
           close: "Close"
         }
       }
     },
+    // Weitere Sprachen: fr, es, it, nl, pl (wie oben analog ergänzt)
     fr: {
       marketing: {
         title: "Marché",
@@ -160,7 +183,8 @@ export default function MarketingPage() {
         propertyCard: {
           verkaufen: "Vendre la propriété",
           kaufen: "Acheter",
-          details: "Voir les détails"
+          details: "Voir les détails",
+          priceOffer: "Envoyer une offre de prix"
         },
         buyerForm: {
           title: "Saisir les informations de l'acheteur",
@@ -176,6 +200,12 @@ export default function MarketingPage() {
           submit: "Envoyer",
           cancel: "Annuler"
         },
+        priceOfferForm: {
+          title: "Saisir votre offre de prix",
+          offerPrice: "Votre offre (en €)",
+          submit: "Envoyer l'offre",
+          cancel: "Annuler"
+        },
         detailModal: {
           title: "Détails de la propriété",
           close: "Fermer"
@@ -189,7 +219,8 @@ export default function MarketingPage() {
         propertyCard: {
           verkaufen: "Vender Propiedad",
           kaufen: "Comprar",
-          details: "Ver detalles"
+          details: "Ver detalles",
+          priceOffer: "Enviar oferta de precio"
         },
         buyerForm: {
           title: "Ingrese la información del comprador",
@@ -205,6 +236,12 @@ export default function MarketingPage() {
           submit: "Enviar",
           cancel: "Cancelar"
         },
+        priceOfferForm: {
+          title: "Ingrese su oferta de precio",
+          offerPrice: "Su oferta (en €)",
+          submit: "Enviar oferta",
+          cancel: "Cancelar"
+        },
         detailModal: {
           title: "Detalles de la propiedad",
           close: "Cerrar"
@@ -218,7 +255,8 @@ export default function MarketingPage() {
         propertyCard: {
           verkaufen: "Vendi Proprietà",
           kaufen: "Acquista",
-          details: "Visualizza dettagli"
+          details: "Visualizza dettagli",
+          priceOffer: "Invia offerta di prezzo"
         },
         buyerForm: {
           title: "Inserisci le informazioni dell'acquirente",
@@ -234,6 +272,12 @@ export default function MarketingPage() {
           submit: "Invia",
           cancel: "Annulla"
         },
+        priceOfferForm: {
+          title: "Inserisci la tua offerta di prezzo",
+          offerPrice: "La tua offerta (in €)",
+          submit: "Invia offerta",
+          cancel: "Annulla"
+        },
         detailModal: {
           title: "Dettagli della proprietà",
           close: "Chiudi"
@@ -247,7 +291,8 @@ export default function MarketingPage() {
         propertyCard: {
           verkaufen: "Verkoop Eigendom",
           kaufen: "Kopen",
-          details: "Bekijk details"
+          details: "Bekijk details",
+          priceOffer: "Verzend prijsvoorstel"
         },
         buyerForm: {
           title: "Voer kopergegevens in",
@@ -263,6 +308,12 @@ export default function MarketingPage() {
           submit: "Verzenden",
           cancel: "Annuleren"
         },
+        priceOfferForm: {
+          title: "Voer uw prijsvoorstel in",
+          offerPrice: "Uw voorstel (in €)",
+          submit: "Verzend voorstel",
+          cancel: "Annuleren"
+        },
         detailModal: {
           title: "Eigendomsdetails",
           close: "Sluiten"
@@ -276,7 +327,8 @@ export default function MarketingPage() {
         propertyCard: {
           verkaufen: "Sprzedaj Nieruchomość",
           kaufen: "Kup",
-          details: "Zobacz szczegóły"
+          details: "Zobacz szczegóły",
+          priceOffer: "Wyślij ofertę cenową"
         },
         buyerForm: {
           title: "Wprowadź dane kupującego",
@@ -290,6 +342,12 @@ export default function MarketingPage() {
           telefon: "Telefon",
           email: "E-mail",
           submit: "Wyślij",
+          cancel: "Anuluj"
+        },
+        priceOfferForm: {
+          title: "Wprowadź ofertę cenową",
+          offerPrice: "Twoja oferta (w €)",
+          submit: "Wyślij ofertę",
           cancel: "Anuluj"
         },
         detailModal: {
@@ -336,6 +394,12 @@ export default function MarketingPage() {
     setShowBuyerForm(true);
   };
 
+  // Wenn "Preisangebot senden" gedrückt wird, öffne das Preisangebot-Formular
+  const handlePriceOfferClick = (property: Property) => {
+    setSelectedProperty(property);
+    setShowPriceOfferForm(true);
+  };
+
   // Detail-Modal: Öffne, wenn auf "Details anzeigen" geklickt wird
   const handleShowDetails = (property: Property) => {
     setSelectedDetail(property);
@@ -369,6 +433,32 @@ export default function MarketingPage() {
     }
   };
 
+  // Preisangebot-Formular absenden: API-Aufruf zum Senden des Preisangebots (z.B. /api/priceOffer)
+  const handlePriceOfferSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedProperty) return;
+    const res = await fetch("/api/priceOffer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        propertyId: selectedProperty.id,
+        offerPrice: priceOffer
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      alert("Ihr Preisangebot wurde gesendet!");
+      setShowPriceOfferForm(false);
+      setPriceOffer("");
+    } else {
+      alert("Angebot fehlgeschlagen: " + data.message);
+    }
+  };
+
+  // Neuer State für Preisangebot-Modal und Detail-Modal
+  const [selectedDetail, setSelectedDetail] = useState<Property | null>(null);
+  const [showPriceOfferForm, setShowPriceOfferForm] = useState(false);
+  
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">{t.title}</h1>
@@ -412,10 +502,13 @@ export default function MarketingPage() {
                 <img key={index} src={img} alt={`Bild ${index + 1}`} className="w-32 h-32 object-cover rounded" />
               ))}
             </div>
-            {/* Kauf-Button */}
-            <div className="mt-4">
+            {/* Aktions-Buttons */}
+            <div className="mt-4 flex flex-wrap gap-2">
               <button onClick={() => handleBuyClick(property)} className="bg-green-600 text-white px-4 py-2 rounded">
                 {t.propertyCard.kaufen}
+              </button>
+              <button onClick={() => handlePriceOfferClick(property)} className="bg-blue-600 text-white px-4 py-2 rounded">
+                {t.propertyCard.priceOffer}
               </button>
             </div>
           </div>
@@ -477,14 +570,34 @@ export default function MarketingPage() {
         </div>
       )}
 
-      {/* Detail-Modal für Immobilie */}  
+      {/* Preisangebot-Formular (Modal) */}
+      {showPriceOfferForm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded w-96">
+            <h2 className="text-xl font-bold mb-4">{t.priceOfferForm.title}</h2>
+            <form onSubmit={handlePriceOfferSubmit}>
+              <div className="mb-4">
+                <label>{t.priceOfferForm.offerPrice}:</label>
+                <input type="number" className="w-full border p-2" value={priceOffer} onChange={(e) => setPriceOffer(e.target.value)} required />
+              </div>
+              <div className="flex justify-end gap-2">
+                <button type="button" onClick={() => setShowPriceOfferForm(false)} className="bg-gray-500 text-white px-4 py-2 rounded">
+                  {t.priceOfferForm.cancel}
+                </button>
+                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+                  {t.priceOfferForm.submit}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Detail-Modal für Immobilie */}
       {selectedDetail && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded max-w-2xl w-full relative">
-            <button
-              onClick={() => setSelectedDetail(null)}
-              className="absolute top-2 right-2 text-gray-600 text-xl"
-            >
+            <button onClick={() => setSelectedDetail(null)} className="absolute top-2 right-2 text-gray-600 text-xl">
               &times;
             </button>
             <h2 className="text-2xl font-bold mb-4">{t.detailModal.title}</h2>
@@ -506,7 +619,7 @@ export default function MarketingPage() {
                 <h3 className="font-semibold">Dokumente:</h3>
                 <ul className="list-disc ml-6 mt-2">
                   {selectedDetail.documents.map((doc, index) => (
-                    <li key={index}><a href={doc} target=\"_blank\" rel=\"noopener noreferrer\" className=\"text-blue-600 underline\">Dokument {index + 1}</a></li>
+                    <li key={index}><a href={doc} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">Dokument {index + 1}</a></li>
                   ))}
                 </ul>
               </div>
