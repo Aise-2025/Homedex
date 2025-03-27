@@ -1,9 +1,9 @@
 // api/propertiesUpdate.ts
-import { Request, Response } from 'express';
-import fs from 'fs';
-import path from 'path';
+import { NextApiRequest, NextApiResponse } from "next";
+import fs from "fs";
+import path from "path";
 
-export default function propertiesUpdateHandler(req: Request, res: Response) {
+export default function propertiesUpdateHandler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ success: false, message: "Method not allowed" });
   }
@@ -23,4 +23,3 @@ export default function propertiesUpdateHandler(req: Request, res: Response) {
     return res.status(500).json({ success: false, message: "Error updating property" });
   }
 }
-
