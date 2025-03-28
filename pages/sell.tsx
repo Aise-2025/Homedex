@@ -69,7 +69,7 @@ export default function SellPage() {
     kinderzimmerAnzahl: ""
   });
 
-  // File-Uploads:
+  // Hier kommen deine File-Uploads (unverändert)
   // Für Fassade und Dach: genau 4 Bilder jeweils
   const [facadeFiles, setFacadeFiles] = useState<FileList | null>(null);
   const [roofFiles, setRoofFiles] = useState<FileList | null>(null);
@@ -145,6 +145,7 @@ export default function SellPage() {
         }
       }
     },
+    // Weitere Sprachen (fr, es, it, nl, pl) bleiben wie zuvor unverändert
     fr: {
       sell: {
         title: "Mettre en vente votre propriété",
@@ -299,13 +300,19 @@ export default function SellPage() {
 
   const t = translations[language].sell;
 
-  // Sprache aus localStorage laden (falls noch nicht geladen)
+  // Beim Laden von sell.tsx: Übernehme Vorab-Daten aus localStorage, falls vorhanden
   useEffect(() => {
-    const lang = localStorage.getItem("language") || "de";
-    setLanguage(lang);
+    const preliminaryData = localStorage.getItem("preliminaryData");
+    if (preliminaryData) {
+      const parsedData = JSON.parse(preliminaryData);
+      setFormData((prev) => ({
+        ...prev,
+        land: parsedData.land || "",
+        ort: parsedData.ort || ""
+        // Optional: Falls du auch PLZ übernehmen möchtest, musst du das Feld ins Interface aufnehmen.
+      }));
+    }
   }, []);
-
-  const router = useRouter();
 
   // Handler für Formularfeldänderungen
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
