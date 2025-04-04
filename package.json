@@ -11,7 +11,9 @@
   "dependencies": {
     "next": "13.5.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.25"
   },
   "devDependencies": {
     "eslint": "8.38.0",
@@ -21,6 +23,7 @@
     "autoprefixer": "^10.4.13",
     "typescript": "^4.9.5",
     "@types/node": "^18.11.9",
-    "@types/react": "^18.0.27"
+    "@types/react": "^18.0.27",
+    "@types/jspdf": "^2.0.2"
   }
 }
