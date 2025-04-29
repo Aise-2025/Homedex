@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jobs – Homedex</title>
+  <style>
+    /* ===== Reset & Grundfarben ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --col-header: #f2f4f8;
+      --col-hero-bg: #e8f0fe;
+      --col-primary: #007bff;
+      --col-accent: #6c63ff;
+      --col-light: #ffffff;
+      --col-dark: #333333;
+      --radius: 8px;
+    }
+    body { font-family: 'Segoe UI', sans-serif; color: var(--col-dark); background: var(--col-light); }
+    a { text-decoration: none; color: inherit; }
 
+    /* ===== Header ===== */
+    header {
+      background: var(--col-header);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .logo { font-size: 1.8rem; font-weight: bold; }
+    .lang-switch { margin-left: 1rem; }
+    nav { margin-left: auto; }
+    nav ul { list-style: none; display: flex; gap: 1rem; }
+    nav a { font-weight: 500; transition: color .2s; }
+    nav a:hover { color: var(--col-primary); }
+
+    /* ===== Hero ===== */
+    .hero.small-hero {
+      background: var(--col-hero-bg);
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+    }
+    .hero.small-hero h1 { font-size: 2.5rem; margin-bottom: .5rem; }
+    .hero.small-hero p { color: #555; font-size: 1rem; }
+
+    /* ===== Content-Section ===== */
+    .search-section {
+      max-width: 600px; margin: 2rem auto;
+      background: var(--col-light);
+      padding: 2rem; border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .search-section h2 {
+      margin-bottom: 1rem; font-size: 1.75rem;
+    }
+    .search-section p {
+      margin-bottom: 1.5rem; line-height: 1.6; color: #444;
+    }
+    .search-form {
+      display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center;
+    }
+    .search-form input,
+    .search-form button {
+      flex: 1 1 100%;
+      max-width: 300px;
+      padding: .75rem;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+    .search-form button {
+      background: var(--col-primary);
+      color: var(--col-light);
+      border: none;
+      cursor: pointer;
+    }
+    .search-section .message {
+      margin-top: 1rem;
+      color: var(--col-accent);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--col-header);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+    footer a { color: var(--col-primary); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="logo" data-i18n="logo">Homedex</a>
+    <div class="lang-switch">
+      <select onchange="changeLanguage(this.value)">
+        <option value="de">DE</option>
+        <option value="en">EN</option>
+        <option value="ar">AR</option>
+      </select>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="login.html" data-i18n="nav.login">Login</a></li>
+        <li><a href="about.html" data-i18n="nav.about">Über uns</a></li>
+        <li><a href="datenschutz.html" data-i18n="nav.privacy">Datenschutz</a></li>
+        <li><a href="jobs.html" class="active" data-i18n="nav.jobs">Jobs</a></li>
+        <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero small-hero">
+    <h1 data-i18n="jobs.heroTitle">Jobs</h1>
+    <p data-i18n="jobs.heroSub">Zurzeit keine offenen Stellen – bald gibt es Neues!</p>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="search-section">
+    <h2 data-i18n="jobs.title">Karriere bei Homedex</h2>
+    <p data-i18n="jobs.text">
+      Momentan sind keine Stellen ausgeschrieben. Wir arbeiten jedoch intensiv daran, bald neue Karrieremöglichkeiten anzubieten. 
+      Tragen Sie Ihre E-Mail-Adresse ein, und wir benachrichtigen Sie, sobald die ersten Stellen online sind.
+    </p>
+    <form id="jobsForm" class="search-form">
+      <input type="email" name="email" placeholder="" data-i18n-placeholder="jobs.emailPlaceholder" required/>
+      <button type="submit" data-i18n="jobs.submit">Benachrichtigen</button>
+    </form>
+    <div id="jobsMessage" class="message"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span data-i18n="footer.copy">© 2025 Homedex – Alle Rechte vorbehalten.</span><br/>
+    <a href="immobilien-bewerten.html" data-i18n="footer.rate">Immobilie bewerten</a>
+  </footer>
+
+  <!-- TRANSLATION & FORM-LOGIK -->
+  <script>
+    const translations = {
+      de: {
+        logo:"Homedex",
+        "nav.login":"Login","nav.about":"Über uns","nav.privacy":"Datenschutz","nav.jobs":"Jobs","nav.imprint":"Impressum",
+        "jobs.heroTitle":"Jobs","jobs.heroSub":"Zurzeit keine offenen Stellen – bald gibt es Neues!",
+        "jobs.title":"Karriere bei Homedex",
+        "jobs.text":"Momentan sind keine Stellen ausgeschrieben. Wir arbeiten jedoch intensiv daran, bald neue Karrieremöglichkeiten anzubieten. Tragen Sie Ihre E-Mail-Adresse ein, und wir benachrichtigen Sie, sobald die ersten Stellen online sind.",
+        "jobs.emailPlaceholder":"Ihre E-Mail-Adresse","jobs.submit":"Benachrichtigen",
+        "footer.copy":"© 2025 Homedex – Alle Rechte vorbehalten.","footer.rate":"Immobilie bewerten"
+      },
+      en: {
+        logo:"Homedex",
+        "nav.login":"Login","nav.about":"About us","nav.privacy":"Privacy policy","nav.jobs":"Jobs","nav.imprint":"Imprint",
+        "jobs.heroTitle":"Jobs","jobs.heroSub":"Currently no open positions – coming soon!",
+        "jobs.title":"Careers at Homedex",
+        "jobs.text":"We have no positions advertised at the moment. We are working hard to offer new career opportunities soon. Enter your email address and we’ll notify you as soon as the first openings are posted.",
+        "jobs.emailPlaceholder":"Your email address","jobs.submit":"Notify me",
+        "footer.copy":"© 2025 Homedex – All rights reserved.","footer.rate":"Rate property"
+      },
+      ar: {
+        logo:"هومديكس",
+        "nav.login":"تسجيل الدخول","nav.about":"معلومات عنا","nav.privacy":"سياسة الخصوصية","nav.jobs":"وظائف","nav.imprint":"الطابع",
+        "jobs.heroTitle":"وظائف","jobs.heroSub":"لا توجد وظائف حالياً – قريباً!",
+        "jobs.title":"الانضمام إلى Homedex",
+        "jobs.text":"لا توجد وظائف معلنة في الوقت الحالي. نحن نعمل جاهدين على توفير فرص وظيفية جديدة قريباً. أدخل بريدك الإلكتروني وسنُعلمك بمجرد نشر أول الوظائف.",
+        "jobs.emailPlaceholder":"بريدك الإلكتروني","jobs.submit":"أعلمني",
+        "footer.copy":"© 2025 هومديكس – جميع الحقوق محفوظة.","footer.rate":"قيم العقار"
+      }
+    };
+
+    function translate(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang==='ar'?'rtl':'ltr';
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if(translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+        const key = el.getAttribute('data-i18n-placeholder');
+        if(translations[lang][key]) el.placeholder = translations[lang][key];
+      });
+    }
+    function changeLanguage(lang){ translate(lang); }
+    window.addEventListener('DOMContentLoaded', ()=>translate('de'));
+
+    document.getElementById('jobsForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const email = e.target.email.value.trim();
+      const msg = document.getElementById('jobsMessage');
+      if(!email) {
+        msg.textContent = translations[document.documentElement.lang]['jobs.emailPlaceholder'] + ' required.';
+      } else {
+        msg.textContent = {
+          de: 'Vielen Dank! Wir benachrichtigen Sie.',
+          en: 'Thank you! We will notify you.',
+          ar: 'شكراً! سنُعلمك.'
+        }[document.documentElement.lang];
+        e.target.reset();
+      }
+    });
+  </script>
+</body>
+</html>
