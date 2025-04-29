@@ -1,165 +1,24 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Homedex – Exklusive Immobilien weltweit</title>
-  <style>
-    /* ===== Reset & Grundfarben ===== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --col-header: #f2f4f8;
-      --col-hero-bg: #e8f0fe;
-      --col-primary: #007bff;
-      --col-accent: #6c63ff;
-      --col-light: #ffffff;
-      --col-dark: #333333;
-      --radius: 8px;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      color: var(--col-dark);
-      background: var(--col-light);
-    }
-    a { text-decoration: none; color: inherit; }
-
-    /* ===== Header ===== */
-    header {
-      background: var(--col-header);
-      padding: 1rem 2rem;
-      display: flex; align-items: center; gap: 2rem;
-    }
-    .logo { font-size: 1.8rem; font-weight: bold; }
-    nav ul { list-style: none; display: flex; gap: 1rem; }
-    nav a { font-weight: 500; transition: color .2s; }
-    nav a:hover { color: var(--col-primary); }
-    .lang-switch { margin-left: auto; }
-
-    /* ===== Hero ===== */
-    .hero {
-      background: var(--col-hero-bg);
-      text-align: center;
-      padding: 4rem 2rem 2rem;
-    }
-    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-
-    /* ===== Suche ===== */
-    .search-section {
-      max-width: 800px; margin: 0 auto;
-      background: var(--col-light);
-      padding: 2rem; border-radius: var(--radius);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .search-section form {
-      display: flex; flex-wrap: wrap; gap: .75rem;
-    }
-    .search-section input,
-    .search-section select,
-    .search-section button {
-      flex: 1 1 140px;
-      padding: .75rem;
-      border: 1px solid #ccc;
-      border-radius: var(--radius);
-      font-size: 1rem;
-    }
-    .search-section button {
-      background: var(--col-primary);
-      color: var(--col-light);
-      border: none;
-      cursor: pointer;
-      flex: 0 0 auto;
-    }
-
-    /* ===== AI Buttons ===== */
-    .ai-buttons {
-      display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem;
-    }
-    .ai-buttons button {
-      background: var(--col-accent);
-      color: var(--col-light);
-      border: none; padding: .75rem 1.5rem;
-      border-radius: var(--radius);
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    /* ===== Listings ===== */
-    .listing-grid {
-      display: grid; gap: 1.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-      padding: 2rem;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .card {
-      background: var(--col-light);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform .2s;
-    }
-    .card:hover { transform: translateY(-4px); }
-    .card img { width: 100%; height: 160px; object-fit: cover; }
-    .card-content { padding: 1rem; }
-    .card-content h3 { margin-bottom: .5rem; color: var(--col-dark); }
-    .card-content p { font-size: .95rem; color: #555; }
-
-    /* ===== Footer ===== */
-    footer {
-      background: var(--col-header);
-      padding: 1.5rem 2rem;
-      text-align: center;
-    }
-    footer a { color: var(--col-primary); font-weight: 600; }
-
-    /* ===== Modals ===== */
-    .modal {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.6);
-      justify-content: center; align-items: center;
-      z-index: 1000;
-    }
-    .modal-content {
-      background: var(--col-light);
-      padding: 2rem; border-radius: var(--radius);
-      max-width: 360px; width: 90%;
-      text-align: center;
-    }
-    .modal-content h3 { margin-bottom: 1rem; }
-    .modal-content input,
-    .modal-content textarea,
-    .modal-content button {
-      width: 100%;
-      margin-top: .75rem;
-      padding: .75rem;
-      border: 1px solid #ccc;
-      border-radius: var(--radius);
-      font-size: 1rem;
-    }
-    .modal-content button {
-      background: var(--col-primary);
-      color: var(--col-light);
-      border: none;
-      cursor: pointer;
-    }
-    .close-btn {
-      position: absolute; top: 1rem; right: 1rem;
-      background: none; border: none; font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .search-section form { flex-direction: column; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-
-  <!-- HEADER mit Sprachwahl -->
+  <!-- HEADER -->
   <header>
-    <div class="logo" data-i18n="logo">Homedex</div>
+    <div class="header-left">
+      <div class="logo" data-i18n="logo">Homedex</div>
+      <div class="lang-switch">
+        <select onchange="changeLanguage(this.value)">
+          <option value="de">DE</option>
+          <option value="en">EN</option>
+          <option value="ar">AR</option>
+        </select>
+      </div>
+    </div>
     <nav>
       <ul>
         <li><a href="login.html" data-i18n="nav.login">Login</a></li>
@@ -169,13 +28,6 @@
         <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
       </ul>
     </nav>
-    <div class="lang-switch">
-      <select onchange="changeLanguage(this.value)">
-        <option value="de">DE</option>
-        <option value="en">EN</option>
-        <option value="ar">AR</option>
-      </select>
-    </div>
   </header>
 
   <!-- HERO -->
@@ -189,10 +41,10 @@
       <select data-i18n-placeholder="search.country">
         <option>-- Land wählen --</option>
       </select>
-      <input type="text" placeholder="" data-i18n-placeholder="search.city" />
-      <input type="number" placeholder="" data-i18n-placeholder="search.minPrice" />
-      <input type="number" placeholder="" data-i18n-placeholder="search.maxPrice" />
-      <input type="number" placeholder="" data-i18n-placeholder="search.bedrooms" />
+      <input type="text" data-i18n-placeholder="search.city"/>
+      <input type="number" data-i18n-placeholder="search.minPrice"/>
+      <input type="number" data-i18n-placeholder="search.maxPrice"/>
+      <input type="number" data-i18n-placeholder="search.bedrooms"/>
       <button type="submit" class="btn-primary" data-i18n="search.button">Suchen</button>
     </form>
     <div class="ai-buttons">
@@ -201,23 +53,128 @@
     </div>
   </section>
 
-  <!-- LISTINGS -->
+  <!-- 15 INSERATE -->
   <section class="listing-grid">
+    <!-- Beispiel: Listing 1 -->
     <div class="card">
-      <img src="images/villa-seeblick.jpg" alt="" />
+      <img src="images/listing1.jpg" alt="" />
       <div class="card-content">
         <h3 data-i18n="listing1.title">Villa am See</h3>
         <p data-i18n="listing1.detail">Zürich, Schweiz – €2.300.000</p>
       </div>
     </div>
+    <!-- Listing 2 -->
     <div class="card">
-      <img src="images/penthouse-berlin.jpg" alt="" />
+      <img src="images/listing2.jpg" alt="" />
       <div class="card-content">
         <h3 data-i18n="listing2.title">Penthouse City Center</h3>
         <p data-i18n="listing2.detail">Berlin, Deutschland – €1.750.000</p>
       </div>
     </div>
-    <!-- weitere Karten ... -->
+    <!-- Listing 3 -->
+    <div class="card">
+      <img src="images/listing3.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing3.title">Landhaus Rustikal</h3>
+        <p data-i18n="listing3.detail">Bayern, Deutschland – €850.000</p>
+      </div>
+    </div>
+    <!-- Listing 4 -->
+    <div class="card">
+      <img src="images/listing4.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing4.title">Stadtvilla Modern</h3>
+        <p data-i18n="listing4.detail">München, Deutschland – €1.200.000</p>
+      </div>
+    </div>
+    <!-- Listing 5 -->
+    <div class="card">
+      <img src="images/listing5.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing5.title">Strandhaus Luxus</h3>
+        <p data-i18n="listing5.detail">Mallorca, Spanien – €3.100.000</p>
+      </div>
+    </div>
+    <!-- Listing 6 -->
+    <div class="card">
+      <img src="images/listing6.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing6.title">Berghütte Chalet</h3>
+        <p data-i18n="listing6.detail">Tirol, Österreich – €650.000</p>
+      </div>
+    </div>
+    <!-- Listing 7 -->
+    <div class="card">
+      <img src="images/listing7.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing7.title">Luxuswohnung</h3>
+        <p data-i18n="listing7.detail">Frankfurt, Deutschland – €980.000</p>
+      </div>
+    </div>
+    <!-- Listing 8 -->
+    <div class="card">
+      <img src="images/listing8.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing8.title">Eco-Farm</h3>
+        <p data-i18n="listing8.detail">Toskana, Italien – €1.400.000</p>
+      </div>
+    </div>
+    <!-- Listing 9 -->
+    <div class="card">
+      <img src="images/listing9.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing9.title">Skyline Penthouse</h3>
+        <p data-i18n="listing9.detail">New York, USA – €5.200.000</p>
+      </div>
+    </div>
+    <!-- Listing 10 -->
+    <div class="card">
+      <img src="images/listing10.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing10.title">Landgut Historisch</h3>
+        <p data-i18n="listing10.detail">Provence, Frankreich – €1.800.000</p>
+      </div>
+    </div>
+    <!-- Listing 11 -->
+    <div class="card">
+      <img src="images/listing11.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing11.title">Modernes Stadthaus</h3>
+        <p data-i18n="listing11.detail">Amsterdam, Niederlande – €1.050.000</p>
+      </div>
+    </div>
+    <!-- Listing 12 -->
+    <div class="card">
+      <img src="images/listing12.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing12.title">Seidenstraße Anwesen</h3>
+        <p data-i18n="listing12.detail">Dubai, VAE – €4.750.000</p>
+      </div>
+    </div>
+    <!-- Listing 13 -->
+    <div class="card">
+      <img src="images/listing13.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing13.title">Küstenresidenz</h3>
+        <p data-i18n="listing13.detail">Lissabon, Portugal – €920.000</p>
+      </div>
+    </div>
+    <!-- Listing 14 -->
+    <div class="card">
+      <img src="images/listing14.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing14.title">Designer Loft</h3>
+        <p data-i18n="listing14.detail">London, UK – €2.100.000</p>
+      </div>
+    </div>
+    <!-- Listing 15 -->
+    <div class="card">
+      <img src="images/listing15.jpg" alt="" />
+      <div class="card-content">
+        <h3 data-i18n="listing15.title">Ozean Villa</h3>
+        <p data-i18n="listing15.detail">Malibu, USA – €6.300.000</p>
+      </div>
+    </div>
   </section>
 
   <!-- FOOTER -->
@@ -227,90 +184,38 @@
   </footer>
 
   <!-- MODALS -->
-  <div id="chat" class="modal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="toggleModal('chat')">&times;</button>
-      <h3 data-i18n="ai.chat">AI Chat</h3>
-      <textarea placeholder="" data-i18n-placeholder="ai.chatPlaceholder"></textarea>
-      <button data-i18n="ai.send">Senden</button>
-    </div>
-  </div>
-  <div id="call" class="modal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="toggleModal('call')">&times;</button>
-      <h3 data-i18n="ai.call">AI Telefon</h3>
-      <input type="tel" placeholder="" data-i18n-placeholder="ai.callPlaceholder" />
-      <button data-i18n="ai.dial">Anrufen</button>
-    </div>
-  </div>
+  <div id="chat" class="modal"><div class="modal-content">
+    <button class="close-btn" onclick="toggleModal('chat')">&times;</button>
+    <h3 data-i18n="ai.chat">AI Chat</h3>
+    <textarea placeholder="" data-i18n-placeholder="ai.chatPlaceholder"></textarea>
+    <button onclick="toggleModal('chat')" data-i18n="ai.send">Senden</button>
+  </div></div>
+
+  <div id="call" class="modal"><div class="modal-content">
+    <button class="close-btn" onclick="toggleModal('call')">&times;</button>
+    <h3 data-i18n="ai.call">AI Telefon</h3>
+    <input type="tel" placeholder="" data-i18n-placeholder="ai.callPlaceholder"/>
+    <button onclick="toggleModal('call')" data-i18n="ai.dial">Anrufen</button>
+  </div></div>
 
   <script>
-    const translations = {
-      de: {
-        "nav.login":"Login","nav.about":"Über uns","nav.privacy":"Datenschutz",
-        "nav.jobs":"Jobs","nav.imprint":"Impressum",
-        "hero.title":"Exklusive Immobilien weltweit",
-        "search.button":"Suchen",
-        "ai.chat":"AI Chat","ai.call":"AI Telefon","ai.send":"Senden","ai.dial":"Anrufen",
-        "ai.chatPlaceholder":"Ihre Nachricht...","ai.callPlaceholder":"Telefonnummer eingeben...",
-        "search.city":"Ort eingeben","search.country":"Land wählen",
-        "search.minPrice":"Preis ab (€)","search.maxPrice":"Preis bis (€)","search.bedrooms":"Zimmeranzahl",
-        "listing1.title":"Villa am See","listing1.detail":"Zürich, Schweiz – €2.300.000",
-        "listing2.title":"Penthouse City Center","listing2.detail":"Berlin, Deutschland – €1.750.000",
-        "footer.copy":"© 2025 Homedex – Alle Rechte vorbehalten.","footer.rate":"Immobilie bewerten"
-      },
-      en: {
-        "nav.login":"Login","nav.about":"About us","nav.privacy":"Privacy policy",
-        "nav.jobs":"Jobs","nav.imprint":"Imprint",
-        "hero.title":"Exclusive properties worldwide",
-        "search.button":"Search",
-        "ai.chat":"AI Chat","ai.call":"AI Phone","ai.send":"Send","ai.dial":"Dial",
-        "ai.chatPlaceholder":"Your message...","ai.callPlaceholder":"Enter phone number...",
-        "search.city":"Enter city","search.country":"Select country",
-        "search.minPrice":"Min. price (€)","search.maxPrice":"Max. price (€)","search.bedrooms":"Bedrooms",
-        "listing1.title":"Lakefront Villa","listing1.detail":"Zurich, Switzerland – €2,300,000",
-        "listing2.title":"City Center Penthouse","listing2.detail":"Berlin, Germany – €1,750,000",
-        "footer.copy":"© 2025 Homedex – All rights reserved.","footer.rate":"Rate property"
-      },
-      ar: {
-        "nav.login":"تسجيل الدخول","nav.about":"معلومات عنا","nav.privacy":"سياسة الخصوصية",
-        "nav.jobs":"وظائف","nav.imprint":"الطابع",
-        "hero.title":"عقارات حصرية حول العالم",
-        "search.button":"بحث",
-        "ai.chat":"دردشة ذكاء اصطناعي","ai.call":"مكالمة ذكاء اصطناعي","ai.send":"إرسال","ai.dial":"اتصل",
-        "ai.chatPlaceholder":"رسالتك...","ai.callPlaceholder":"أدخل رقم الهاتف...",
-        "search.city":"أدخل المدينة","search.country":"اختر الدولة",
-        "search.minPrice":"السعر الأدنى (€)","search.maxPrice":"السعر الأقصى (€)","search.bedrooms":"الغرف",
-        "listing1.title":"فيلا مطلة على البحيرة","listing1.detail":"زيورخ، سويسرا – €2,300,000",
-        "listing2.title":"بنتهاوس وسط المدينة","listing2.detail":"برلين، ألمانيا – €1,750,000",
-        "footer.copy":"© 2025 هومديكس – جميع الحقوق محفوظة.","footer.rate":"قيم العقار"
-      }
-    };
-
-    function translate(lang) {
-      document.documentElement.lang = lang;
-      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        el.textContent = translations[lang][key] || el.textContent;
-      });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        el.placeholder = translations[lang][key] || el.placeholder;
-      });
-    }
-
-    function changeLanguage(lang) {
-      translate(lang);
-    }
-
     function toggleModal(id) {
       const m = document.getElementById(id);
-      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+      m.style.display = m.style.display==='flex'?'none':'flex';
     }
-
-    // Initial auf Deutsch
-    window.addEventListener('DOMContentLoaded', () => translate('de'));
+    function changeLanguage(lang) {
+      document.documentElement.lang=lang;
+      document.documentElement.dir=(lang==='ar'?'rtl':'ltr');
+      const t=translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        el.textContent=t[el.getAttribute('data-i18n')]||el.textContent;
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+        el.placeholder=t[el.getAttribute('data-i18n-placeholder')]||el.placeholder;
+      });
+    }
+    const translations = {/* wie zuvor definiert für de,en,ar */};
+    document.addEventListener('DOMContentLoaded',()=>changeLanguage('de'));
   </script>
 </body>
 </html>
