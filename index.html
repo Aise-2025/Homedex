@@ -8,12 +8,12 @@
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <!-- HEADER + NAVIGATION -->
-  <header class="header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo">Homedex</a>
-      <nav class="nav">
-        <ul class="nav-links">
+  <!-- HEADER -->
+  <header class="hd-main">
+    <div class="hd-container">
+      <a href="index.html" class="hd-logo">Homedex</a>
+      <nav class="hd-nav">
+        <ul>
           <li><a href="login.html">Login</a></li>
           <li><a href="about.html">Über uns</a></li>
           <li><a href="datenschutz.html">Datenschutz</a></li>
@@ -21,53 +21,48 @@
           <li><a href="impressum.html">Impressum</a></li>
         </ul>
       </nav>
-      <button id="hamburger" class="hamburger">☰</button>
+      <button class="hd-hamburger" id="hamburger">☰</button>
     </div>
   </header>
 
-  <!-- HERO MIT SUCHE -->
-  <section class="hero">
+  <!-- HERO + SUCHE -->
+  <section class="hero-main">
     <div class="hero-overlay"></div>
-    <div class="container hero-content">
-      <h1>Finden Sie Ihre Traumimmobilie</h1>
-      <form id="searchForm" class="search-form">
-        <div class="form-row">
-          <div class="form-group"><input type="text" id="country" name="country" placeholder="Land"></div>
-          <div class="form-group"><input type="text" id="city" name="city" placeholder="Ort"></div>
-          <div class="form-group"><input type="number" id="priceMin" name="priceMin" placeholder="Preis von (€)"></div>
-          <div class="form-group"><input type="number" id="priceMax" name="priceMax" placeholder="bis (€)"></div>
-          <div class="form-group"><input type="number" id="bedrooms" name="bedrooms" placeholder="Schlafzimmer"></div>
-          <div class="form-group form-submit">
-            <button type="submit" class="btn btn-primary">Suchen</button>
-          </div>
-        </div>
+    <div class="hero-container">
+      <h1 class="hero-title">Finden Sie Ihre Traumimmobilie</h1>
+      <form id="searchForm" class="hero-search">
+        <input type="text" id="country" name="country" placeholder="Land" />
+        <input type="text" id="city" name="city" placeholder="Ort" />
+        <input type="number" id="priceMin" name="priceMin" placeholder="Preis von (€)" />
+        <input type="number" id="priceMax" name="priceMax" placeholder="bis (€)" />
+        <input type="number" id="bedrooms" name="bedrooms" placeholder="Schlafzimmer" />
+        <button type="submit" class="btn btn-primary">Suchen</button>
       </form>
-      <div class="ai-buttons">
+      <div class="hero-ai-buttons">
         <button id="aiChat" class="btn btn-secondary">AI-Agent Chat</button>
         <button id="voiceAssist" class="btn btn-secondary">Sprach-KI</button>
       </div>
     </div>
   </section>
 
-  <!-- LISTINGS-ANSICHT -->
-  <main class="container">
-    <div id="listingsContainer" class="listings-grid"></div>
+  <!-- LISTINGS-ÜBERSICHT -->
+  <main class="listings-section">
+    <div class="listings-container" id="listingsContainer">
+      <!-- Hier kommen per JS die Cards rein -->
+    </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-links">
+  <footer class="ft-main">
+    <div class="ft-container">
+      <div class="ft-links">
         <a href="about.html">Über uns</a>
         <a href="datenschutz.html">Datenschutz</a>
-        <a href="privatsphaere.html">Privatsphäre</a>
         <a href="jobs.html">Jobs</a>
         <a href="impressum.html">Impressum</a>
       </div>
-      <div class="footer-actions">
-        <a href="immobilien-bewerten.html" class="btn btn-secondary">Bewerten</a>
-      </div>
-      <p class="footer-copy">© 2025 Homedex – Alle Rechte vorbehalten.</p>
+      <a href="immobilien-bewerten.html" class="btn btn-secondary ft-btn">Bewerten</a>
+      <p class="ft-copy">© 2025 Homedex – Alle Rechte vorbehalten.</p>
     </div>
   </footer>
 </body>
