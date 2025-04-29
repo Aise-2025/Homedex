@@ -1,72 +1,74 @@
-/* Header */
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.header-inner {
-  display: flex; align-items: center; justify-content: space-between;
-}
-.logo {
-  font-size: 1.75rem; font-weight: bold; color: #2c3e50; text-decoration: none;
-}
-.nav-links { display: flex; gap: 1.5rem; list-style: none; margin: 0; }
-.nav-links a { color: #2c3e50; text-decoration: none; font-weight: 600; }
-.nav-links a:hover { color: #0077cc; }
-.hamburger { display: none; background: none; border: none; font-size: 1.5rem; }
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homedex – Immobilien finden</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <!-- HEADER + NAVIGATION -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Homedex</a>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="login.html">Login</a></li>
+          <li><a href="about.html">Über uns</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+          <li><a href="jobs.html">Jobs</a></li>
+          <li><a href="impressum.html">Impressum</a></li>
+        </ul>
+      </nav>
+      <button id="hamburger" class="hamburger">☰</button>
+    </div>
+  </header>
 
-/* Hero */
-.hero {
-  position: relative; background: url('../images/hero-bg.jpg') center/cover no-repeat;
-  padding: 6rem 0;
-  color: #fff;
-}
-.hero-overlay {
-  position: absolute; inset: 0; background: rgba(0,0,0,0.5);
-}
-.hero-content {
-  position: relative; text-align: center; max-width: 800px; margin: 0 auto;
-}
-.hero-content h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+  <!-- HERO MIT SUCHE -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1>Finden Sie Ihre Traumimmobilie</h1>
+      <form id="searchForm" class="search-form">
+        <div class="form-row">
+          <div class="form-group"><input type="text" id="country" name="country" placeholder="Land"></div>
+          <div class="form-group"><input type="text" id="city" name="city" placeholder="Ort"></div>
+          <div class="form-group"><input type="number" id="priceMin" name="priceMin" placeholder="Preis von (€)"></div>
+          <div class="form-group"><input type="number" id="priceMax" name="priceMax" placeholder="bis (€)"></div>
+          <div class="form-group"><input type="number" id="bedrooms" name="bedrooms" placeholder="Schlafzimmer"></div>
+          <div class="form-group form-submit">
+            <button type="submit" class="btn btn-primary">Suchen</button>
+          </div>
+        </div>
+      </form>
+      <div class="ai-buttons">
+        <button id="aiChat" class="btn btn-secondary">AI-Agent Chat</button>
+        <button id="voiceAssist" class="btn btn-secondary">Sprach-KI</button>
+      </div>
+    </div>
+  </section>
 
-/* Suche */
-.search-form .form-row {
-  display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
-}
-.form-group { flex: 1 1 150px; }
-.form-group input, .form-group select {
-  width: 100%; padding: 0.75rem; border: none; border-radius: 4px;
-}
-.form-submit { flex: 0 0 auto; }
-.btn-primary { background: #0077cc; color: #fff; }
-.btn-secondary { background: #6c757d; color: #fff; }
-.btn { border-radius: 4px; font-weight: 600; }
+  <!-- LISTINGS-ANSICHT -->
+  <main class="container">
+    <div id="listingsContainer" class="listings-grid"></div>
+  </main>
 
-/* AI-Buttons */
-.ai-buttons { margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; }
-
-/* Listings-Grid */
-.listings-grid {
-  display: grid; gap: 1.5rem; padding: 2rem 0;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-.listing-card {
-  background: #fff; border-radius: 6px; overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 1rem;
-}
-.listing-card h3 { margin-bottom: 0.5rem; color: #2c3e50; }
-.listing-card p { margin: 0.25rem 0; }
-
-/* Footer */
-.footer { background: #2c3e50; color: #fff; padding: 2rem 0; }
-.footer-inner { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
-.footer-links { display: flex; gap: 1rem; }
-.footer-links a { color: #fff; text-decoration: none; }
-.footer-actions .btn-secondary { background: #e67e22; }
-.footer-copy { width: 100%; text-align: center; margin-top: 1rem; font-size: 0.9rem; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .hamburger { display: block; }
-  .search-form .form-row { flex-direction: column; }
-}
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-links">
+        <a href="about.html">Über uns</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="privatsphaere.html">Privatsphäre</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+      <div class="footer-actions">
+        <a href="immobilien-bewerten.html" class="btn btn-secondary">Bewerten</a>
+      </div>
+      <p class="footer-copy">© 2025 Homedex – Alle Rechte vorbehalten.</p>
+    </div>
+  </footer>
+</body>
+</html>
