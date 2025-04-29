@@ -126,3 +126,53 @@ body { font-family: var(--font-base); color: var(--col-primary); }
   .search-bar { flex-direction: column; }
   .hero-title { font-size: 2rem; }
 }
+@media (max-width: 480px) {
+  /* Header: Logo, Sprache und Nav übereinander */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+  .logo {
+    margin-bottom: 0.75rem;
+  }
+  .lang-switch {
+    margin: 0 0 0.75rem 0;
+  }
+  nav ul {
+    display: block;
+    width: 100%;
+  }
+  nav ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Hero: Text etwas kompakter */
+  .hero {
+    padding: 3rem 1rem 1rem;
+  }
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  /* Suchleiste: Inputs & Button full-width */
+  .search-bar input,
+  .search-bar select,
+  .search-bar button {
+    flex: 1 1 100%;
+  }
+
+  /* Listings: Eine Spalte */
+  .listings,
+  .listing-grid {
+    grid-template-columns: 1fr !important;
+    padding: 1rem;
+  }
+
+  /* Footer: Elemente übereinander */
+  .footer-inner {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
