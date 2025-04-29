@@ -8,70 +8,56 @@
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <!-- Einheitlicher Header -->
-  <header class="header">
-    <div class="container">
-      <h1 class="logo">Homedex</h1>
-      <button id="hamburger" class="hamburger">☰</button>
-      <nav id="nav-menu" class="nav hidden">
-        <ul>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="about.html">Über uns</a></li>
-          <li><a href="datenschutz.html">Datenschutz</a></li>
-          <li><a href="privatsphaere.html">Privatsphäre</a></li>
-          <li><a href="jobs.html">Jobs</a></li>
-          <li><a href="impressum.html">Impressum</a></li>
-        </ul>
-      </nav>
+  <!-- Hero-Bereich mit großem Background-Bild -->
+  <header class="hero-bg" style="background-image:url('images/hero.jpg');">
+    <div class="overlay"></div>
+    <div class="container hero-content-center">
+      <h1 class="hero-title">Finden Sie Ihre Traumimmobilie</h1>
+      <p class="hero-subtitle">Exklusive Angebote weltweit</p>
+      <form id="searchForm" class="search-form-modern">
+        <div class="form-row">
+          <div class="form-group">
+            <select name="country" id="country" class="select-modern">
+              <option value="">Land</option>
+              <option>Deutschland</option>
+              <option>Österreich</option>
+              <option>Schweiz</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" id="city" name="city" placeholder="Ort" class="input-modern" />
+          </div>
+          <div class="form-group">
+            <input type="number" id="bedrooms" name="bedrooms" min="1" max="10" value="1" class="input-modern" placeholder="Schlafzimmer" />
+          </div>
+          <div class="form-group btn-group">
+            <button type="submit" class="btn btn-primary btn-block">Suchen</button>
+          </div>
+        </div>
+      </form>
     </div>
   </header>
 
-  <!-- Hauptbereich mit Suche -->
-  <main class="container">
-    <section class="search-section">
-      <h2>Finden Sie Ihre Traumimmobilie</h2>
-      <form id="searchForm" class="search-form">
-        <div class="form-group">
-          <label for="country">Land</label>
-          <select name="country" id="country">
-            <option value="">– auswählen –</option>
-            <option>Deutschland</option>
-            <option>Österreich</option>
-            <option>Schweiz</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="city">Ort</label>
-          <input type="text" id="city" name="city" placeholder="Ort" />
-        </div>
-        <div class="form-group">
-          <label for="priceMin">Preis von (€)</label>
-          <input type="range" id="priceMin" name="priceMin" min="0" max="1000000" step="5000" value="0" oninput="this.nextElementSibling.value=this.value" />
-          <output>0</output>
-        </div>
-        <div class="form-group">
-          <label for="priceMax">bis (€)</label>
-          <input type="range" id="priceMax" name="priceMax" min="0" max="1000000" step="5000" value="1000000" oninput="this.nextElementSibling.value=this.value" />
-          <output>1000000</output>
-        </div>
-        <div class="form-group">
-          <label for="bedrooms">Schlafzimmer</label>
-          <input type="number" id="bedrooms" name="bedrooms" min="1" max="10" value="1" />
-        </div>
-        <button type="submit" class="btn btn-primary">Suchen</button>
-      </form>
-      <div class="ai-buttons">
-        <button id="aiChat" class="btn btn-secondary">AI-Agent Chat</button>
-        <button id="voiceAssist" class="btn btn-secondary">Sprach-KI</button>
-      </div>
-    </section>
-    <section id="listingsContainer" class="listings-container"></section>
+  <!-- Listings Grid -->
+  <main class="container listings-section">
+    <h2 class="section-title">Neueste Angebote</h2>
+    <div id="listingsContainer" class="grid-3">
+      <!-- Dynamische Listing-Cards -->
+    </div>
   </main>
 
-  <!-- Einheitlicher Footer -->
-  <footer class="footer">
+  <!-- Footer -->
+  <footer class="footer-dark">
     <div class="container">
-      <p>&copy; 2025 Homedex</p>
+      <div class="footer-logo">Homedex</div>
+      <div class="footer-links">
+        <a href="about.html">Über uns</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="privatsphaere.html">Privatsphäre</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+      <p class="footer-copy">&copy; 2025 Homedex. Alle Rechte vorbehalten.</p>
     </div>
   </footer>
 
@@ -80,26 +66,25 @@
       e.preventDefault();
       const country = document.getElementById('country').value;
       const city = document.getElementById('city').value;
-      const priceMin = document.getElementById('priceMin').value;
-      const priceMax = document.getElementById('priceMax').value;
       const bedrooms = document.getElementById('bedrooms').value;
       const params = new URLSearchParams();
       if (country) params.append('country', country);
       if (city) params.append('city_like', city);
-      params.append('price_gte', priceMin);
-      params.append('price_lte', priceMax);
       params.append('bedrooms', bedrooms);
-      const res = await fetch(`http://localhost:4000/listings?${params.toString()}`);
+      const res = await fetch(`${window.location.origin}/listings?${params}`);
       const listings = await res.json();
       const container = document.getElementById('listingsContainer');
       container.innerHTML = '';
       listings.forEach(l => {
         const card = document.createElement('div');
-        card.className = 'listing-card';
+        card.className = 'card-modern';
         card.innerHTML = `
-          <h3>${l.title}</h3>
-          <p>${l.location}</p>
-          <p>€${l.price}</p>
+          <img src="${l.image}" alt="${l.title}" class="card-img" />
+          <div class="card-body">
+            <h3>${l.title}</h3>
+            <p>${l.location}</p>
+            <p>€${l.price.toLocaleString()}</p>
+          </div>
         `;
         container.appendChild(card);
       });
