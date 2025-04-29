@@ -1,1 +1,200 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Datenschutz – Homedex</title>
+  <style>
+    /* ===== Reset & Grundfarben ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --col-header: #f2f4f8;
+      --col-hero-bg: #e8f0fe;
+      --col-primary: #007bff;
+      --col-accent: #6c63ff;
+      --col-light: #ffffff;
+      --col-dark: #333333;
+      --radius: 8px;
+    }
+    body { font-family: 'Segoe UI', sans-serif; color: var(--col-dark); background: var(--col-light); }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== Header ===== */
+    header {
+      background: var(--col-header);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .logo { font-size: 1.8rem; font-weight: bold; }
+    .lang-switch { margin-left: 1rem; }
+    nav { margin-left: auto; }
+    nav ul { list-style: none; display: flex; gap: 1rem; }
+    nav a { font-weight: 500; transition: color .2s; }
+    nav a:hover { color: var(--col-primary); }
+
+    /* ===== Hero ===== */
+    .hero.small-hero {
+      background: var(--col-hero-bg);
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+    }
+    .hero.small-hero h1 { font-size: 2.5rem; margin-bottom: .5rem; }
+    .hero.small-hero p { color: #555; font-size: 1rem; }
+
+    /* ===== Content-Section ===== */
+    .search-section {
+      max-width: 800px; margin: 2rem auto;
+      background: var(--col-light);
+      padding: 2rem; border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .search-section h2 {
+      margin-bottom: 1rem; font-size: 1.75rem; text-align: center;
+    }
+    .search-section h3 {
+      margin-top: 1.5rem; margin-bottom: .5rem; font-size: 1.25rem;
+    }
+    .search-section p {
+      margin-bottom: 1rem; line-height: 1.6; color: #444;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--col-header);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+    footer a { color: var(--col-primary); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="logo" data-i18n="logo">Homedex</a>
+    <div class="lang-switch">
+      <select onchange="changeLanguage(this.value)">
+        <option value="de">DE</option>
+        <option value="en">EN</option>
+        <option value="ar">AR</option>
+      </select>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="login.html" data-i18n="nav.login">Login</a></li>
+        <li><a href="about.html" data-i18n="nav.about">Über uns</a></li>
+        <li><a href="datenschutz.html" class="active" data-i18n="nav.privacy">Datenschutz</a></li>
+        <li><a href="jobs.html" data-i18n="nav.jobs">Jobs</a></li>
+        <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero small-hero">
+    <h1 data-i18n="privacy.heroTitle">Datenschutzerklärung</h1>
+    <p data-i18n="privacy.heroSub">Ihre Daten sind bei uns in sicheren Händen</p>
+  </section>
+
+  <!-- DATENSCHUTZ-INHALT -->
+  <section class="search-section">
+    <h2 data-i18n="privacy.introTitle">1. Einleitung</h2>
+    <p data-i18n="privacy.intro">
+      Homedex nimmt den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
+    </p>
+
+    <h3 data-i18n="privacy.dataCollectionTitle">2. Erhebung und Verwendung von Daten</h3>
+    <p data-i18n="privacy.dataCollection">
+      Wir erheben Daten, wenn Sie sich registrieren, Immobilienanfragen stellen oder unsere Dienste nutzen. Dazu gehören Name, E-Mail-Adresse, Geburtsdatum, Wohnort sowie Angaben zu Immobilien. Diese Daten verwenden wir, um Ihnen personalisierte Angebote zu unterbreiten und unsere Plattform kontinuierlich zu verbessern.
+    </p>
+
+    <h3 data-i18n="privacy.cookiesTitle">3. Cookies & Tracking</h3>
+    <p data-i18n="privacy.cookies">
+      Unsere Website verwendet Cookies, um die Nutzung zu analysieren und Ihnen eine bessere Benutzererfahrung zu bieten. Sie können die Verwendung von Cookies in Ihrem Browser einschränken oder deaktivieren, was jedoch die Funktionalität einschränken kann.
+    </p>
+
+    <h3 data-i18n="privacy.thirdPartyTitle">4. Weitergabe an Dritte</h3>
+    <p data-i18n="privacy.thirdParty">
+      Eine Weitergabe Ihrer Daten an Dritte erfolgt nur, wenn dies gesetzlich erlaubt ist, zum Beispiel an Zahlungsdienstleister, oder Sie zuvor eingewilligt haben. Externe Dienstleister unterliegen strengen Vertraulichkeitsvereinbarungen.
+    </p>
+
+    <h3 data-i18n="privacy.securityTitle">5. Datensicherheit</h3>
+    <p data-i18n="privacy.security">
+      Homedex setzt technische und organisatorische Maßnahmen ein, um Ihre Daten vor Verlust, Manipulation und unberechtigtem Zugriff zu schützen. Unsere Sicherheitsstandards entsprechen dem aktuellen Stand der Technik.
+    </p>
+
+    <h3 data-i18n="privacy.yourRightsTitle">6. Ihre Rechte</h3>
+    <p data-i18n="privacy.yourRights">
+      Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung oder Sperrung Ihrer gespeicherten Daten. Bitte wenden Sie sich dazu an unseren Datenschutzbeauftragten unter datenschutz@homedex.com.
+    </p>
+
+    <h3 data-i18n="privacy.changesTitle">7. Änderungen dieser Erklärung</h3>
+    <p data-i18n="privacy.changes">
+      Wir behalten uns vor, diese Datenschutzerklärung bei Bedarf anzupassen. Die jeweils aktuelle Version finden Sie stets auf unserer Website.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span data-i18n="footer.copy">© 2025 Homedex – Alle Rechte vorbehalten.</span><br/>
+    <a href="immobilien-bewerten.html" data-i18n="footer.rate">Immobilie bewerten</a>
+  </footer>
+
+  <!-- TRANSLATIONS -->
+  <script>
+    const translations = {
+      de: {
+        logo: "Homedex",
+        "nav.login":"Login","nav.about":"Über uns","nav.privacy":"Datenschutz","nav.jobs":"Jobs","nav.imprint":"Impressum",
+        "privacy.heroTitle":"Datenschutzerklärung","privacy.heroSub":"Ihre Daten sind bei uns in sicheren Händen",
+        "privacy.introTitle":"1. Einleitung","privacy.intro":"Homedex nimmt den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.",
+        "privacy.dataCollectionTitle":"2. Erhebung und Verwendung von Daten","privacy.dataCollection":"Wir erheben Daten, wenn Sie sich registrieren, Immobilienanfragen stellen oder unsere Dienste nutzen. Dazu gehören Name, E-Mail-Adresse, Geburtsdatum, Wohnort sowie Angaben zu Immobilien. Diese Daten verwenden wir, um Ihnen personalisierte Angebote zu unterbreiten und unsere Plattform kontinuierlich zu verbessern.",
+        "privacy.cookiesTitle":"3. Cookies & Tracking","privacy.cookies":"Unsere Website verwendet Cookies, um die Nutzung zu analysieren und Ihnen eine bessere Benutzererfahrung zu bieten. Sie können die Verwendung von Cookies in Ihrem Browser einschränken oder deaktivieren, was jedoch die Funktionalität einschränken kann.",
+        "privacy.thirdPartyTitle":"4. Weitergabe an Dritte","privacy.thirdParty":"Eine Weitergabe Ihrer Daten an Dritte erfolgt nur, wenn dies gesetzlich erlaubt ist, zum Beispiel an Zahlungsdienstleister, oder Sie zuvor eingewilligt haben. Externe Dienstleister unterliegen strengen Vertraulichkeitsvereinbarungen.",
+        "privacy.securityTitle":"5. Datensicherheit","privacy.security":"Homedex setzt technische und organisatorische Maßnahmen ein, um Ihre Daten vor Verlust, Manipulation und unberechtigtem Zugriff zu schützen. Unsere Sicherheitsstandards entsprechen dem aktuellen Stand der Technik.",
+        "privacy.yourRightsTitle":"6. Ihre Rechte","privacy.yourRights":"Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung oder Sperrung Ihrer gespeicherten Daten. Bitte wenden Sie sich dazu an unseren Datenschutzbeauftragten unter datenschutz@homedex.com.",
+        "privacy.changesTitle":"7. Änderungen dieser Erklärung","privacy.changes":"Wir behalten uns vor, diese Datenschutzerklärung bei Bedarf anzupassen. Die jeweils aktuelle Version finden Sie stets auf unserer Website.",
+        "footer.copy":"© 2025 Homedex – Alle Rechte vorbehalten.","footer.rate":"Immobilie bewerten"
+      },
+      en: {
+        logo: "Homedex",
+        "nav.login":"Login","nav.about":"About us","nav.privacy":"Privacy policy","nav.jobs":"Jobs","nav.imprint":"Imprint",
+        "privacy.heroTitle":"Privacy Policy","privacy.heroSub":"Your data is safe with us",
+        "privacy.introTitle":"1. Introduction","privacy.intro":"Homedex takes the protection of your personal data very seriously. We treat your personal information confidentially and in accordance with legal data protection regulations and this privacy policy.",
+        "privacy.dataCollectionTitle":"2. Data Collection & Use","privacy.dataCollection":"We collect data when you register, submit property inquiries, or use our services. This includes name, email address, date of birth, location, and property details. We use this data to provide personalized offers and continuously improve our platform.",
+        "privacy.cookiesTitle":"3. Cookies & Tracking","privacy.cookies":"Our website uses cookies to analyze usage and provide a better user experience. You can restrict or disable cookies in your browser settings, which may limit functionality.",
+        "privacy.thirdPartyTitle":"4. Third-Party Disclosure","privacy.thirdParty":"We only share your data with third parties when legally permitted, such as payment providers, or with your prior consent. External providers are bound by strict confidentiality agreements.",
+        "privacy.securityTitle":"5. Data Security","privacy.security":"Homedex implements technical and organizational measures to protect your data from loss, manipulation, and unauthorized access. Our security standards comply with current best practices.",
+        "privacy.yourRightsTitle":"6. Your Rights","privacy.yourRights":"You have the right to access, correct, delete, or block your stored data at any time. Please contact our data protection officer at datenschutz@homedex.com.",
+        "privacy.changesTitle":"7. Changes to this Policy","privacy.changes":"We reserve the right to update this privacy policy as needed. The current version is always available on our website.",
+        "footer.copy":"© 2025 Homedex – All rights reserved.","footer.rate":"Rate property"
+      },
+      ar: {
+        logo: "هومديكس",
+        "nav.login":"تسجيل الدخول","nav.about":"معلومات عنا","nav.privacy":"سياسة الخصوصية","nav.jobs":"وظائف","nav.imprint":"الطابع",
+        "privacy.heroTitle":"سياسة الخصوصية","privacy.heroSub":"بياناتك في أمان معنا",
+        "privacy.introTitle":"1. المقدمة","privacy.intro":"تأخذ Homedex حماية بياناتك الشخصية على محمل الجد. نتعامل مع معلوماتك الشخصية بسرية تامة ووفقًا للوائح حماية البيانات القانونية وهذه السياسة.",
+        "privacy.dataCollectionTitle":"2. جمع البيانات واستخدامها","privacy.dataCollection":"نجمع البيانات عند التسجيل أو تقديم استفسارات عقارية أو استخدام خدماتنا. يشمل ذلك الاسم، البريد الإلكتروني، تاريخ الميلاد، الموقع، وتفاصيل العقار. نستخدم هذه البيانات لتقديم عروض مخصصة ولتحسين منصتنا بشكل مستمر.",
+        "privacy.cookiesTitle":"3. الكوكيز والتتبع","privacy.cookies":"يستخدم موقعنا الكوكيز لتحليل الاستخدام وتقديم تجربة مستخدم أفضل. يمكنك تقييد أو تعطيل الكوكيز في إعدادات متصفحك، مما قد يحد من بعض الوظائف.",
+        "privacy.thirdPartyTitle":"4. مشاركة الأطراف الثالثة","privacy.thirdParty":"نشارك بياناتك مع الأطراف الثالثة فقط عندما يسمح بذلك القانون، مثل مزودي الدفع، أو بموافقتك المسبقة. يخضع المزودون الخارجيون لاتفاقيات سرية صارمة.",
+        "privacy.securityTitle":"5. أمان البيانات","privacy.security":"تطبق Homedex تدابير تقنية وتنظيمية لحماية بياناتك من الضياع أو التلاعب أو الوصول غير المصرح به. تتوافق معايير الأمان لدينا مع أفضل الممارسات الحالية.",
+        "privacy.yourRightsTitle":"6. حقوقك","privacy.yourRights":"لديك الحق في الوصول إلى بياناتك وتصحيحها أو حذفها أو حظرها في أي وقت. يرجى الاتصال بمسؤول حماية البيانات لدينا على datenschutz@homedex.com.",
+        "privacy.changesTitle":"7. التغييرات على هذه السياسة","privacy.changes":"نحتفظ بالحق في تحديث سياسة الخصوصية هذه حسب الحاجة. النسخة الحالية متاحة دائمًا على موقعنا.",
+        "footer.copy":"© 2025 هومديكس – جميع الحقوق محفوظة.","footer.rate":"قيم العقار"
+      }
+    };
+
+    function translate(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang==='ar'?'rtl':'ltr';
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key=el.getAttribute('data-i18n');
+        if(translations[lang][key]) el.textContent=translations[lang][key];
+      });
+    }
+    function changeLanguage(lang){ translate(lang); }
+    window.addEventListener('DOMContentLoaded', ()=>translate('de'));
+  </script>
+</body>
+</html>
 
