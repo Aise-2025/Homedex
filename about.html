@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Über uns – Homedex</title>
+  <style>
+    /* ===== Reset & Grundfarben ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --col-header: #f2f4f8;
+      --col-hero-bg: #e8f0fe;
+      --col-primary: #007bff;
+      --col-accent: #6c63ff;
+      --col-light: #ffffff;
+      --col-dark: #333333;
+      --radius: 8px;
+    }
+    body { font-family: 'Segoe UI', sans-serif; color: var(--col-dark); background: var(--col-light); }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== Header ===== */
+    header {
+      background: var(--col-header);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .logo { font-size: 1.8rem; font-weight: bold; }
+    .lang-switch { margin-left: 1rem; }
+    nav { margin-left: auto; }
+    nav ul { list-style: none; display: flex; gap: 1rem; }
+    nav a { font-weight: 500; transition: color .2s; }
+    nav a:hover { color: var(--col-primary); }
+
+    /* ===== Hero ===== */
+    .hero.small-hero {
+      background: var(--col-hero-bg);
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+    }
+    .hero.small-hero h1 { font-size: 2.5rem; margin-bottom: .5rem; }
+    .hero.small-hero p { color: #555; font-size: 1rem; }
+
+    /* ===== Content-Section ===== */
+    .search-section {
+      max-width: 800px; margin: 2rem auto;
+      background: var(--col-light);
+      padding: 2rem; border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .search-section h2 {
+      margin-bottom: 1rem; font-size: 1.75rem; text-align: center;
+    }
+    .search-section p {
+      margin-bottom: 1rem; line-height: 1.6; font-size: 1rem; color: #444;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--col-header);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+    footer a { color: var(--col-primary); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="logo" data-i18n="logo">Homedex</a>
+    <div class="lang-switch">
+      <select onchange="changeLanguage(this.value)">
+        <option value="de">DE</option>
+        <option value="en">EN</option>
+        <option value="ar">AR</option>
+      </select>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="login.html" data-i18n="nav.login">Login</a></li>
+        <li><a href="about.html" class="active" data-i18n="nav.about">Über uns</a></li>
+        <li><a href="datenschutz.html" data-i18n="nav.privacy">Datenschutz</a></li>
+        <li><a href="jobs.html" data-i18n="nav.jobs">Jobs</a></li>
+        <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero small-hero">
+    <h1 data-i18n="about.heroTitle">Über uns</h1>
+    <p data-i18n="about.heroSub">Erfahren Sie mehr über unsere Geschichte und Vision</p>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="search-section">
+    <h2 data-i18n="about.title">Unsere Geschichte</h2>
+    <p data-i18n="about.p1">
+      Homedex wurde 2025 von einer Gruppe leidenschaftlicher Unternehmer und Immobilienexperten gegründet.  
+      Inspiriert von der Digitalisierung und dem Wunsch, den Immobilienmarkt zu revolutionieren, entstand der Gedanke, 
+      eine Plattform zu schaffen, die modernste Technologie und persönlichen Service verbindet.
+    </p>
+    <p data-i18n="about.p2">
+      Unsere Mission ist es, Käufern und Verkäufern eine zuverlässige, transparente und KI-gestützte Lösung zu bieten.  
+      Wir möchten den Immobilienprozess vereinfachen und allen Nutzern – egal ob Einsteiger oder Profi –  
+      einen echten Mehrwert bieten. Für die Zukunft planen wir, Homedex europaweit und darüber hinaus zum führenden 
+      digitalen Immobilienmarktplatz auszubauen.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span data-i18n="footer.copy">© 2025 Homedex – Alle Rechte vorbehalten.</span><br/>
+    <a href="immobilien-bewerten.html" data-i18n="footer.rate">Immobilie bewerten</a>
+  </footer>
+
+  <!-- TRANSLATION-SCRIPT -->
+  <script>
+    const translations = {
+      de: {
+        logo: "Homedex",
+        "nav.login":"Login","nav.about":"Über uns","nav.privacy":"Datenschutz","nav.jobs":"Jobs","nav.imprint":"Impressum",
+        "about.heroTitle":"Über uns","about.heroSub":"Erfahren Sie mehr über unsere Geschichte und Vision",
+        "about.title":"Unsere Geschichte",
+        "about.p1":"Homedex wurde 2025 von einer Gruppe leidenschaftlicher Unternehmer und Immobilienexperten gegründet. Inspiriert von der Digitalisierung und dem Wunsch, den Immobilienmarkt zu revolutionieren, entstand der Gedanke, eine Plattform zu schaffen, die modernste Technologie und persönlichen Service verbindet.",
+        "about.p2":"Unsere Mission ist es, Käufern und Verkäufern eine zuverlässige, transparente und KI-gestützte Lösung zu bieten. Wir möchten den Immobilienprozess vereinfachen und allen Nutzern – egal ob Einsteiger oder Profi – einen echten Mehrwert bieten. Für die Zukunft planen wir, Homedex europaweit und darüber hinaus zum führenden digitalen Immobilienmarktplatz auszubauen.",
+        "footer.copy":"© 2025 Homedex – Alle Rechte vorbehalten.","footer.rate":"Immobilie bewerten"
+      },
+      en: {
+        logo: "Homedex",
+        "nav.login":"Login","nav.about":"About us","nav.privacy":"Privacy policy","nav.jobs":"Jobs","nav.imprint":"Imprint",
+        "about.heroTitle":"About us","about.heroSub":"Learn more about our story and vision",
+        "about.title":"Our Story",
+        "about.p1":"Homedex was founded in 2025 by a team of passionate entrepreneurs and real-estate experts. Driven by digital innovation and a desire to transform the property market, we set out to create a platform that combines cutting-edge technology with personalized service.",
+        "about.p2":"Our mission is to provide buyers and sellers with a reliable, transparent, AI-powered solution. We aim to simplify the real-estate process and deliver real value to everyone—from first-time buyers to seasoned professionals. Looking ahead, we plan to expand Homedex across Europe and beyond as the premier digital property marketplace.",
+        "footer.copy":"© 2025 Homedex – All rights reserved.","footer.rate":"Rate property"
+      },
+      ar: {
+        logo: "هومديكس",
+        "nav.login":"تسجيل الدخول","nav.about":"معلومات عنا","nav.privacy":"سياسة الخصوصية","nav.jobs":"وظائف","nav.imprint":"الطابع",
+        "about.heroTitle":"معلومات عنا","about.heroSub":"اكتشف المزيد عن قصتنا ورؤيتنا",
+        "about.title":"قصتنا",
+        "about.p1":"تأسست Homedex في عام 2025 على يد فريق من رواد الأعمال وخبراء العقارات الشغوفين. مستوحين من التحول الرقمي والرغبة في إعادة تشكيل سوق العقارات، سعينا لإنشاء منصة تجمع بين أحدث التقنيات والخدمة الشخصية.",
+        "about.p2":"مهمتنا هي تقديم حل موثوق وشفاف مدعوم بالذكاء الاصطناعي للمشترين والبائعين. نهدف إلى تبسيط عميلة العقارات وتقديم قيمة حقيقية للجميع – من المشترين الجدد إلى المحترفين المخضرمين. نتطلع لتوسيع Homedex في أوروبا وما بعدها ليصبح السوق الرقمي الأول للعقارات.",
+        "footer.copy":"© 2025 هومديكس – جميع الحقوق محفوظة.","footer.rate":"قيم العقار"
+      }
+    };
+
+    function translate(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+    }
+    function changeLanguage(lang) { translate(lang); }
+    window.addEventListener('DOMContentLoaded', () => translate('de'));
+  </script>
+</body>
+</html>
 
