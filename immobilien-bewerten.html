@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Immobilienbewertung - Homedex</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">Homedex</h1>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero small-hero">
+    <div class="hero-content">
+      <h2>Immobilie bewerten lassen</h2>
+      <p>Erhalten Sie eine schnelle Schätzung vom AI-Immobilienexperten</p>
+    </div>
+  </section>
+
+  <section class="bewertungsformular">
+    <div class="container">
+      <form id="bewertungForm">
+        <input type="text" id="location" placeholder="Ort der Immobilie" required>
+        <input type="number" id="size" placeholder="Wohnfläche in m²" required>
+        <input type="number" id="rooms" placeholder="Anzahl der Zimmer" required>
+        <input type="text" id="type" placeholder="Art der Immobilie (z.B. Villa, Wohnung)" required>
+        <button type="submit">Bewertung starten</button>
+      </form>
+
+      <div id="bewertungResultat" class="hidden">
+        <h3>Geschätzter Wert:</h3>
+        <p id="result"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Homedex - Alle Rechte vorbehalten.</p>
+      <a href="immobilien-bewerten.html" class="bewerten-button">Jetzt Immobilie bewerten</a>
+    </div>
+  </footer>
+
+  <script src="js/bewertung.js"></script>
+</body>
+</html>
 
