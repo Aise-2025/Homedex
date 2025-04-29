@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Homedex</title>
+  <title>Login – Homedex</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/auth.js" defer></script>
 </head>
@@ -19,28 +19,39 @@
         <a href="privatsphaere.html">Privatsphäre</a>
         <a href="jobs.html">Jobs</a>
         <a href="impressum.html">Impressum</a>
-        <a href="login.html" class="nav-login">Login</a>
+        <a href="login.html" class="nav-login active">Login</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero-Sektion als Einstieg -->
+  <!-- Hero-Bereich -->
   <section class="hero small-hero">
     <div class="hero-content container">
-      <h2>Login</h2>
-      <p>Geben Sie Ihre Zugangsdaten ein, um fortzufahren</p>
+      <h2>Willkommen zurück!</h2>
+      <p>Loggen Sie sich ein, um Ihre Immobilien zu verwalten</p>
     </div>
   </section>
 
-  <!-- Hauptbereich mit Login-Formular -->
+  <!-- Login-Formular -->
   <main class="container auth-page">
-    <form id="loginForm">
-      <input type="email" name="email" placeholder="E-Mail" required>
-      <input type="password" name="password" placeholder="Passwort" required>
-      <button type="submit">Einloggen</button>
-    </form>
-    <p class="mt-4">Noch kein Konto? <a href="register.html">Jetzt registrieren</a></p>
-    <div id="loginMessage" class="message"></div>
+    <div class="auth-card">
+      <h3>Login</h3>
+      <form id="loginForm" class="auth-form">
+        <label class="auth-label">
+          <span>E-Mail</span>
+          <input type="email" name="email" placeholder="E-Mail" required>
+        </label>
+        <label class="auth-label">
+          <span>Passwort</span>
+          <input type="password" name="password" placeholder="Passwort" required>
+        </label>
+        <button type="submit" class="auth-button">Einloggen</button>
+      </form>
+      <p class="auth-footer-text">
+        Noch kein Konto? <a href="register.html">Jetzt registrieren</a>
+      </p>
+      <div id="loginMessage" class="message"></div>
+    </div>
   </main>
 
   <!-- Footer mit Bewertungs-Button -->
@@ -52,4 +63,3 @@
   </footer>
 </body>
 </html>
-
