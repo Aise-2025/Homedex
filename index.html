@@ -65,6 +65,7 @@
         <button id="voiceAssist" class="btn btn-secondary">Sprach-KI</button>
       </div>
     </section>
+    <section id="listingsContainer" class="listings-container"></section>
   </main>
 
   <!-- Einheitlicher Footer -->
@@ -77,13 +78,11 @@
   <script>
     document.getElementById('searchForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      // Werte aus Formular auslesen
       const country = document.getElementById('country').value;
       const city = document.getElementById('city').value;
       const priceMin = document.getElementById('priceMin').value;
       const priceMax = document.getElementById('priceMax').value;
       const bedrooms = document.getElementById('bedrooms').value;
-      // Listings vom Backend abrufen
       const params = new URLSearchParams();
       if (country) params.append('country', country);
       if (city) params.append('city_like', city);
@@ -92,7 +91,6 @@
       params.append('bedrooms', bedrooms);
       const res = await fetch(`http://localhost:4000/listings?${params.toString()}`);
       const listings = await res.json();
-      // Anzeigen
       const container = document.getElementById('listingsContainer');
       container.innerHTML = '';
       listings.forEach(l => {
