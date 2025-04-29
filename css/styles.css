@@ -1,57 +1,128 @@
+/* ================== RESET & ROOT ================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
-  --col-header: #a8dadc;    /* helle, freundliche Türkis */
-  --col-footer: #ffe066;    /* warmes Gelb */
-  --col-button: #457b9d;    /* kontrastreiches Blau */
-  --col-button-hover: #1d3557;
+  --col-primary: #1b1b1b;
+  --col-light: #fafafa;
+  --col-accent: #f39c12;
+  --col-overlay: rgba(0,0,0,0.4);
+  --radius: 6px;
+  --font-base: 'Helvetica Neue', Arial, sans-serif;
+}
+body { font-family: var(--font-base); color: var(--col-primary); }
+
+/* ================== HEADER ================== */
+.header-transparent {
+  position: absolute; top: 0; width: 100%; z-index: 10;
+}
+.header-inner {
+  max-width: 1200px; margin: auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem;
+}
+.logo {
+  font-size: 1.75rem; font-weight: bold;
+  color: var(--col-light); text-decoration: none;
+}
+.nav ul {
+  display: flex; list-style: none; gap: 1.5rem;
+}
+.nav a {
+  color: var(--col-light); text-decoration: none;
+  font-weight: 500; transition: color 0.2s;
+}
+.nav.open ul { display: block; background: var(--col-primary); position: absolute; top: 100%; right: 1rem; padding: 1rem; border-radius: var(--radius); }
+.nav.open a { color: var(--col-light); }
+.nav a:hover { color: var(--col-accent); }
+.hamburger {
+  background: none; border: none; color: var(--col-light);
+  font-size: 1.5rem; cursor: pointer;
 }
 
-/* HEADER */
-.hd-main {
-  background: var(--col-header);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+/* ================== HERO ================== */
+.hero {
+  position: relative;
+  background: url('../images/hero-bg.jpg') center/cover no-repeat;
+  height: 60vh; min-height: 400px;
 }
-/* Links am Header */
-.hd-nav a {
-  color: #1d3557;
+.hero-overlay {
+  position: absolute; inset: 0; background: var(--col-overlay);
 }
-.hd-nav a:hover {
-  color: var(--col-button);
+.hero-content {
+  position: relative; z-index: 1;
+  max-width: 800px; margin: auto; padding: 2rem;
+  text-align: center; color: var(--col-light);
+}
+.hero-title {
+  font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: 600;
 }
 
-/* BTN PRIMARY */
+/* ================== SEARCH-BAR ================== */
+.search-bar {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
+}
+.search-bar input {
+  flex: 1 1 140px; padding: 0.75rem;
+  border: none; border-radius: var(--radius);
+  font-size: 1rem;
+}
 .btn-primary {
-  background: var(--col-button);
-  color: #fff;
+  background: var(--col-accent); color: var(--col-light);
+  border: none; padding: 0 1rem; border-radius: var(--radius);
+  cursor: pointer; font-weight: 600;
 }
 .btn-primary:hover {
-  background: var(--col-button-hover);
+  background: #d88c10;
 }
 
-/* BTN SECONDARY */
-.btn-secondary {
-  background: #f1faee;
-  color: var(--col-button-hover);
-  border: 1px solid var(--col-button-hover);
+/* ================== LISTINGS ================== */
+.listings {
+  max-width: 1200px; margin: 2rem auto;
+  display: grid; gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
-.btn-secondary:hover {
-  background: #e5eaf2;
+.listing-card {
+  background: var(--col-light); border-radius: var(--radius);
+  overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+.listing-card:hover { transform: translateY(-4px); }
+.listing-card img {
+  width: 100%; height: auto; display: block;
+}
+.card-info {
+  padding: 1rem; text-align: left;
+}
+.card-info h3 {
+  font-size: 1.25rem; margin-bottom: 0.5rem;
+  color: var(--col-primary);
+}
+.card-info p {
+  font-size: 1rem; color: #555; margin-bottom: 0.5rem;
+}
+.price {
+  font-weight: bold; color: var(--col-accent);
 }
 
-/* FOOTER */
-.ft-main {
-  background: var(--col-footer);
-  color: #333;
+/* ================== FOOTER ================== */
+.footer {
+  background: var(--col-accent); padding: 1rem 0;
 }
-.ft-link {
-  color: #1d3557;
-  text-decoration: none;
-  font-weight: 600;
+.footer-inner {
+  max-width: 1200px; margin: auto;
+  display: flex; justify-content: space-between; align-items: center;
 }
-.ft-link:hover {
-  text-decoration: underline;
+.footer-inner p {
+  color: var(--col-primary); font-size: 0.9rem;
 }
+.footer-link {
+  color: var(--col-primary); text-decoration: none;
+  font-weight: 600; transition: opacity 0.2s;
+}
+.footer-link:hover { opacity: 0.8; }
 
-/* MITTE WEISS */
-.main, .listings-section {
-  background: #fff;
+/* ================== RESPONSIVE ================== */
+@media (max-width: 768px) {
+  .nav ul { display: none; }
+  .search-bar { flex-direction: column; }
+  .hero-title { font-size: 2rem; }
 }
