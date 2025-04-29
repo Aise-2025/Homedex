@@ -2,47 +2,44 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login – Homedex</title>
   <link rel="stylesheet" href="css/styles.css"/>
-  <script src="js/auth.js" defer></script>
 </head>
 <body>
-  <!-- HEADER im Index-Stil -->
-  <header class="hd-main">
-    <div class="hd-container">
-      <a href="index.html" class="hd-logo">Homedex</a>
-      <div class="lang-select">
-        <select onchange="changeLanguage(this.value)">
-          <option value="de">DE</option>
-          <option value="en">EN</option>
-          <option value="ar">AR</option>
-        </select>
-      </div>
-      <nav class="hd-nav">
-        <ul>
-          <li><a href="login.html" class="active" data-i18n="nav.login">Login</a></li>
-          <li><a href="about.html" data-i18n="nav.about">Über uns</a></li>
-          <li><a href="datenschutz.html" data-i18n="nav.privacy">Datenschutz</a></li>
-          <li><a href="jobs.html" data-i18n="nav.jobs">Jobs</a></li>
-          <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
-        </ul>
-      </nav>
+  <!-- HEADER -->
+  <header>
+    <div class="logo" data-i18n="logo">Homedex</div>
+    <div class="lang-switch">
+      <select onchange="changeLanguage(this.value)">
+        <option value="de">DE</option>
+        <option value="en">EN</option>
+        <option value="ar">AR</option>
+      </select>
     </div>
+    <nav>
+      <ul>
+        <li><a href="login.html" class="active" data-i18n="nav.login">Login</a></li>
+        <li><a href="about.html" data-i18n="nav.about">Über uns</a></li>
+        <li><a href="datenschutz.html" data-i18n="nav.privacy">Datenschutz</a></li>
+        <li><a href="jobs.html" data-i18n="nav.jobs">Jobs</a></li>
+        <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- HERO small-hero wie auf Index -->
+  <!-- HERO small-hero -->
   <section class="hero small-hero">
     <div class="hero-overlay"></div>
-    <div class="hero-content hd-container">
-      <h2 data-i18n="hero.welcome">Willkommen zurück!</h2>
-      <p data-i18n="hero.subtitle">Loggen Sie sich ein, um Ihre Immobilien zu verwalten</p>
+    <div class="hero-content container">
+      <h2 data-i18n="login.heroTitle">Willkommen zurück!</h2>
+      <p data-i18n="login.heroSub">Loggen Sie sich ein, um Ihre Immobilien zu verwalten</p>
     </div>
   </section>
 
-  <!-- LOGIN-FORMULAR im Index-Kartenstil -->
-  <main class="hd-container" style="padding:2rem 0;">
-    <div class="auth-card stylish-auth-card" style="max-width:400px; margin:0 auto;">
+  <!-- LOGIN-FORMULAR -->
+  <main class="container">
+    <div class="auth-card stylish-auth-card">
       <h3 data-i18n="login.title">Login</h3>
       <form id="loginForm" class="auth-form">
         <label class="auth-label">
@@ -63,34 +60,37 @@
     </div>
   </main>
 
-  <!-- FOOTER im Index-Stil -->
+  <!-- FOOTER -->
   <footer class="ft-main">
     <div class="ft-container">
       <span data-i18n="footer.copy">© 2025 Homedex – Alle Rechte vorbehalten.</span>
-      <a href="immobilien-bewerten.html" class="btn btn-secondary ft-btn" data-i18n="footer.rate">Immobilie bewerten</a>
+      <a href="immobilien-bewerten.html" class="ft-link" data-i18n="footer.rate">Immobilie bewerten</a>
     </div>
   </footer>
 
-  <!-- TRANSLATION & LOGIN-LOGIK wie in index.html -->
+  <!-- TRANSLATION & LOGIN-LOGIK -->
   <script>
     const translations = {
       de: {
+        logo: "Homedex",
         "nav.login":"Login","nav.about":"Über uns","nav.privacy":"Datenschutz","nav.jobs":"Jobs","nav.imprint":"Impressum",
-        "hero.welcome":"Willkommen zurück!","hero.subtitle":"Loggen Sie sich ein, um Ihre Immobilien zu verwalten",
+        "login.heroTitle":"Willkommen zurück!","login.heroSub":"Loggen Sie sich ein, um Ihre Immobilien zu verwalten",
         "login.title":"Login","login.email":"E-Mail","login.password":"Passwort","login.submit":"Einloggen",
         "login.noAccount":"Noch kein Konto?","login.register":"Jetzt registrieren",
         "footer.copy":"© 2025 Homedex – Alle Rechte vorbehalten.","footer.rate":"Immobilie bewerten"
       },
       en: {
+        logo: "Homedex",
         "nav.login":"Login","nav.about":"About us","nav.privacy":"Privacy policy","nav.jobs":"Jobs","nav.imprint":"Imprint",
-        "hero.welcome":"Welcome back!","hero.subtitle":"Log in to manage your properties",
+        "login.heroTitle":"Welcome back!","login.heroSub":"Log in to manage your properties",
         "login.title":"Login","login.email":"Email","login.password":"Password","login.submit":"Sign in",
         "login.noAccount":"No account yet?","login.register":"Register now",
         "footer.copy":"© 2025 Homedex – All rights reserved.","footer.rate":"Rate property"
       },
       ar: {
+        logo: "هومديكس",
         "nav.login":"تسجيل الدخول","nav.about":"معلومات عنا","nav.privacy":"سياسة الخصوصية","nav.jobs":"وظائف","nav.imprint":"الطابع",
-        "hero.welcome":"مرحبًا بعودتك!","hero.subtitle":"قم بتسجيل الدخول لإدارة عقاراتك",
+        "login.heroTitle":"مرحبًا بعودتك!","login.heroSub":"قم بتسجيل الدخول لإدارة عقاراتك",
         "login.title":"تسجيل الدخول","login.email":"البريد الإلكتروني","login.password":"كلمة المرور","login.submit":"تسجيل الدخول",
         "login.noAccount":"ليس لديك حساب؟","login.register":"سجل الآن",
         "footer.copy":"© 2025 هومديكس – جميع الحقوق محفوظة.","footer.rate":"قيم العقار"
@@ -99,42 +99,42 @@
 
     function translate(lang) {
       document.documentElement.lang = lang;
-      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const txt = translations[lang][el.getAttribute('data-i18n')];
-        if (txt) el.textContent = txt;
+      document.documentElement.dir = lang === 'ar'? 'rtl':'ltr';
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if(translations[lang][key]) el.textContent = translations[lang][key];
       });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const ph = translations[lang][el.getAttribute('data-i18n-placeholder')];
-        if (ph) el.placeholder = ph;
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+        const key = el.getAttribute('data-i18n-placeholder');
+        if(translations[lang][key]) el.placeholder = translations[lang][key];
       });
     }
+    function changeLanguage(lang){ translate(lang); }
+    window.addEventListener('DOMContentLoaded', ()=>translate('de'));
 
-    function changeLanguage(lang) { translate(lang); }
-    window.addEventListener('DOMContentLoaded', () => translate('de'));
-
-    document.getElementById('loginForm').addEventListener('submit', async e => {
+    document.getElementById('loginForm').addEventListener('submit', async e=>{
       e.preventDefault();
-      const [email, password] = [e.target.email.value.trim(), e.target.password.value.trim()];
-      const msg = document.getElementById('loginMessage');
+      const email = e.target.email.value.trim(),
+            pwd = e.target.password.value.trim(),
+            msg = document.getElementById('loginMessage');
       msg.textContent = '';
-      if (!email || !password) {
+      if(!email||!pwd){
         msg.textContent = translations[document.documentElement.lang]['login.email'] + ' & ' +
                           translations[document.documentElement.lang]['login.password'] + ' required.';
         return;
       }
       try {
-        const res = await fetch(`${window.location.origin}/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+        const res = await fetch(`${location.origin}/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(pwd)}`);
         const users = await res.json();
-        if (!users.length) {
+        if(!users.length){
           msg.textContent = translations[document.documentElement.lang]['login.submit'] + ' failed.';
           return;
         }
         const user = users[0];
         sessionStorage.setItem('currentUser', JSON.stringify(user));
-        if (user.role === 'admin') location.href = 'admin-dashboard.html';
-        else if (user.role === 'employee') location.href = 'employee-dashboard.html';
-        else location.href = 'client-dashboard.html';
+        if(user.role==='admin') location.href='admin-dashboard.html';
+        else if(user.role==='employee') location.href='employee-dashboard.html';
+        else location.href='client-dashboard.html';
       } catch {
         msg.textContent = 'Serverfehler. Bitte später erneut versuchen.';
       }
