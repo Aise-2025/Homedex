@@ -1,1 +1,15 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Martin",
+      "lastName": "Frohlich",
+      "email": "frohlichmartin28@gmail.com",
+      "password": "Heinz100335!",
+      "role": "admin"
+    }
+  ],
+  "listings": [],
+  "inquiries": []
+}
 
