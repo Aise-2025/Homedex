@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Homedex</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/auth.js" defer></script>
+</head>
+<body>
+  <!-- Header mit Navigation -->
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">Homedex</h1>
+      <nav class="nav">
+        <a href="index.html">Startseite</a>
+        <a href="about.html">Über uns</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="privatsphaere.html">Privatsphäre</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="login.html" class="nav-login">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero-Sektion als Einstieg -->
+  <section class="hero small-hero">
+    <div class="hero-content container">
+      <h2>Login</h2>
+      <p>Geben Sie Ihre Zugangsdaten ein, um fortzufahren</p>
+    </div>
+  </section>
+
+  <!-- Hauptbereich mit Login-Formular -->
+  <main class="container auth-page">
+    <form id="loginForm">
+      <input type="email" name="email" placeholder="E-Mail" required>
+      <input type="password" name="password" placeholder="Passwort" required>
+      <button type="submit">Einloggen</button>
+    </form>
+    <p class="mt-4">Noch kein Konto? <a href="register.html">Jetzt registrieren</a></p>
+    <div id="loginMessage" class="message"></div>
+  </main>
+
+  <!-- Footer mit Bewertungs-Button -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Homedex – Alle Rechte vorbehalten.</p>
+      <a href="immobilien-bewerten.html" class="bewerten-button">Jetzt Immobilie bewerten</a>
+    </div>
+  </footer>
+</body>
+</html>
 
