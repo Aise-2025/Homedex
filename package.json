@@ -1,14 +1,4 @@
 {
-  "name": "homedex-mvp",
-  "version": "1.0.0",
-  "scripts": {
-    "start:api": "json-server --watch data/db.json --port 4000"
-  },
-  "dependencies": {
-    "json-server": "^0.17.0"
-  }
-}
-{
   "dependencies": {
     "express": "^4.18.2"
   },
@@ -16,4 +6,3 @@
     "start:api": "node server.js"
   }
 }
-
