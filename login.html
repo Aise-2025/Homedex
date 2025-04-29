@@ -34,7 +34,7 @@
 
   <!-- Login-Formular -->
   <main class="container auth-page">
-    <div class="auth-card">
+    <div class="auth-card stylish-auth-card">
       <h3>Login</h3>
       <form id="loginForm" class="auth-form">
         <label class="auth-label">
@@ -47,9 +47,7 @@
         </label>
         <button type="submit" class="auth-button">Einloggen</button>
       </form>
-      <p class="auth-footer-text">
-        Noch kein Konto? <a href="register.html">Jetzt registrieren</a>
-      </p>
+      <p class="auth-footer-text">Noch kein Konto? <a href="register.html">Jetzt registrieren</a></p>
       <div id="loginMessage" class="message"></div>
     </div>
   </main>
@@ -61,5 +59,47 @@
       <a href="immobilien-bewerten.html" class="bewerten-button">Jetzt Immobilie bewerten</a>
     </div>
   </footer>
+
+  <!-- Inline Login-Skript (dynamischer API-URL) -->
+  <script>
+    // Dynamische Basis-URL für json-server
+    const API_BASE = window.location.origin;
+
+    document.getElementById('loginForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const email = event.target.email.value.trim();
+      const password = event.target.password.value.trim();
+      const messageEl = document.getElementById('loginMessage');
+      messageEl.innerText = '';
+
+      if (!email || !password) {
+        messageEl.innerText = 'Bitte alle Felder ausfüllen.';
+        return;
+      }
+
+      try {
+        // GET /users?email=...&password=...
+        const res = await fetch(`${API_BASE}/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+        if (!res.ok) throw new Error('Netzwerkfehler');
+        const users = await res.json();
+
+        if (!users.length) {
+          messageEl.innerText = 'E-Mail oder Passwort ist falsch.';
+          return;
+        }
+
+        const user = users[0];
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
+
+        // Weiterschaltung nach Rolle
+        if (user.role === 'admin') window.location.href = 'admin-dashboard.html';
+        else if (user.role === 'employee') window.location.href = 'employee-dashboard.html';
+        else window.location.href = 'client-dashboard.html';
+      } catch (error) {
+        console.error('Login-Fehler:', error);
+        messageEl.innerText = 'Serverfehler. Bitte später erneut versuchen.';
+      }
+    });
+  </script>
 </body>
 </html>
