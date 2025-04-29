@@ -2,139 +2,73 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Immobilienplattform – Startseite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homedex – Immobilien finden</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/main.js" defer></script>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f8f9fa; color: #333; }
-    .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 1rem; }
-    .header, .footer { background: #343a40; color: #fff; }
-    .header { padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
-    .logo { font-size: 1.5rem; font-weight: bold; }
-    .nav { }
-    .nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1rem; }
-    .nav a { color: #fff; text-decoration: none; font-weight: 600; }
-    .nav a:hover { text-decoration: underline; }
-    .hamburger { background: none; border: none; font-size: 1.5rem; color: #fff; cursor: pointer; }
-    .nav.hidden { display: none; }
-
-    .search-section { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 2rem; }
-    .search-form { display: grid; gap: 1rem; }
-    .form-group { display: flex; flex-direction: column; }
-    .form-group label { font-weight: 600; margin-bottom: 0.5rem; }
-    .form-group input,
-    .form-group select,
-    .form-group output { padding: 0.5rem; font-size: 1rem; }
-
-    .btn { padding: 0.75rem 1.5rem; border: none; cursor: pointer; border-radius: 4px; font-weight: 600; }
-    .btn-primary { background: #007bff; color: #fff; }
-    .btn-primary:hover { background: #0069d9; }
-    .btn-secondary { background: #6c757d; color: #fff; }
-    .ai-buttons { display: flex; gap: 1rem; margin-top: 1rem; }
-    .listing-card { background: #fff; padding: 1rem; border: 1px solid #ddd; margin-top: 1rem; border-radius: 4px; }
-
-    .footer { padding: 1rem 0; text-align: center; }
-  </style>
 </head>
 <body>
-  <!-- Header mit Navigation -->
+  <!-- HEADER + NAVIGATION -->
   <header class="header">
-    <div class="container" style="display:flex; align-items:center; justify-content:space-between;">
-      <div class="logo">🏠 Homedex</div>
-      <button id="hamburger" class="hamburger">☰</button>
-      <nav id="nav-menu" class="nav hidden">
-        <ul>
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Homedex</a>
+      <nav class="nav">
+        <ul class="nav-links">
           <li><a href="login.html">Login</a></li>
           <li><a href="about.html">Über uns</a></li>
           <li><a href="datenschutz.html">Datenschutz</a></li>
-          <li><a href="privatsphaere.html">Privatsphäre</a></li>
           <li><a href="jobs.html">Jobs</a></li>
           <li><a href="impressum.html">Impressum</a></li>
         </ul>
       </nav>
+      <button id="hamburger" class="hamburger">☰</button>
     </div>
   </header>
 
-  <!-- Hauptbereich mit Suche -->
-  <main class="container">
-    <section class="search-section">
-      <h2>Finden Sie Ihre Traumimmobilie</h2>
-      <form id="searchForm" class="search-form" action="login.html" method="get">
-        <div class="form-group">
-          <label for="country">Land</label>
-          <select id="country" name="country">
-            <option value="">– auswählen –</option>
-            <option>Deutschland</option>
-            <option>Österreich</option>
-            <option>Schweiz</option>
-          </select>
+  <!-- HERO MIT SUCHE -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1>Finden Sie Ihre Traumimmobilie</h1>
+      <form id="searchForm" class="search-form">
+        <div class="form-row">
+          <div class="form-group"><input type="text" id="country" name="country" placeholder="Land"></div>
+          <div class="form-group"><input type="text" id="city" name="city" placeholder="Ort"></div>
+          <div class="form-group"><input type="number" id="priceMin" name="priceMin" placeholder="Preis von (€)"></div>
+          <div class="form-group"><input type="number" id="priceMax" name="priceMax" placeholder="bis (€)"></div>
+          <div class="form-group"><input type="number" id="bedrooms" name="bedrooms" placeholder="Schlafzimmer"></div>
+          <div class="form-group form-submit">
+            <button type="submit" class="btn btn-primary">Suchen</button>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="city">Ort</label>
-          <input type="text" id="city" name="city" placeholder="Ort">
-        </div>
-        <div class="form-group">
-          <label for="priceMin">Preis von (€)</label>
-          <input type="range" id="priceMin" name="priceMin" min="0" max="1000000" step="5000" value="0" oninput="this.nextElementSibling.value=this.value">
-          <output>0</output>
-        </div>
-        <div class="form-group">
-          <label for="priceMax">bis (€)</label>
-          <input type="range" id="priceMax" name="priceMax" min="0" max="1000000" step="5000" value="1000000" oninput="this.nextElementSibling.value=this.value">
-          <output>1000000</output>
-        </div>
-        <div class="form-group">
-          <label for="bedrooms">Schlafzimmer</label>
-          <input type="number" id="bedrooms" name="bedrooms" min="1" max="10" value="1">
-        </div>
-        <button type="submit" class="btn btn-primary">Suchen</button>
       </form>
-
       <div class="ai-buttons">
-        <button id="aiChat" class="btn btn-secondary" onclick="openAiChat()">AI-Agent Chat</button>
-        <button id="voiceAssist" class="btn btn-secondary" onclick="openVoiceAssist()">Sprach-KI</button>
+        <button id="aiChat" class="btn btn-secondary">AI-Agent Chat</button>
+        <button id="voiceAssist" class="btn btn-secondary">Sprach-KI</button>
       </div>
+    </div>
+  </section>
 
-      <div id="listingsContainer"></div>
-    </section>
+  <!-- LISTINGS-ANSICHT -->
+  <main class="container">
+    <div id="listingsContainer" class="listings-grid"></div>
   </main>
 
-  <!-- Footer mit allen Links -->
+  <!-- FOOTER -->
   <footer class="footer">
-    <div class="container">
-      <nav class="nav">
-        <ul style="justify-content:center;">
-          <li><a href="about.html">Über uns</a></li>
-          <li><a href="datenschutz.html">Datenschutz</a></li>
-          <li><a href="privatsphaere.html">Privatsphäre</a></li>
-          <li><a href="jobs.html">Jobs</a></li>
-          <li><a href="impressum.html">Impressum</a></li>
-        </ul>
-      </nav>
-      <p>&copy; 2025 Homedex</p>
+    <div class="container footer-inner">
+      <div class="footer-links">
+        <a href="about.html">Über uns</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="privatsphaere.html">Privatsphäre</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+      <div class="footer-actions">
+        <a href="immobilien-bewerten.html" class="btn btn-secondary">Bewerten</a>
+      </div>
+      <p class="footer-copy">© 2025 Homedex – Alle Rechte vorbehalten.</p>
     </div>
   </footer>
-
-  <script>
-    // Hamburger-Menü
-    document.getElementById('hamburger').addEventListener('click', () => {
-      document.getElementById('nav-menu').classList.toggle('hidden');
-    });
-
-    // Platzhalter-Funktionen für AI-Buttons
-    function openAiChat() {
-      alert('AI-Agent Chat wird geöffnet...');
-    }
-    function openVoiceAssist() {
-      alert('Sprach-KI wird geöffnet...');
-    }
-
-    // Suchformular (weiterleitet aktuell zu login.html)
-    document.getElementById('searchForm').addEventListener('submit', e => {
-      // Hier könnte später deine echte Suchlogik stehen
-      // Fürs MVP leiten wir zum Login weiter:
-    });
-  </script>
 </body>
 </html>
