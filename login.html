@@ -2,39 +2,45 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login – Homedex</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/auth.js" defer></script>
 </head>
 <body>
-  <!-- Header mit Navigation -->
-  <header class="header">
-    <div class="container">
-      <h1 class="logo">Homedex</h1>
-      <nav class="nav">
-        <a href="index.html">Startseite</a>
-        <a href="about.html">Über uns</a>
-        <a href="datenschutz.html">Datenschutz</a>
-        <a href="privatsphaere.html">Privatsphäre</a>
-        <a href="jobs.html">Jobs</a>
-        <a href="impressum.html">Impressum</a>
-        <a href="login.html" class="nav-login active">Login</a>
-      </nav>
+  <!-- HEADER mit Sprachwahl links und Navigation rechts -->
+  <header>
+    <div class="logo">Homedex</div>
+    <div class="lang-switch">
+      <select onchange="changeLanguage(this.value)">
+        <option value="de">DE</option>
+        <option value="en">EN</option>
+        <option value="ar">AR</option>
+      </select>
     </div>
+    <nav>
+      <ul>
+        <li><a href="login.html" class="active">Login</a></li>
+        <li><a href="about.html">Über uns</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Hero-Bereich -->
+  <!-- HERO-BEREICH -->
   <section class="hero small-hero">
+    <div class="hero-overlay"></div>
     <div class="hero-content container">
       <h2>Willkommen zurück!</h2>
       <p>Loggen Sie sich ein, um Ihre Immobilien zu verwalten</p>
     </div>
   </section>
 
-  <!-- Login-Formular -->
-  <main class="container auth-page">
-    <div class="auth-card stylish-auth-card">
+  <!-- LOGIN-FORMULAR -->
+  <main class="container">
+    <div class="auth-card">
       <h3>Login</h3>
       <form id="loginForm" class="auth-form">
         <label class="auth-label">
@@ -45,61 +51,29 @@
           <span>Passwort</span>
           <input type="password" name="password" placeholder="Passwort" required>
         </label>
-        <button type="submit" class="auth-button">Einloggen</button>
+        <button type="submit" class="btn btn-primary">Einloggen</button>
       </form>
-      <p class="auth-footer-text">Noch kein Konto? <a href="register.html">Jetzt registrieren</a></p>
+      <p class="auth-footer-text">
+        Noch kein Konto? <a href="register.html">Jetzt registrieren</a>
+      </p>
       <div id="loginMessage" class="message"></div>
     </div>
   </main>
 
-  <!-- Footer mit Bewertungs-Button -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 Homedex – Alle Rechte vorbehalten.</p>
-      <a href="immobilien-bewerten.html" class="bewerten-button">Jetzt Immobilie bewerten</a>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner container">
+      <span>© 2025 Homedex – Alle Rechte vorbehalten.</span>
+      <a href="immobilien-bewerten.html" class="footer-link">Immobilie bewerten</a>
     </div>
   </footer>
-
-  <!-- Inline Login-Skript (dynamischer API-URL) -->
+  
+  <!-- OPTIONAL: Sprachwechsel-Funktion -->
   <script>
-    // Dynamische Basis-URL für json-server
-    const API_BASE = window.location.origin;
-
-    document.getElementById('loginForm').addEventListener('submit', async event => {
-      event.preventDefault();
-      const email = event.target.email.value.trim();
-      const password = event.target.password.value.trim();
-      const messageEl = document.getElementById('loginMessage');
-      messageEl.innerText = '';
-
-      if (!email || !password) {
-        messageEl.innerText = 'Bitte alle Felder ausfüllen.';
-        return;
-      }
-
-      try {
-        // GET /users?email=...&password=...
-        const res = await fetch(`${API_BASE}/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
-        if (!res.ok) throw new Error('Netzwerkfehler');
-        const users = await res.json();
-
-        if (!users.length) {
-          messageEl.innerText = 'E-Mail oder Passwort ist falsch.';
-          return;
-        }
-
-        const user = users[0];
-        sessionStorage.setItem('currentUser', JSON.stringify(user));
-
-        // Weiterschaltung nach Rolle
-        if (user.role === 'admin') window.location.href = 'admin-dashboard.html';
-        else if (user.role === 'employee') window.location.href = 'employee-dashboard.html';
-        else window.location.href = 'client-dashboard.html';
-      } catch (error) {
-        console.error('Login-Fehler:', error);
-        messageEl.innerText = 'Serverfehler. Bitte später erneut versuchen.';
-      }
-    });
+    function changeLanguage(lang) {
+      // hier kannst du die Übersetzungs-Logik nachladen
+      console.log('Sprache gewechselt zu', lang);
+    }
   </script>
 </body>
 </html>
