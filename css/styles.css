@@ -1,140 +1,57 @@
-/* === Header === */
+:root {
+  --col-header: #a8dadc;    /* helle, freundliche Türkis */
+  --col-footer: #ffe066;    /* warmes Gelb */
+  --col-button: #457b9d;    /* kontrastreiches Blau */
+  --col-button-hover: #1d3557;
+}
+
+/* HEADER */
 .hd-main {
-  background: #fff;
+  background: var(--col-header);
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  position: sticky; top: 0; z-index: 50;
 }
-.hd-container {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem;
-}
-.hd-logo {
-  font-size: 1.75rem; font-weight: bold; color: #2c3e50; text-decoration: none;
-}
-.hd-nav ul {
-  list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0;
-}
+/* Links am Header */
 .hd-nav a {
-  color: #2c3e50; text-decoration: none; font-weight: 500;
+  color: #1d3557;
 }
 .hd-nav a:hover {
-  color: #0077cc;
-}
-.hd-hamburger {
-  display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer;
+  color: var(--col-button);
 }
 
-/* === Hero mit Hintergrundbild === */
-.hero-main {
-  position: relative;
-  background: url('../images/hero-bg.jpg') center/cover no-repeat;
-  height: 60vh; min-height: 500px;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; text-align: center;
-}
-.hero-overlay {
-  position: absolute; inset: 0;
-  background: rgba(0,0,0,0.5);
-}
-.hero-container {
-  position: relative; z-index: 1;
-  max-width: 800px; width: 90%;
-}
-.hero-title {
-  font-size: 2.75rem; margin-bottom: 1rem; font-weight: 600;
-}
-
-/* === Suchformular im Hero === */
-.hero-search {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px,1fr)) 140px;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-.hero-search input {
-  padding: 0.75rem 1rem;
-  border: none; border-radius: 4px;
-  font-size: 1rem;
-}
-.hero-search .btn-primary {
-  padding: 0.75rem; font-size: 1rem;
-}
-.hero-ai-buttons {
-  display: flex; gap: 1rem; justify-content: center;
-}
-.btn {
-  border-radius: 4px; font-weight: 600;
-}
+/* BTN PRIMARY */
 .btn-primary {
-  background: #0077cc; color: #fff; border: none;
+  background: var(--col-button);
+  color: #fff;
 }
+.btn-primary:hover {
+  background: var(--col-button-hover);
+}
+
+/* BTN SECONDARY */
 .btn-secondary {
-  background: #6c757d; color: #fff; border: none;
+  background: #f1faee;
+  color: var(--col-button-hover);
+  border: 1px solid var(--col-button-hover);
+}
+.btn-secondary:hover {
+  background: #e5eaf2;
 }
 
-/* === Listings-Grid === */
-.listings-section {
-  background: #f8f9fa; padding: 2rem 0;
-}
-.listings-container {
-  max-width: 1200px; margin: 0 auto;
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-}
-.listing-card {
-  background: #fff; border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
-  padding: 1rem;
-  transition: transform 0.2s;
-}
-.listing-card:hover {
-  transform: translateY(-4px);
-}
-.listing-card h3 {
-  margin-bottom: 0.5rem; color: #2c3e50;
-}
-.listing-card p {
-  margin: 0.25rem 0; color: #555;
-}
-
-/* === Footer === */
+/* FOOTER */
 .ft-main {
-  background: #2c3e50; color: #fff; padding: 2rem 0;
+  background: var(--col-footer);
+  color: #333;
 }
-.ft-container {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; flex-wrap: wrap;
-  align-items: center; justify-content: space-between;
-  gap: 1rem;
-}
-.ft-links {
-  display: flex; gap: 1rem;
-}
-.ft-links a {
-  color: #fff; text-decoration: none; font-weight: 500;
-}
-.ft-btn {
-  background: #e67e22; padding: 0.75rem 1.5rem;
+.ft-link {
+  color: #1d3557;
   text-decoration: none;
+  font-weight: 600;
 }
-.ft-copy {
-  flex: 1 1 100%; text-align: center; font-size: 0.9rem; margin-top: 1rem;
+.ft-link:hover {
+  text-decoration: underline;
 }
 
-/* === Responsive Breakpoints === */
-@media (max-width: 992px) {
-  .hero-title { font-size: 2.25rem; }
-  .hero-search { grid-template-columns: repeat(auto-fit, minmax(120px,1fr)) 120px; }
-}
-@media (max-width: 768px) {
-  .hd-nav { display: none; }
-  .hd-hamburger { display: block; }
-  .hero-main { height: auto; padding: 3rem 0; }
-  .hero-title { font-size: 2rem; }
-  .hero-search { grid-template-columns: 1fr; }
-  .hero-ai-buttons { flex-direction: column; }
-  .ft-container { flex-direction: column; text-align: center; }
+/* MITTE WEISS */
+.main, .listings-section {
+  background: #fff;
 }
