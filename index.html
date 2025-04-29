@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Homedex – Exklusive Immobilien weltweit</title>
   <style>
     /* ===== Reset & Grundfarben ===== */
@@ -30,10 +30,11 @@
       display: flex; align-items: center; gap: 2rem;
     }
     .logo { font-size: 1.8rem; font-weight: bold; }
+    .lang-switch { margin-left: 1rem; } /* direkt neben Logo */
+    nav { margin-left: auto; }             /* Navigation ganz rechts */
     nav ul { list-style: none; display: flex; gap: 1rem; }
     nav a { font-weight: 500; transition: color .2s; }
     nav a:hover { color: var(--col-primary); }
-    .lang-switch { margin-left: auto; }
 
     /* ===== Hero ===== */
     .hero {
@@ -157,9 +158,16 @@
 </head>
 <body>
 
-  <!-- HEADER mit Sprachwahl -->
+  <!-- HEADER mit Sprachwahl links und Navigation rechts -->
   <header>
     <div class="logo" data-i18n="logo">Homedex</div>
+    <div class="lang-switch">
+      <select onchange="changeLanguage(this.value)">
+        <option value="de">DE</option>
+        <option value="en">EN</option>
+        <option value="ar">AR</option>
+      </select>
+    </div>
     <nav>
       <ul>
         <li><a href="login.html" data-i18n="nav.login">Login</a></li>
@@ -169,13 +177,6 @@
         <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
       </ul>
     </nav>
-    <div class="lang-switch">
-      <select onchange="changeLanguage(this.value)">
-        <option value="de">DE</option>
-        <option value="en">EN</option>
-        <option value="ar">AR</option>
-      </select>
-    </div>
   </header>
 
   <!-- HERO -->
@@ -189,10 +190,10 @@
       <select data-i18n-placeholder="search.country">
         <option>-- Land wählen --</option>
       </select>
-      <input type="text" placeholder="" data-i18n-placeholder="search.city" />
-      <input type="number" placeholder="" data-i18n-placeholder="search.minPrice" />
-      <input type="number" placeholder="" data-i18n-placeholder="search.maxPrice" />
-      <input type="number" placeholder="" data-i18n-placeholder="search.bedrooms" />
+      <input type="text" data-i18n-placeholder="search.city"/>
+      <input type="number" data-i18n-placeholder="search.minPrice"/>
+      <input type="number" data-i18n-placeholder="search.maxPrice"/>
+      <input type="number" data-i18n-placeholder="search.bedrooms"/>
       <button type="submit" class="btn-primary" data-i18n="search.button">Suchen</button>
     </form>
     <div class="ai-buttons">
@@ -201,26 +202,118 @@
     </div>
   </section>
 
-  <!-- LISTINGS -->
+  <!-- 15 INSERATE -->
   <section class="listing-grid">
+    <!-- Listing 1 -->
     <div class="card">
-      <img src="images/villa-seeblick.jpg" alt="" />
+      <img src="images/listing1.jpg" alt="" />
       <div class="card-content">
         <h3 data-i18n="listing1.title">Villa am See</h3>
         <p data-i18n="listing1.detail">Zürich, Schweiz – €2.300.000</p>
       </div>
     </div>
+    <!-- Listing 2 -->
     <div class="card">
-      <img src="images/penthouse-berlin.jpg" alt="" />
+      <img src="images/listing2.jpg" alt="" />
       <div class="card-content">
         <h3 data-i18n="listing2.title">Penthouse City Center</h3>
         <p data-i18n="listing2.detail">Berlin, Deutschland – €1.750.000</p>
       </div>
     </div>
-    <!-- weitere Karten ... -->
+    <!-- Listing 3 -->
+    <div class="card">
+      <img src="images/listing3.jpg" alt="" />
+      <div class="card-content">
+        <h3>Landhaus Rustikal</h3><p>Bayern, Deutschland – €850.000</p>
+      </div>
+    </div>
+    <!-- Listing 4 -->
+    <div class="card">
+      <img src="images/listing4.jpg" alt="" />
+      <div class="card-content">
+        <h3>Stadtvilla Modern</h3><p>München, Deutschland – €1.200.000</p>
+      </div>
+    </div>
+    <!-- Listing 5 -->
+    <div class="card">
+      <img src="images/listing5.jpg" alt="" />
+      <div class="card-content">
+        <h3>Strandhaus Luxus</h3><p>Mallorca, Spanien – €3.100.000</p>
+      </div>
+    </div>
+    <!-- Listing 6 -->
+    <div class="card">
+      <img src="images/listing6.jpg" alt="" />
+      <div class="card-content">
+        <h3>Berghütte Chalet</h3><p>Tirol, Österreich – €650.000</p>
+      </div>
+    </div>
+    <!-- Listing 7 -->
+    <div class="card">
+      <img src="images/listing7.jpg" alt="" />
+      <div class="card-content">
+        <h3>Luxuswohnung</h3><p>Frankfurt, Deutschland – €980.000</p>
+      </div>
+    </div>
+    <!-- Listing 8 -->
+    <div class="card">
+      <img src="images/listing8.jpg" alt="" />
+      <div class="card-content">
+        <h3>Eco-Farm</h3><p>Toskana, Italien – €1.400.000</p>
+      </div>
+    </div>
+    <!-- Listing 9 -->
+    <div class="card">
+      <img src="images/listing9.jpg" alt="" />
+      <div class="card-content">
+        <h3>Skyline Penthouse</h3><p>New York, USA – €5.200.000</p>
+      </div>
+    </div>
+    <!-- Listing 10 -->
+    <div class="card">
+      <img src="images/listing10.jpg" alt="" />
+      <div class="card-content">
+        <h3>Landgut Historisch</h3><p>Provence, Frankreich – €1.800.000</p>
+      </div>
+    </div>
+    <!-- Listing 11 -->
+    <div class="card">
+      <img src="images/listing11.jpg" alt="" />
+      <div class="card-content">
+        <h3>Modernes Stadthaus</h3><p>Amsterdam, Niederlande – €1.050.000</p>
+      </div>
+    </div>
+    <!-- Listing 12 -->
+    <div class="card">
+      <img src="images/listing12.jpg" alt="" />
+      <div class="card-content">
+        <h3>Seidenstraße Anwesen</h3><p>Dubai, VAE – €4.750.000</p>
+      </div>
+    </div>
+    <!-- Listing 13 -->
+    <div class="card">
+      <img src="images/listing13.jpg" alt="" />
+      <div class="card-content">
+        <h3>Küstenresidenz</h3><p>Lissabon, Portugal – €920.000</p>
+      </div>
+    </div>
+    <!-- Listing 14 -->
+    <div class="card">
+      <img src="images/listing14.jpg" alt="" />
+      <div class="card-content">
+        <h3>Designer Loft</h3><p>London, UK – €2.100.000</p>
+      </div>
+    </div>
+    <!-- Listing 15 -->
+    <div class="card">
+      <img src="images/listing15.jpg" alt="" />
+      <div class="card-content">
+        <h3>Ozean Villa</h3><p>Malibu, USA – €6.300.000</p>
+      </div>
+    </div>
   </section>
 
-  <!-- FOOTER -->
+ <!-- FOOTER -->
   <footer>
     <span data-i18n="footer.copy">© 2025 Homedex – Alle Rechte vorbehalten.</span>
     <a href="immobilien-bewerten.html" data-i18n="footer.rate">Immobilie bewerten</a>
@@ -314,3 +407,4 @@
   </script>
 </body>
 </html>
+
