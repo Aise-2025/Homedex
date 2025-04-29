@@ -176,3 +176,51 @@ body { font-family: var(--font-base); color: var(--col-primary); }
     text-align: center;
   }
 }
+/* 1. Hamburger nur mobil anzeigen */
+.hamburger {
+  display: none;           /* Desktop: versteckt */
+  cursor: pointer;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+}
+
+/* 2. Standard-Zustand: Nav immer sichtbar (Desktop) */
+nav {
+  display: block;
+}
+
+/* 3. Mobile (ab 0 bis 767px): */
+@media (max-width: 767px) {
+  /* Hamburger einblenden */
+  .hamburger {
+    display: block;
+    margin-left: auto;
+    color: var(--col-dark);
+  }
+
+  /* Nav standardmäßig verstecken */
+  nav {
+    display: none;
+  }
+
+  /* Wenn die Checkbox gecheckt ist, zeige das Nav */
+  .menu-toggle:checked + .hamburger + nav {
+    display: block;
+    position: absolute;
+    top: 100%;
+    right: 2rem;
+    background: var(--col-header);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  /* Mobile: Liste vertikal und etwas Styling */
+  .menu-toggle:checked + .hamburger + nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    margin: 0;
+  }
+}
