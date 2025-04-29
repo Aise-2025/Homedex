@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard – Homedex</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/admin.js" defer></script>
+</head>
+<body>
+  <!-- Header mit einheitlichem Homedex-Design -->
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">🏢 Homedex Admin</h1>
+      <div class="right-header">
+        <select id="lang-select" class="lang-select">
+          <option value="de">DE</option>
+          <option value="en">EN</option>
+          <option value="ar">AR</option>
+        </select>
+        <nav class="nav">
+          <a href="admin-dashboard.html" class="nav-link active">Übersicht</a>
+          <a href="logout.html" class="nav-link">Abmelden</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 1) Registrierungsanfragen -->
+    <section id="pending-requests">
+      <h2>Registrierungsanfragen</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Vorname</th>
+            <th>Name</th>
+            <th>E-Mail</th>
+            <th>Rolle</th>
+            <th>Aktion</th>
+          </tr>
+        </thead>
+        <tbody id="pending-table"></tbody>
+      </table>
+    </section>
+
+    <!-- 2) Angebote pro Land -->
+    <section>
+      <h2>Angebote pro Land</h2>
+      <table class="table">
+        <thead>
+          <tr><th>Land</th><th>Anzahl Angebote</th></tr>
+        </thead>
+        <tbody id="overview-table"></tbody>
+      </table>
+    </section>
+
+    <!-- 3) Aktive Nutzer -->
+    <section>
+      <h2>Aktive Nutzer</h2>
+      <p><span id="active-users-count">0</span> Nutzer</p>
+    </section>
+
+    <!-- 4) Alle Inserate mit Filter -->
+    <section>
+      <h2>Alle Inserate</h2>
+      <div class="filter-row">
+        <label for="filter-country">Land:</label>
+        <select id="filter-country"></select>
+        <button class="btn btn-secondary" onclick="renderListings()">Anwenden</button>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Titel</th><th>Land</th><th>Ort</th><th>Preis (€)</th><th>Aktion</th>
+          </tr>
+        </thead>
+        <tbody id="listings-table"></tbody>
+      </table>
+    </section>
+
+    <!-- 5) Käufe -->
+    <section>
+      <h2>Käufe</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Titel</th><th>Käufer</th><th>Preis (€)</th><th>Aktion</th>
+          </tr>
+        </thead>
+        <tbody id="purchases-table"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Footer im Homedex-Design -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Homedex – Alle Rechte vorbehalten.</p>
+    </div>
+  </footer>
+</body>
+</html>
 
