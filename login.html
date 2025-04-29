@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login – Homedex</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="js/auth.js" defer></script>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    /* Minimaler Header-Anpassung */
+    header { background: var(--col-header); padding: 1rem 2rem; display: flex; align-items: center; gap: 2rem; }
+    .logo, nav, .lang-switch { display: inline-block; vertical-align: middle; }
+    .lang-switch { margin-left: 1rem; }
+    nav { margin-left: auto; }
+    nav ul { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; }
+    nav a { font-weight: 500; color: var(--col-dark); transition: color .2s; }
+    nav a:hover, nav a.active { color: var(--col-primary); }
+    /* Hero-Abschnitt */
+     .hero { background: var(--col-hero-bg); text-align: center; padding: 4rem 2rem 2rem; }
+     .hero h1, .hero h2 { margin-bottom: .5rem; }
+     /* Auth-Card */
+     .search-section.auth-card { max-width: 400px; margin: 2rem auto; background: var(--col-light); padding: 2rem; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+     .search-section.auth-card h2 { margin-bottom: 1rem; font-size: 1.5rem; }
+     .search-form { display: flex; flex-direction: column; gap: .75rem; }
+     .search-form input { padding: .75rem; border: 1px solid #ccc; border-radius: var(--radius); }
+     .btn-primary { background: var(--col-primary); color: var(--col-light); border: none; padding: .75rem; cursor: pointer; border-radius: var(--radius); }
+     .btn-primary:hover { background: darken(var(--col-primary),10%); }
+     .auth-footer-text { text-align: center; margin-top: 1rem; }
+     .message { text-align: center; color: red; margin-top: .5rem; }
+  </style>
 </head>
 <body>
-  <!-- HEADER mit Sprachwahl links und Navigation rechts -->
+  <!-- HEADER mit Sprachwahl links neben Logo und Navigation rechts -->
   <header>
-    <div class="logo">Homedex</div>
+    <div class="logo" data-i18n="logo">Homedex</div>
     <div class="lang-switch">
       <select onchange="changeLanguage(this.value)">
         <option value="de">DE</option>
@@ -20,60 +41,119 @@
     </div>
     <nav>
       <ul>
-        <li><a href="login.html" class="active">Login</a></li>
-        <li><a href="about.html">Über uns</a></li>
-        <li><a href="datenschutz.html">Datenschutz</a></li>
-        <li><a href="jobs.html">Jobs</a></li>
-        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="login.html" class="active" data-i18n="nav.login">Login</a></li>
+        <li><a href="about.html" data-i18n="nav.about">Über uns</a></li>
+        <li><a href="datenschutz.html" data-i18n="nav.privacy">Datenschutz</a></li>
+        <li><a href="jobs.html" data-i18n="nav.jobs">Jobs</a></li>
+        <li><a href="impressum.html" data-i18n="nav.imprint">Impressum</a></li>
       </ul>
     </nav>
   </header>
 
   <!-- HERO-BEREICH -->
-  <section class="hero small-hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content container">
-      <h2>Willkommen zurück!</h2>
-      <p>Loggen Sie sich ein, um Ihre Immobilien zu verwalten</p>
-    </div>
+  <section class="hero">
+    <h2 data-i18n="hero.welcome">Willkommen zurück!</h2>
+    <p data-i18n="hero.subtitle">Loggen Sie sich ein, um Ihre Immobilien zu verwalten</p>
   </section>
 
   <!-- LOGIN-FORMULAR -->
-  <main class="container">
-    <div class="auth-card">
-      <h3>Login</h3>
-      <form id="loginForm" class="auth-form">
-        <label class="auth-label">
-          <span>E-Mail</span>
-          <input type="email" name="email" placeholder="E-Mail" required>
-        </label>
-        <label class="auth-label">
-          <span>Passwort</span>
-          <input type="password" name="password" placeholder="Passwort" required>
-        </label>
-        <button type="submit" class="btn btn-primary">Einloggen</button>
-      </form>
-      <p class="auth-footer-text">
-        Noch kein Konto? <a href="register.html">Jetzt registrieren</a>
-      </p>
-      <div id="loginMessage" class="message"></div>
-    </div>
+  <main class="search-section auth-card">
+    <h2 data-i18n="login.title">Login</h2>
+    <form id="loginForm" class="search-form">
+      <input type="email" name="email" placeholder="" data-i18n-placeholder="login.email" required/>
+      <input type="password" name="password" placeholder="" data-i18n-placeholder="login.password" required/>
+      <button type="submit" class="btn-primary" data-i18n="login.submit">Einloggen</button>
+    </form>
+    <p class="auth-footer-text">
+      <span data-i18n="login.noAccount">Noch kein Konto?</span>
+      <a href="register.html" data-i18n="login.register">Jetzt registrieren</a>
+    </p>
+    <div id="loginMessage" class="message"></div>
   </main>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-inner container">
-      <span>© 2025 Homedex – Alle Rechte vorbehalten.</span>
-      <a href="immobilien-bewerten.html" class="footer-link">Immobilie bewerten</a>
-    </div>
+    <span data-i18n="footer.copy">© 2025 Homedex – Alle Rechte vorbehalten.</span>
+    <a href="immobilien-bewerten.html" data-i18n="footer.rate">Immobilie bewerten</a>
   </footer>
-  
-  <!-- OPTIONAL: Sprachwechsel-Funktion -->
+
+  <!-- TRANSLATION & LOGIN LOGIK -->
   <script>
-    function changeLanguage(lang) {
-      // hier kannst du die Übersetzungs-Logik nachladen
-      console.log('Sprache gewechselt zu', lang);
+    const translations = {
+      de: {
+        "logo":"Homedex",
+        "nav.login":"Login","nav.about":"Über uns","nav.privacy":"Datenschutz","nav.jobs":"Jobs","nav.imprint":"Impressum",
+        "hero.welcome":"Willkommen zurück!","hero.subtitle":"Loggen Sie sich ein, um Ihre Immobilien zu verwalten",
+        "login.title":"Login","login.email":"E-Mail","login.password":"Passwort","login.submit":"Einloggen",
+        "login.noAccount":"Noch kein Konto?","login.register":"Jetzt registrieren",
+        "footer.copy":"© 2025 Homedex – Alle Rechte vorbehalten.","footer.rate":"Immobilie bewerten"
+      },
+      en: {
+        "logo":"Homedex",
+        "nav.login":"Login","nav.about":"About us","nav.privacy":"Privacy policy","nav.jobs":"Jobs","nav.imprint":"Imprint",
+        "hero.welcome":"Welcome back!","hero.subtitle":"Log in to manage your properties",
+        "login.title":"Login","login.email":"Email","login.password":"Password","login.submit":"Sign in",
+        "login.noAccount":"No account yet?","login.register":"Register now",
+        "footer.copy":"© 2025 Homedex – All rights reserved.","footer.rate":"Rate property"
+      },
+      ar: {
+        "logo":"هومديكس",
+        "nav.login":"تسجيل الدخول","nav.about":"معلومات عنا","nav.privacy":"سياسة الخصوصية","nav.jobs":"وظائف","nav.imprint":"الطابع",
+        "hero.welcome":"مرحبًا بعودتك!","hero.subtitle":"قم بتسجيل الدخول لإدارة عقاراتك",
+        "login.title":"تسجيل الدخول","login.email":"البريد الإلكتروني","login.password":"كلمة المرور","login.submit":"تسجيل الدخول",
+        "login.noAccount":"ليس لديك حساب؟","login.register":"سجل الآن",
+        "footer.copy":"© 2025 هومديكس – جميع الحقوق محفوظة.","footer.rate":"قيم العقار"
+      }
+    };
+
+    function translate(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = translations[lang][key] || el.textContent;
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        el.placeholder = translations[lang][key] || el.placeholder;
+      });
     }
+
+    function changeLanguage(lang) {
+      translate(lang);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => translate('de'));
+
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = e.target.email.value.trim();
+      const password = e.target.password.value.trim();
+      const msg = document.getElementById('loginMessage');
+      msg.textContent = '';
+      if (!email || !password) {
+        msg.textContent = translations[document.documentElement.lang]['login.email'] + ' + ' +
+                          translations[document.documentElement.lang]['login.password'] + ' required.';
+        return;
+      }
+      try {
+        const API_BASE = window.location.origin;
+        const res = await fetch(`${API_BASE}/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+        const users = await res.json();
+        if (!users.length) {
+          msg.textContent = translations[document.documentElement.lang]['login.submit'] + ' failed.';
+          return;
+        }
+        const user = users[0];
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
+        if (user.role === 'admin') location.href = 'admin-dashboard.html';
+        else if (user.role === 'employee') location.href = 'employee-dashboard.html';
+        else location.href = 'client-dashboard.html';
+      } catch (err) {
+        msg.textContent = 'Serverfehler. Bitte später erneut versuchen.';
+        console.error(err);
+      }
+    });
   </script>
 </body>
 </html>
