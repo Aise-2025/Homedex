@@ -12,7 +12,7 @@
   <header class="hd-main">
     <div class="hd-container">
       <a href="index.html" class="hd-logo">Homedex</a>
-      <nav class="hd-nav">
+      <nav class="hd-nav hidden">
         <ul>
           <li><a href="login.html">Login</a></li>
           <li><a href="about.html">Über uns</a></li>
@@ -45,25 +45,53 @@
     </div>
   </section>
 
-  <!-- LISTINGS-ÜBERSICHT -->
+  <!-- BEISPIEL-INSERATE -->
   <main class="listings-section">
-    <div class="listings-container" id="listingsContainer">
-      <!-- JavaScript rendert hier die Listing-Cards -->
+    <div class="listings-container">
+      <div class="listing-card">
+        <img src="https://via.placeholder.com/280x180" alt="Stadtvilla">
+        <h3>Moderne Stadtvilla</h3>
+        <p>Berlin, Deutschland</p>
+        <p>€750.000</p>
+      </div>
+      <div class="listing-card">
+        <img src="https://via.placeholder.com/280x180" alt="Landhaus">
+        <h3>Gemütliches Landhaus</h3>
+        <p>Bayern, Deutschland</p>
+        <p>€420.000</p>
+      </div>
+      <div class="listing-card">
+        <img src="https://via.placeholder.com/280x180" alt="Penthouse">
+        <h3>Luxus-Penthouse</h3>
+        <p>Frankfurt, Deutschland</p>
+        <p>€1.250.000</p>
+      </div>
     </div>
   </main>
 
   <!-- FOOTER -->
   <footer class="ft-main">
     <div class="ft-container">
-      <div class="ft-links">
-        <a href="about.html">Über uns</a>
-        <a href="datenschutz.html">Datenschutz</a>
-        <a href="jobs.html">Jobs</a>
-        <a href="impressum.html">Impressum</a>
-      </div>
-      <a href="immobilien-bewerten.html" class="btn btn-secondary ft-btn">Bewerten</a>
       <p class="ft-copy">© 2025 Homedex – Alle Rechte vorbehalten.</p>
+      <a href="immobilien-bewerten.html" class="ft-link">Immobilie bewerten</a>
     </div>
   </footer>
+
+  <!-- FUNKTIONALITÄT -->
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.querySelector('.hd-nav').classList.toggle('hidden');
+    });
+    document.getElementById('aiChat').addEventListener('click', () => {
+      alert('AI-Agent Chat wird geöffnet…');
+    });
+    document.getElementById('voiceAssist').addEventListener('click', () => {
+      alert('Sprach-KI Funktion wird gestartet…');
+    });
+    document.getElementById('searchForm').addEventListener('submit', e => {
+      e.preventDefault();
+      window.location.href = 'login.html';
+    });
+  </script>
 </body>
 </html>
