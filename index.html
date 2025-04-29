@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Homedex – Immobilien finden</title>
+  <title>Homedex – Premium Immobilien</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="hd-main">
-    <div class="hd-container">
-      <a href="index.html" class="hd-logo">Homedex</a>
-      <nav class="hd-nav hidden">
+  <!-- HEADER (transparent über Hero) -->
+  <header class="header-transparent">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Homedex</a>
+      <nav class="nav">
         <ul>
           <li><a href="login.html">Login</a></li>
           <li><a href="about.html">Über uns</a></li>
@@ -21,73 +21,68 @@
           <li><a href="impressum.html">Impressum</a></li>
         </ul>
       </nav>
-      <button class="hd-hamburger" id="hamburger">☰</button>
+      <button class="hamburger" id="hamburger">☰</button>
     </div>
   </header>
 
-  <!-- HERO + SUCHE -->
-  <section class="hero-main">
+  <!-- HERO-BEREICH mit Suchform -->
+  <section class="hero">
     <div class="hero-overlay"></div>
-    <div class="hero-container">
-      <h1 class="hero-title">Finden Sie Ihre Traumimmobilie</h1>
-      <form id="searchForm" class="hero-search">
-        <input type="text" id="country" name="country" placeholder="Land">
-        <input type="text" id="city" name="city" placeholder="Ort">
-        <input type="number" id="priceMin" name="priceMin" placeholder="Preis von (€)">
-        <input type="number" id="priceMax" name="priceMax" placeholder="bis (€)">
-        <input type="number" id="bedrooms" name="bedrooms" placeholder="Schlafzimmer">
+    <div class="container hero-content">
+      <h1 class="hero-title">Exklusive Immobilien weltweit</h1>
+      <form id="searchForm" class="search-bar">
+        <input type="text" id="country"   name="country"   placeholder="Land">
+        <input type="text" id="city"      name="city"      placeholder="Ort">
+        <input type="text" id="minPrice"  name="minPrice"  placeholder="Min. Preis">
+        <input type="text" id="maxPrice"  name="maxPrice"  placeholder="Max. Preis">
         <button type="submit" class="btn btn-primary">Suchen</button>
       </form>
-      <div class="hero-ai-buttons">
-        <button id="aiChat" class="btn btn-secondary">AI-Agent Chat</button>
-        <button id="voiceAssist" class="btn btn-secondary">Sprach-KI</button>
-      </div>
     </div>
   </section>
 
-  <!-- BEISPIEL-INSERATE -->
-  <main class="listings-section">
-    <div class="listings-container">
-      <div class="listing-card">
-        <img src="https://via.placeholder.com/280x180" alt="Stadtvilla">
-        <h3>Moderne Stadtvilla</h3>
-        <p>Berlin, Deutschland</p>
-        <p>€750.000</p>
-      </div>
-      <div class="listing-card">
-        <img src="https://via.placeholder.com/280x180" alt="Landhaus">
-        <h3>Gemütliches Landhaus</h3>
-        <p>Bayern, Deutschland</p>
-        <p>€420.000</p>
-      </div>
-      <div class="listing-card">
-        <img src="https://via.placeholder.com/280x180" alt="Penthouse">
-        <h3>Luxus-Penthouse</h3>
-        <p>Frankfurt, Deutschland</p>
-        <p>€1.250.000</p>
+  <!-- LISTINGS-ÜBERSICHT -->
+  <main class="container listings">
+    <div class="listing-card">
+      <img src="https://via.placeholder.com/400x300" alt="Villa am See">
+      <div class="card-info">
+        <h3>Villa am See</h3>
+        <p>Schweiz</p>
+        <span class="price">€2.300.000</span>
       </div>
     </div>
+    <div class="listing-card">
+      <img src="https://via.placeholder.com/400x300" alt="Penthouse City Center">
+      <div class="card-info">
+        <h3>Penthouse City Center</h3>
+        <p>Berlin, Deutschland</p>
+        <span class="price">€1.750.000</span>
+      </div>
+    </div>
+    <div class="listing-card">
+      <img src="https://via.placeholder.com/400x300" alt="Landhaus Rustikal">
+      <div class="card-info">
+        <h3>Landhaus Rustikal</h3>
+        <p>Bayern, Deutschland</p>
+        <span class="price">€850.000</span>
+      </div>
+    </div>
+    <!-- weitere Cards ... -->
   </main>
 
   <!-- FOOTER -->
-  <footer class="ft-main">
-    <div class="ft-container">
-      <p class="ft-copy">© 2025 Homedex – Alle Rechte vorbehalten.</p>
-      <a href="immobilien-bewerten.html" class="ft-link">Immobilie bewerten</a>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2025 Homedex – Alle Rechte vorbehalten.</p>
+      <a href="immobilien-bewerten.html" class="footer-link">Immobilie bewerten</a>
     </div>
   </footer>
 
-  <!-- FUNKTIONALITÄT -->
   <script>
+    // Hamburger Toggle
     document.getElementById('hamburger').addEventListener('click', () => {
-      document.querySelector('.hd-nav').classList.toggle('hidden');
+      document.querySelector('.nav').classList.toggle('open');
     });
-    document.getElementById('aiChat').addEventListener('click', () => {
-      alert('AI-Agent Chat wird geöffnet…');
-    });
-    document.getElementById('voiceAssist').addEventListener('click', () => {
-      alert('Sprach-KI Funktion wird gestartet…');
-    });
+    // Suche → weiterleitung
     document.getElementById('searchForm').addEventListener('submit', e => {
       e.preventDefault();
       window.location.href = 'login.html';
