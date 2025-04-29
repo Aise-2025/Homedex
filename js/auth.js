@@ -1,5 +1,5 @@
 // js/auth.js
-const API = 'http://localhost:4000/api';
+const API = 'http://localhost:4000/users';
 
 // Registrierung
 const regForm = document.getElementById('registerForm');
@@ -8,18 +8,26 @@ if (regForm) {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
     data.role = 'client';
-    const resp = await fetch(`${API}/register`, {
+
+    // E-Mail-Existenz prüfen
+    const exists = await fetch(`${API}?email=${encodeURIComponent(data.email)}`)
+      .then(r => r.json());
+    if (exists.length) {
+      document.getElementById('registerMessage').innerText = 'E-Mail existiert bereits.';
+      return;
+    }
+
+    // Nutzer anlegen
+    const resp = await fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    const result = await resp.json();
-    if (!result.success) {
-      document.getElementById('registerMessage').innerText = result.message;
-      return;
+    if (resp.ok) {
+      window.location.href = 'login.html';
+    } else {
+      document.getElementById('registerMessage').innerText = 'Registrierung fehlgeschlagen.';
     }
-    // Erfolg → weiter zum Login
-    window.location.href = 'login.html';
   });
 }
 
@@ -29,18 +37,22 @@ if (loginForm) {
   loginForm.addEventListener('submit', async e => {
     e.preventDefault();
     const { email, password } = Object.fromEntries(new FormData(e.target));
+
     const users = await fetch(
-      `${API}/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+      `${API}?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
     ).then(r => r.json());
+
     if (!users.length) {
-      document.getElementById('loginMessage').innerText = 'Ungültige Daten.';
+      document.getElementById('loginMessage').innerText = 'E-Mail oder Passwort falsch.';
       return;
     }
+
     const user = users[0];
     sessionStorage.setItem('currentUser', JSON.stringify(user));
-    // Je nach Rolle weiterleiten
-    if (user.role === 'client') window.location.href = 'client-dashboard.html';
-    if (user.role === 'employee') window.location.href = 'employee-dashboard.html';
-    if (user.role === 'admin') window.location.href = 'admin-dashboard.html';
+
+    // je nach Rolle umleiten
+    if (user.role === 'admin')      window.location.href = 'admin-dashboard.html';
+    else if (user.role === 'employee') window.location.href = 'employee-dashboard.html';
+    else                              window.location.href = 'client-dashboard.html';
   });
 }
