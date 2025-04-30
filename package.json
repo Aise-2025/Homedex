@@ -1,12 +1,4 @@
 {
-  "dependencies": {
-    "express": "^4.18.2"
-  },
-  "scripts": {
-    "start:api": "node server.js"
-  }
-}
-{
   "name": "homedex-backend",
   "version": "1.0.0",
   "description": "Backend für Homedex (Express + JSON-Dateien)",
