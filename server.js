@@ -1,67 +1,44 @@
-// server.js
-import express from 'express';
-import cors from 'cors';
-import fs from 'fs';
-import path from 'path';
-
-const app = express();
-const PORT = process.env.PORT || 4000;
-const USER_PATH = path.join(process.cwd(), 'data', 'users.json');
-
-// CORS und JSON-Body-Parsing aktivieren
-app.use(cors());
-app.use(express.json());
-
-// Hilfsfunktionen zum Laden/Speichern
-function loadUsers() {
-  try {
-    return JSON.parse(fs.readFileSync(USER_PATH, 'utf8'));
-  } catch {
-    return [];
-  }
-}
-function saveUsers(users) {
-  fs.writeFileSync(USER_PATH, JSON.stringify(users, null, 2), 'utf8');
-}
+const API_BASE = window.location.origin;
 
 // Registrierung
-app.post('/api/register', (req, res) => {
-  const { firstName, lastName, birthDate, country, email, password, role } = req.body;
-  const users = loadUsers();
-
-  // E-Mail-Duplikat prüfen
-  if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
-    return res.status(409).json({ success: false, message: 'E-Mail existiert bereits.' });
-  }
-
-  const newUser = {
-    id: Date.now(),
-    firstName,
-    lastName,
-    birthDate,
-    country,
-    email,
-    password,
-    role: role || 'client'
+regForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const data = {
+    firstName: e.target.firstName.value,
+    lastName: e.target.lastName.value,
+    birthDate: e.target.birthDate.value,
+    country: e.target.country.value,
+    email: e.target.email.value,
+    password: e.target.password.value,
+    role: 'client'
   };
-  users.push(newUser);
-  saveUsers(users);
-
-  res.json({ success: true, user: newUser });
+  // POST /users
+  const res = await fetch(`${API_BASE}/users`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  if (res.status === 409) {
+    document.getElementById('registerMessage').innerText = 'E-Mail existiert bereits.';
+    return;
+  }
+  window.location.href = 'login.html';
 });
 
-// Login-Abfrage
-app.get('/api/users', (req, res) => {
-  const { email, password } = req.query;
-  const users = loadUsers();
-  const found = users.filter(u =>
-    u.email.toLowerCase() === email.toLowerCase() &&
-    u.password === password
-  );
-  res.json(found);
-});
-
-// Server starten
-app.listen(PORT, () => {
-  console.log(`🚀 Backend läuft auf http://localhost:${PORT}`);
+// Login
+loginForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = e.target.email.value;
+  const pwd   = e.target.password.value;
+  const res   = await fetch(`${API_BASE}/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(pwd)}`);
+  const users = await res.json();
+  if (!users.length) {
+    document.getElementById('loginMessage').innerText = 'Ungültige Daten.';
+    return;
+  }
+  const user = users[0];
+  sessionStorage.setItem('currentUser', JSON.stringify(user));
+  if (user.role === 'admin') window.location.href = 'admin-dashboard.html';
+  else if (user.role === 'employee') window.location.href = 'employee-dashboard.html';
+  else window.location.href = 'client-dashboard.html';
 });
