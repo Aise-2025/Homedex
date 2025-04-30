@@ -1,4 +1,3 @@
-cat > package.json << 'EOF'
 {
   "name": "homedex-backend",
   "version": "1.0.0",
@@ -16,4 +15,3 @@ cat > package.json << 'EOF'
     "nodemon": "^2.0.22"
   }
 }
-EOF
